@@ -2,9 +2,9 @@ apply plugin: 'com.android.application'
 
 android {
     compileSdkVersion 33
-	namespace 'com.psoftware.basenative' 
+	namespace 'com.psoftware.honeypot' 
     defaultConfig {
-        applicationId = 'com.psoftware.basenative'
+        applicationId = 'com.psoftware.honeypot'
         minSdkVersion 14
         targetSdkVersion 33
     }

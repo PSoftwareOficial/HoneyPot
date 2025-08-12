@@ -14,11 +14,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := baseNativeLib
 LOCAL_SRC_FILES := \
-../app/src/main/cpp/Engine.cpp \
-../app/src/main/cpp/custom/Object/Hex.cpp \
-../app/src/main/cpp/custom/map/map.cpp \
-../app/src/main/cpp/rendering/2DRenderer/2DRenderer.cpp \
-../app/src/main/cpp/utilities/utilities.cpp
+../app/src/main/cpp/Engine.cpp 
 
 #Just add the different cpp files.
 LOCAL_CFLAGS := -Wall -Werror -Wno-unused-function -Wno-unused-variable

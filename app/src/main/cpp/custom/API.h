@@ -5,8 +5,7 @@
 #include <vector>
 #include "../Engine.h"
 
-static Map map;
-static D2Renderer visualDebugger; 
+
 
 void InitWorld(){
 		// testRenderable.CreateTriangle(
