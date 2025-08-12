@@ -45,7 +45,7 @@ public:
     }
 
     void Draw(){
-        glUseProgam(SHADER);
+        glUseProgram(SHADER.program);
         GLCheck("Program Selection");
 
         glUniform2f(screenSizeLoc,Engine::openGLEngine.width,Engine::openGLEngine.height);
