@@ -10,7 +10,6 @@ class BaseUI {
     std::shared_ptr<BaseUI> parent;
     std::vector<std::shared_ptr<BaseUI>> children;
     virtual void Draw() = 0;
-    virtual BaseUI() {};
     virtual ~BaseUI() {};
     virtual void GetGLData();
     
