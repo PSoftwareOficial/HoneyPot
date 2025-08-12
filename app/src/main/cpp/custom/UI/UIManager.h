@@ -41,7 +41,7 @@ public:
         yScreenAspect = glGetUniformLocation(SHADER.program, "yScreenAspect");
         GLCheck("Gettin Screen Aspect Location");
         auto button = std::make_shared<Button>();
-        button->Init(V2D{0.0f,0.0f},V2D{0.3f,0.30f}, V3Du8{125,125,0});
+        button->Init(V2D{0.0f,0.0f},V2D{1.0f,1.0f}, V3Du8{125,125,0});
         parent = button;
     }
 
@@ -50,7 +50,7 @@ public:
         GLCheck("Program Selection");
 
         float screenAspect = (float)Engine::openGLEngine.width/ (float)Engine::openGLEngine.height;
-        glUniform1f(yScreenAspect,screenAspect);
+        glUniform1f(yScreenAspect,1.0f);
         GLCheck("Setting Screen Size");
         parent->Draw();
     }
