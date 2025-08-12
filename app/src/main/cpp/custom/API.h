@@ -7,6 +7,7 @@
 
 static UIManager uiManager;
 void InitWorld(){
+    LOG("Init World");
     uiManager.Init();
 }
 

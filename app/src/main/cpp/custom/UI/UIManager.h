@@ -48,7 +48,7 @@ public:
         glUseProgram(SHADER.program);
         GLCheck("Program Selection");
 
-        glUniform2f(screenSizeLoc,Engine::openGLEngine.width,Engine::openGLEngine.height);
+        glUniform2f(screenSizeLoc,(float)Engine::openGLEngine.width,(float)Engine::openGLEngine.height);
         GLCheck("Setting Screen Size");
         parent->Draw();
     }
