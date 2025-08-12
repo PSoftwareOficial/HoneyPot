@@ -3,7 +3,7 @@
 #include "../rendering/2DRenderer/2DRenderer.h"
 #include <vector>
 #include "../Engine.h"
-#include "custom/UI/UIManager.h"
+#include "UI/UIManager.h"
 
 static UIManager uiManager;
 void InitWorld(){
