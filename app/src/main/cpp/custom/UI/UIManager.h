@@ -12,12 +12,12 @@ static const char* vertexShaderSrc =
         layout(location = 0) in vec3 aPos;    // vertex position
         layout(location = 1) in vec3 aColor;  // vertex color
 
-        uniform vec2 uScreenSize;
+        float yScreenAspect;
 
         out vec3 vColor;
 
         void main() {
-            gl_Position = vec4(aPos.x/uScreenSize.x * 2.0 - 1.0,aPos.y/uScreenSize.y * 2.0 - 1.0,aPos.z, 1.0);
+            gl_Position = vec4(aPos.x,aPos.y * yScreenAspect,aPos.z, 1.0);
             vColor = aColor;
         })";
 
@@ -38,9 +38,9 @@ public:
     void Init() 
     {
         SHADER.Init(vertexShaderSrc,fragmentShaderSrc);
-        screenSizeLoc = glGetUniformLocation(SHADER.program, "uScreenSize");
+        yScreenAspect = glGetUniformLocation(SHADER.program, "yScreenAspect");
         auto button = std::make_shared<Button>();
-        button->Init(V2D{0.0f,0.0f},V2D{200.0f,200.0f}, V3Du8{125,125,0});
+        button->Init(V2D{0.0f,0.0f},V2D{0.3f,0.30f}, V3Du8{125,125,0});
         parent = button;
     }
 
@@ -48,12 +48,13 @@ public:
         glUseProgram(SHADER.program);
         GLCheck("Program Selection");
 
-        glUniform2f(screenSizeLoc,(float)Engine::openGLEngine.width,(float)Engine::openGLEngine.height);
+        float screenAspect = (float)Engine::openGLEngine.height)/ (float)Engine::openGLEngine.width
+        glUniform1f(yScreenAspect,screenAspect;
         GLCheck("Setting Screen Size");
         parent->Draw();
     }
     shader_prog SHADER;
-    GLint screenSizeLoc;
+    GLint yScreenAspect;
 
     std::shared_ptr<BaseUI> parent;
 };
