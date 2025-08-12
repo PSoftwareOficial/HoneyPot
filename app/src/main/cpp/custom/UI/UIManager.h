@@ -39,6 +39,7 @@ public:
     {
         SHADER.Init(vertexShaderSrc,fragmentShaderSrc);
         yScreenAspect = glGetUniformLocation(SHADER.program, "yScreenAspect");
+        GLCheck("Gettin Screen Aspect Location");
         auto button = std::make_shared<Button>();
         button->Init(V2D{0.0f,0.0f},V2D{0.3f,0.30f}, V3Du8{125,125,0});
         parent = button;
