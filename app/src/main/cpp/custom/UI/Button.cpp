@@ -41,9 +41,9 @@ V2D vertices[4] =
     pos + V2D{ + size.x/2.0f, - size.y/2.0f} , 
     pos + size/2.0f};
 
-    
-    for(uint8_t i = 0; i < 5; ++i){
-        data[i * 7] = vertices[i].x;data[i * 7 + 1] = vertices[i].y;
-        data[i * 7 + 2] = color.x / 255.0f;data[i * 7 + 3] = color.y / 255.0f;data[i * 7 + 4] = color.z / 255.0f;
+    const int nElem = 5;
+    for(uint8_t i = 0; i < 4; ++i){
+        data[i * nElem] = vertices[i].x;data[i * nElem + 1] = vertices[i].y;
+        data[i * nElem + 2] = color.x / 255.0f;data[i * nElem + 3] = color.y / 255.0f;data[i * nElem + 4] = color.z / 255.0f;
     }
 }
