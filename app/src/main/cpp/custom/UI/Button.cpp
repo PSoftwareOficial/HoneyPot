@@ -29,12 +29,12 @@ void Button::Init(V2D PosParam,V2D SizeParam,V3Du8 ColorParam) {
 };
 
 void Button::Draw() {
-
-
+    glBindVertexArray(VAO);
+    glDrawArrays(GL_TRIANGLES_STRIP, 0, 4);
 };
 
 
-virtual void GetGLData(float (&data)[20]){
+void Button::GetGLData(float (&data)[20]){
 V2D vertices[4] =  
     {pos - size/2.0f, 
     pos + V2D{ - size.x/2.0f, + size.y/2.0f}, 
