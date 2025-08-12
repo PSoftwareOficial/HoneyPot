@@ -7,6 +7,7 @@
 #include "../../rendering/core_include.h"
 
 class BaseUI {
+    public:
     std::shared_ptr<BaseUI> parent;
     std::vector<std::shared_ptr<BaseUI>> children;
     virtual void Draw() = 0;
