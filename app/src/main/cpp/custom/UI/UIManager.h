@@ -3,6 +3,7 @@
 #include "../../rendering/core_include.h"
 #include "BaseUI.h"
 #include "Button.h"
+#include "../../Engine.h"
 
 
 static const char* vertexShaderSrc =
@@ -34,7 +35,8 @@ const char* fragmentShaderSrc = R"(#version 320 es
 
 class UIManager{
 public:
-    void Init() {
+    void Init() 
+    {
         SHADER.Init(vertexShaderSrc,fragmentShaderSrc);
         auto button = std::make_shared<Button>();
         button->Init(V2D{0.0f,0.0f},V2D{200.0f,200.0f}, V3Du8{125,125,0});
@@ -42,6 +44,10 @@ public:
     }
 
     void Draw(){
+        glUseProgam(SHADER);
+        GLCheck("Program Selection");
+
+        glUniform2f(Engine::openGLEngine.width,Engine::openGLEngine.height);
         parent->Draw();
     }
     shader_prog SHADER;
