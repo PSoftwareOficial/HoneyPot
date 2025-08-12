@@ -1,0 +1,49 @@
+#pragma once
+const char* vertexShaderSrc =
+    	R"(#version 320 es
+
+        layout(location = 0) in vec3 aPos;    // vertex position
+        layout(location = 1) in vec3 aColor;  // vertex color
+        layout(location = 2) in vec2 aUV;     // texture coords
+
+        uniform mat4 uModel;
+
+        out vec3 vColor;
+        out vec2 vUV;
+
+        void main() {
+            gl_Position = uModel * vec4(aPos, 1.0);
+            vColor = aColor;
+            vUV = aUV;
+        })";
+
+const char* fragmentShaderSrc = R"(#version 320 es
+    precision mediump float;
+
+    in vec3 vColor;
+    in vec2 vUV;
+
+    uniform sampler2D uTexture;
+    uniform sampler2D uDataTexture;
+
+    uniform vec3 uGlowColor;
+
+    out vec4 fragColor;
+
+    void main() {   
+        // Sample base texture and apply vertex color
+        vec4 texColor = texture(uTexture, vUV);
+        vec4 baseColor = vec4(vColor, 1.0) * texColor;
+
+        // Sample glow mask from red channel of data texture
+        float glowMask = texture(uDataTexture, vUV).r;
+
+        // Additive glow color scaled by mask
+        vec3 glow = uGlowColor * glowMask;
+
+        // Option 1: ADDITIVE glow on top of base (preferred for glowing feel)
+        vec3 finalColor = baseColor.rgb + glow;
+
+        // Clamp to avoid values > 1.0
+        fragColor = vec4(min(finalColor, vec3(1.0)), baseColor.a);
+    })";
