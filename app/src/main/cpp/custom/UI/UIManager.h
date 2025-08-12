@@ -49,7 +49,7 @@ public:
         glUseProgram(SHADER.program);
         GLCheck("Program Selection");
 
-        float screenAspect = (float)Engine::openGLEngine.height/ (float)Engine::openGLEngine.width;
+        float screenAspect = (float)Engine::openGLEngine.width/ (float)Engine::openGLEngine.height;
         glUniform1f(yScreenAspect,screenAspect);
         GLCheck("Setting Screen Size");
         parent->Draw();
