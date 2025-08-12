@@ -49,7 +49,7 @@ public:
         GLCheck("Program Selection");
 
         float screenAspect = (float)Engine::openGLEngine.height/ (float)Engine::openGLEngine.width;
-        glUniform1f(yScreenAspect,screenAspect;
+        glUniform1f(yScreenAspect,screenAspect);
         GLCheck("Setting Screen Size");
         parent->Draw();
     }
