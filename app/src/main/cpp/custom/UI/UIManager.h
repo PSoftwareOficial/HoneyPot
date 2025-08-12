@@ -17,7 +17,7 @@ static const char* vertexShaderSrc =
         out vec3 vColor;
 
         void main() {
-            gl_Position = vec4(aPos.x,aPos.y * yScreenAspect,aPos.z, 1.0);
+            gl_Position = vec4(aPos.x,aPos.y,aPos.z, 1.0);
             vColor = aColor;
         })";
 
@@ -49,8 +49,8 @@ public:
         glUseProgram(SHADER.program);
         GLCheck("Program Selection");
 
-        float screenAspect = (float)Engine::openGLEngine.width/ (float)Engine::openGLEngine.height;
-        glUniform1f(yScreenAspect,1.0f);
+        float screenAspect = (float)Engine::openGLEngine.width / (float)Engine::openGLEngine.height;
+        glUniform1f(yScreenAspect , 1.0f);
         GLCheck("Setting Screen Size");
         parent->Draw();
     }
