@@ -38,6 +38,7 @@ public:
     void Init() 
     {
         SHADER.Init(vertexShaderSrc,fragmentShaderSrc);
+        screenSizeLoc = glGetUniformLocation(SHADER.program, "uScreenSize");
         auto button = std::make_shared<Button>();
         button->Init(V2D{0.0f,0.0f},V2D{200.0f,200.0f}, V3Du8{125,125,0});
         parent = button;
@@ -47,11 +48,12 @@ public:
         glUseProgam(SHADER);
         GLCheck("Program Selection");
 
-        glUniform2f(Engine::openGLEngine.width,Engine::openGLEngine.height);
+        glUniform2f(screenSizeLoc,Engine::openGLEngine.width,Engine::openGLEngine.height);
         GLCheck("Setting Screen Size");
         parent->Draw();
     }
     shader_prog SHADER;
+    GLint screenSizeLoc;
 
     std::shared_ptr<BaseUI> parent;
 };
