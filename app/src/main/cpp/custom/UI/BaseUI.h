@@ -12,7 +12,6 @@ class BaseUI {
     std::vector<std::shared_ptr<BaseUI>> children;
     virtual void Draw() = 0;
     virtual ~BaseUI() {};
-    virtual void GetGLData();
     
     V2D pos;
     V2D size;
