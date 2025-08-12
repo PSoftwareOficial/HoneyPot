@@ -48,6 +48,7 @@ public:
         GLCheck("Program Selection");
 
         glUniform2f(Engine::openGLEngine.width,Engine::openGLEngine.height);
+        GLCheck("Setting Screen Size");
         parent->Draw();
     }
     shader_prog SHADER;
