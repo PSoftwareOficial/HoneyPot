@@ -23,6 +23,7 @@ int Engine::Update(uint64_t EuS, uint64_t TuS){
 void Engine::Loop() {
 	//Init the Engine
 	Engine::engine->Init();
+	InitWorld();
 
 	// Save the starting time point
 	auto timeStartEngine = std::chrono::system_clock::now();
@@ -58,6 +59,8 @@ int Engine::Init(){
 
 	Engine::openGLEngine.width = ANativeWindow_getWidth(Engine::app->window);
 	Engine::openGLEngine.height = ANativeWindow_getHeight(Engine::app->window);
+
+
 
     return 0;
 }
