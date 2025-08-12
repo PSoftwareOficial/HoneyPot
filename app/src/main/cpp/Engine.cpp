@@ -24,7 +24,6 @@ void Engine::Loop() {
 	//Init the Engine
 	Engine::engine->Init();
 	InitWorld();
-	LOG("World Started");
 
 	// Save the starting time point
 	auto timeStartEngine = std::chrono::system_clock::now();

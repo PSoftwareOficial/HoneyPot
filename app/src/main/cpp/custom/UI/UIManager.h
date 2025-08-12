@@ -38,9 +38,13 @@ public:
     void Init() 
     {
         SHADER.Init(vertexShaderSrc,fragmentShaderSrc);
+        LOG("TEST1");
         screenSizeLoc = glGetUniformLocation(SHADER.program, "uScreenSize");
+        LOG("TEST0");
         auto button = std::make_shared<Button>();
+        LOG("TEST2");
         button->Init(V2D{0.0f,0.0f},V2D{200.0f,200.0f}, V3Du8{125,125,0});
+        LOG("TEST3");
         parent = button;
     }
 
