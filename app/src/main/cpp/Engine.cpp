@@ -24,6 +24,7 @@ void Engine::Loop() {
 	//Init the Engine
 	Engine::engine->Init();
 	InitWorld();
+	LOG("World Started");
 
 	// Save the starting time point
 	auto timeStartEngine = std::chrono::system_clock::now();
@@ -36,9 +37,8 @@ void Engine::Loop() {
 		}
 		std::this_thread::sleep_for(std::chrono::milliseconds(100));
 	}
-	LOG("Ending Engine");
 	Engine::engine->Destroy();
-	LOG("Engine Destoryed");
+	
 }
 
 
@@ -62,15 +62,16 @@ int Engine::Init(){
 	Engine::openGLEngine.height = ANativeWindow_getHeight(Engine::app->window);
 
 
-
+	LOG("Engine Started");
     return 0;
 }
 
 int Engine::Destroy(){
+	LOG("Ending Engine");
 	eglDestroySurface(Engine::openGLEngine.display, Engine::openGLEngine.surface);
 	eglDestroyContext(Engine::openGLEngine.display, Engine::openGLEngine.context);
 	eglTerminate(Engine::openGLEngine.display);
-
+	LOG("Engine Destoryed");
 	return 0;
 
 }
