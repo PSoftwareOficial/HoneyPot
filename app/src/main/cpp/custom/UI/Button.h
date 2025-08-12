@@ -7,5 +7,6 @@ class Button : BaseUI {
         virtual void Init(V2D PosParam,V2D SizeParam,V3Du8 ColorParam);
         virtual void Draw() override;
         V3Du8 color;
-
+        virtual Button() override {}
+        virtual ~Button() override {}
 };
