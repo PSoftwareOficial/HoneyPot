@@ -109,7 +109,7 @@ int32_t Engine::process_INPUT(struct android_app* app, struct AInputEvent* event
 				float x = float(xE)/ (float)Engine::openGLEngine.width;
 				float y = float(yE)/ (float)Engine::openGLEngine.height;
                 // Store touch event data atomically or with mutex
-				InputEvent event{V2D{ x * 2.0f - 1.0f, -(y * 2.0f - 1.0f) }
+				InputEvent event{V2D{ x * 2.0f - 1.0f, -(y * 2.0f - 1.0f) }};
 				Engine::touchEvent.AddElem(event);
                 // Optionally, you can use atomic flags as well
                 // touchEventOccurred.store(true, std::memory_order_release);
