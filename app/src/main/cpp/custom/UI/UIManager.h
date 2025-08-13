@@ -12,8 +12,6 @@ static const char* vertexShaderSrc =
         layout(location = 0) in vec3 aPos;    // vertex position
         layout(location = 1) in vec3 aColor;  // vertex color
 
-        float yScreenAspect;
-
         out vec3 vColor;
 
         void main() {
@@ -38,24 +36,27 @@ public:
     void Init() 
     {
         SHADER.Init(vertexShaderSrc,fragmentShaderSrc);
-        yScreenAspect = glGetUniformLocation(SHADER.program, "yScreenAspect");
-        GLCheck("Gettin Screen Aspect Location");
         auto button = std::make_shared<Button>();
         button->Init(V2D{0.0f,0.0f},V2D{1.0f,1.0f}, V3Du8{125,125,0});
         parent = button;
+    }
+
+    void Update(){
+        while(Engine::touchEvents.GetElemNum()){
+            Engine::InputEvent event;
+            Engine::touchEvents.PopElem(event);
+            parent->Touch(event.coord);
+        }
     }
 
     void Draw(){
         glUseProgram(SHADER.program);
         GLCheck("Program Selection");
 
-        float screenAspect = (float)Engine::openGLEngine.width / (float)Engine::openGLEngine.height;
-        glUniform1f(yScreenAspect , 1.0f);
         GLCheck("Setting Screen Size");
         parent->Draw();
     }
     shader_prog SHADER;
-    GLint yScreenAspect;
 
     std::shared_ptr<BaseUI> parent;
 };

@@ -2,7 +2,8 @@
 #include <thread>
 #include <atomic>
 #include "rendering/core_include.h"
-
+#include "utilities/math/structs/vxd.h"
+#include "utilities/Buffer/Buffer.h"
 
 class Engine {
 public:
@@ -30,4 +31,9 @@ public:
     static void Resume();
     static void Pause();
     static void Finish();
+
+    struct InputEvent{
+        V2D coord;
+    };
+    static TS_RB<InputEvent,64> touchEvents;
 };

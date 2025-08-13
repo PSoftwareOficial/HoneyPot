@@ -11,6 +11,7 @@ class BaseUI {
     std::shared_ptr<BaseUI> parent;
     std::vector<std::shared_ptr<BaseUI>> children;
     virtual void Draw() = 0;
+    virtual void Touch(V2D coord) = 0;
     virtual ~BaseUI() {};
     
     V2D pos;

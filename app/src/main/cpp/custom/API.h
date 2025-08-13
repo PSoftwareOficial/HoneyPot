@@ -17,7 +17,10 @@ void InitWorld(){
 
 
 void UpdateWorld(uint64_t uElapsedMicros, uint64_t uTotalMicros) {
-	uiManager.Draw();
+	//Update Everything
+    UIManager.Update();
+
+    uiManager.Draw();
 }
 
 

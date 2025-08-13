@@ -34,6 +34,17 @@ void Button::Draw() {
 };
 
 
+virtual void Button::Touch(V2D coord){
+    color = color + V3Du8{10,10,10};
+    // Bind and fill VBO
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    float data[20];
+    GetGLData(data);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(data), data, GL_DYNAMIC_DRAW);
+    glBindBuffer(GL_ARRAY_BUFFER,0);
+}
+
+
 void Button::GetGLData(float (&data)[20]){
 V2D vertices[4] =  
     {pos - size/2.0f, 
