@@ -42,7 +42,7 @@ public:
 		return V2Dg<std::common_type_t<P, U>>{ this->x - other.x, this->y - other.y };
 	}
 	V2Dg<P> operator+(const V2Dg<P>& other) const {
-		return V2Dg<P>{ this->x + other.x, this->y + other.y };
+		return V2Dg<P>{ (P)this->x + other.x, (P)this->y + other.y };
 	}
 	V2Dg<P>& operator+=(const V2Dg<P>& other) {
 		this->x += other.x;
@@ -160,7 +160,7 @@ public:
 		return V3Dg<std::common_type_t<P, U>>{ this->x - other.x, this->y - other.y, this->z - other.z };
 	}
 	inline V3Dg<P> operator+(const V3Dg<P>& other) const {
-		return V3Dg<P>{ this->x + other.x, this->y + other.y, this->z + other.z };
+		return V3Dg<P>{(P)( this->x + other.x),(P)( this->y + other.y),(P)( this->z + other.z) };
 	}
 	inline V3Dg<P> operator+(const V2Dg<P>& other) const {
 		return V3Dg<P>{ this->x + other.x, this->y + other.y, this->z };
