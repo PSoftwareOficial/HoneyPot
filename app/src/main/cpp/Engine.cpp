@@ -144,7 +144,7 @@ std::atomic<bool> Engine::bDestroy;
 std::thread Engine::tRun;
 android_app* Engine::app = nullptr;
 OpenGLEngine Engine::openGLEngine;
-
+TS_RB<InputEvent,64> Engine::touchEvents;
 
 
 
