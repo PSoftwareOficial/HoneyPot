@@ -1,5 +1,5 @@
 ./compileCPP.sh
 
-gradle assembleRelease
+gradle assembleDebug
 
-cp ./app/build/outputs/apk/release/app-release.apk /sdcard/Projects
+cp ./app/build/outputs/apk/debug/app-debug.apk /sdcard/Projects

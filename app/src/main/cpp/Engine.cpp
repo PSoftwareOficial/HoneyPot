@@ -87,7 +87,7 @@ void Engine::process_CMD(struct android_app* app, int32_t cmd){
 			break;
 
         case APP_CMD_TERM_WINDOW:
-            Engine::Finish();
+            Engine::Destroy();
             break;
     }
 
