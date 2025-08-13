@@ -34,8 +34,8 @@ void Button::Draw() {
 };
 
 
-virtual void Button::Touch(V2D coord){
-    color = color + V3Du8{10,10,10};
+void Button::Touch(V2D coord){
+    color = color + V3Du8{(uint8_t)10,(uint8_t)10,(uint8_t)10};
     // Bind and fill VBO
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     float data[20];
