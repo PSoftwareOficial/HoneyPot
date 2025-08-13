@@ -9,5 +9,5 @@ class Container : public BaseUI {
         virtual void Touch(V2D coord) override;
         virtual void GetGLData(float (&data)[28]);
 
-        virtual ~Button() override {}
+        virtual ~Container() override {}
 };
