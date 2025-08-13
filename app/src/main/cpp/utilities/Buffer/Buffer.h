@@ -17,7 +17,7 @@ public:
     }
     void PopElem(T& elem){
         std::lock_guard<std::mutex> lock(mutex);
-        if(!GetElemNum.load()) return;
+        if(!GetElemNum()) return;
         elem = objs[idx.load()].load();
         idx.store((idx.load() + 1) % N);
         nElem.fetch_sub(1);
