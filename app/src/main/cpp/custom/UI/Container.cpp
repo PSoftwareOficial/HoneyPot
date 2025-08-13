@@ -32,6 +32,10 @@ void Container::Init(V2D PosParam,V2D SizeParam,V3Du8 ColorParam, float AlphaPar
 void Container::Draw() {
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
+    for(auto &e : children){
+            e->Draw();
+        }
+
 };
 
 
