@@ -19,11 +19,7 @@ public:
 	P x = 0;
 	P y = 0;
 
-	inline V2Dg<P>& operator=(const V2Dg<P>& other) {
-		this->x = other.x;
-		this->y = other.y;
-		return *this;
-	}
+	inline V2Dg<P>& operator=(const V2Dg<P>&) = default;
 	template <typename U>
 	inline V2Dg<P>& operator=(const V2Dg<U>& other) {
 		static_assert(std::is_arithmetic<U>::value, "V2Dg<type> conversion must be numeric");
