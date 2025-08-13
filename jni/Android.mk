@@ -15,7 +15,8 @@ include $(CLEAR_VARS)
 LOCAL_MODULE := baseNativeLib
 LOCAL_SRC_FILES := \
 ../app/src/main/cpp/Engine.cpp \
-../app/src/main/cpp/custom/UI/Button.cpp
+../app/src/main/cpp/custom/UI/Button.cpp \
+../app/src/main/cpp/custom/UI/UIManager.cpp
 
 #Just add the different cpp files.
 LOCAL_CFLAGS := -Wall -Werror -Wno-unused-function -Wno-unused-variable

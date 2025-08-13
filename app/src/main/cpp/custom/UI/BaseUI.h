@@ -16,6 +16,8 @@ class BaseUI {
     
     V2D pos;
     V2D size;
+    V3Du8 color;
+    float alpha;
 
     GLuint VAO;
     GLuint VBO;

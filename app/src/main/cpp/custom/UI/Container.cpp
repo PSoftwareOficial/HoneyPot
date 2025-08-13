@@ -1,11 +1,11 @@
 #include "Button.h"
 
 
-void Button::Init(V2D PosParam,V2D SizeParam,V3Du8 ColorParam) {
+void Container::Init(V2D PosParam,V2D SizeParam,V3Du8 ColorParam, float AlphaParam) {
     pos = PosParam;
     size = SizeParam;
     color = ColorParam;
-    alpha = 1.0f;
+    alpha = alpha;
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
 
@@ -29,34 +29,29 @@ void Button::Init(V2D PosParam,V2D SizeParam,V3Du8 ColorParam) {
     glBindVertexArray(0);
 };
 
-void Button::Draw() {
+void Container::Draw() {
     glBindVertexArray(VAO);
     glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
 };
 
 
-void Button::Touch(V2D coord){
+void Container::Touch(V2D coord){
 
     //Check if this container was touched
     if(coord.x > pos.x - size.x/2.0f && coord.x < pos.x + size.x/2.0f
     && coord.y > pos.y - size.y/2.0f && coord.y < pos.y + size.y/2.0f
     ){
-        color = color + V3Du8{(uint8_t)10,(uint8_t)10,(uint8_t)10};
-        // Bind and fill VBO
-        glBindBuffer(GL_ARRAY_BUFFER, VBO);
-        float data[28];
-        GetGLData(data);
-        glBufferData(GL_ARRAY_BUFFER, sizeof(data), data, GL_DYNAMIC_DRAW);
-        glBindBuffer(GL_ARRAY_BUFFER,0);
+        for(auto &e : children){
+            e->Touch(coord);
+        }
 
     } else
     //Return and do nothing
         return;
-    
 }
 
 
-void Button::GetGLData(float (&data)[28]){
+void Container::GetGLData(float (&data)[28]){
 V2D vertices[4] =  
     {pos - size/2.0f, 
     pos + V2D{ - size.x/2.0f, + size.y/2.0f}, 
