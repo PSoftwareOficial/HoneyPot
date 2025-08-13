@@ -7,7 +7,7 @@ class Button : public BaseUI {
         virtual void Init(V2D PosParam,V2D SizeParam,V3Du8 ColorParam);
         virtual void Draw() override;
         virtual void Touch(V2D coord) override;
-        virtual void GetGLData(float (&data)[20]);
+        virtual void GetGLData(float (&data)[28]);
 
         virtual ~Button() override {}
 
