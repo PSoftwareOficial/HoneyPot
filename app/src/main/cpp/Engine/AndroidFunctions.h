@@ -6,7 +6,7 @@
 void Engine::process_CMD(struct android_app* app, int32_t cmd){
 	switch (cmd) {
         case APP_CMD_START:
-            Engine::tRun = std::thread(&Engine::Loop, &Engine::engine);
+            Engine::tRun = std::thread(&Engine::Loop, Engine::engine);
             break;
         case APP_CMD_INIT_WINDOW:
             Engine::bRender = true;  // set up EGL/Vulkan and begin rendering
