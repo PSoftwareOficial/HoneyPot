@@ -38,13 +38,6 @@ static const char* textvSrc = R"(#version 320 es
 precision mediump float;
 
 layout(location = 0) in vec2 aPos;        // Quad vertex position
-layout(location = 1) in vec2 aTexCoord;   // Quad texture coordinates
-layout(location = 2) in vec2 instancePos; // Position of the character (per-instance)
-layout(location = 3) in int instanceIndex; // Index of the character in the texture atlas (per-instance)
-
-out vec2 fragUV; // UV to pass to fragment shader
-
-uniform vec2 instanceSize; // Size of all characters (constant for the whole batch)
 
 void main()
 {
@@ -182,15 +175,16 @@ void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
     glUseProgram(SHADER.program);
     GLCheck("Setting Program TEXT");
 
-    UpdateData();
-    glActiveTexture(GL_TEXTURE0);
-    glBindTexture(GL_TEXTURE_2D, TEX);  // Assuming `atlasTextureID` is the texture handle of your atlas.
-    glUniform1i(glGetUniformLocation(SHADER.program, "utexAtlas"), 0);  // Set uniform to texture unit 0
-    GLCheck("Setting Texture Atlas");
-    glUniform2f(glGetUniformLocation(SHADER.program, "instanceSize"), TextSize.x, TextSize.y);  // Constant size for all characters
-    GLCheck("Setting Instance Size");
+    //UpdateData();
+    //glActiveTexture(GL_TEXTURE0);
+    //glBindTexture(GL_TEXTURE_2D, TEX);  // Assuming `atlasTextureID` is the texture handle of your atlas.
+    //glUniform1i(glGetUniformLocation(SHADER.program, "utexAtlas"), 0);  // Set uniform to texture unit 0
+    //GLCheck("Setting Texture Atlas");
+    //glUniform2f(glGetUniformLocation(SHADER.program, "instanceSize"), TextSize.x, TextSize.y);  // Constant size for all characters
+    //GLCheck("Setting Instance Size");
     // Render the characters
-    glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, instI);
+    glBindVertexArray(VAO);
+    glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
 }
 
 
