@@ -33,6 +33,7 @@ extern "C" void android_main(struct android_app* state) {
 
 	state->onAppCmd = Engine::process_CMD;
 	state->onInputEvent = Engine::process_INPUT;
+    Engine::tRun = std::thread(&Engine::Loop, Engine::engine);
 
 
 	struct android_poll_source* engine_poll_source;
