@@ -9,10 +9,10 @@
 
 
 class World : public Object {
-    virtual int Init() { UIManager.Init();return 0;}
-    virtual int InitGL() {UIManager.InitGL();return 0;}
-    virtual int Update(uint64_t EuS, uint64_t TuS) {UIManager.Update();return 0;}
-    virtual int Draw() {UIManager.Draw();return 0;}
+    virtual int Init() { uiManager.Init();return 0;}
+    virtual int InitGL() {uiManager.InitGL();return 0;}
+    virtual int Update(uint64_t EuS, uint64_t TuS) {uiManager.Update();return 0;}
+    virtual int Draw() {uiManager.Draw();return 0;}
 
 
 

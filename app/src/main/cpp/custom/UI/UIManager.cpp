@@ -52,27 +52,30 @@ static const char* fragmentShaderSrc = R"(#version 320 es
     })";
 
 
-   void UIManager::Init() 
+   int UIManager::Init() 
     {
         SHADER.Init(vertexShaderSrc,fragmentShaderSrc);
         SETUP();
         parent->Init();
+        return 0;
     }
 
-    void UIManager::Update(){
+    int UIManager::Update(){
         while(Engine::touchEvents.GetElemNum()){
             Engine::InputEvent event;
             Engine::touchEvents.PopElem(event);
             parent->Touch(event.coord);
         }
+        return 0;
     }
 
-    void UIManager::Draw(){
+    int UIManager::Draw(){
         glUseProgram(SHADER.program);
         GLCheck("Program Selection");
 
         GLCheck("Setting Screen Size");
         parent->Draw();
+        return 0;
     } 
 
 

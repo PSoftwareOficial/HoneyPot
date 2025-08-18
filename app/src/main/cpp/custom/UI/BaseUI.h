@@ -35,7 +35,7 @@ class BaseUI : public Object {
         gData.size = gDataParm.size * (parent ? (parent->gData.size / 2.0f) : 1.0f);
     };
 
-    virtual void InitGL() override {
+    virtual int InitGL() override {
         if(!noGLData){
             glGenVertexArrays(1, &glData.VAO);
             glGenBuffers(1, &glData.VBO);
@@ -62,6 +62,7 @@ class BaseUI : public Object {
         for(auto &e : children){
                 e->InitGL();
         }
+        return 0;
     }
     //Base touching mechanism
     virtual void Touch(V2D coord){
@@ -75,7 +76,7 @@ class BaseUI : public Object {
         }
     }
 
-    virtual void Draw() override {
+    virtual int Draw() override {
         if(!noGLData){
             glBindVertexArray(glData.VAO);
             glDrawArrays(GL_TRIANGLE_STRIP, 0, 4);
@@ -84,6 +85,7 @@ class BaseUI : public Object {
         for(auto &e : children){
                 e->Draw();
             }
+        return 0;
     }
     virtual ~BaseUI() {};
     

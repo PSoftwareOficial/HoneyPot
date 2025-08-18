@@ -9,10 +9,10 @@
 
 class UIManager : public Object {
 public:
-    virtual void Init() override;
-    virtual void InitGL() override {parent->InitGL()};
-    virtual void Update() override;
-    virtual void Draw() override;
+    virtual int Init() override;
+    virtual int InitGL() override {parent->InitGL(); return 0;}
+    virtual int Update() override;
+    virtual int Draw() override;
 
     shader_prog SHADER;
     std::shared_ptr<BaseUI> parent;
