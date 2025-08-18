@@ -14,7 +14,7 @@ class World : public Object {
     virtual int Init() { LOGI("STARTING WORLD"); uiManager.Init();return 0;}
     virtual int InitGL();
     virtual int Update(uint64_t EuS, uint64_t TuS);
-    virtual int Draw() {uiManager.Draw();return 0;}
+    virtual int Draw();
 
 
     virtual ~World() {};
