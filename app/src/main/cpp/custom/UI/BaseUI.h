@@ -24,7 +24,7 @@ struct UI_GL_Data {
 
 class BaseUI : public Object {
     public:
-    virtual void Init(std::shared_ptr<BaseUI> parentParam, UI_G_Data& gDataParam, const UI_GL_Data& glDataParam) {
+    virtual void Init(std::shared_ptr<BaseUI> parentParam, const UI_G_Data& gDataParam, const UI_GL_Data& glDataParam) {
         Init(parentParam, gDataParam);
         glData = glDataParam;
         noGLData = false;
