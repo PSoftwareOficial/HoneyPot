@@ -15,3 +15,40 @@ Engine* Engine::engine = nullptr;
 struct android_app* Engine::app;
 OpenGLEngine Engine::openGLEngine;
 TS_RB<Engine::InputEvent,64> Engine::touchEvents;
+
+
+
+
+
+
+
+
+
+extern "C" void android_main(struct android_app* state) {
+	Engine::engine = &engine;
+	Engine::app = state;
+	Logger::getInstance().init(state->activity->externalDataPath);
+	AssetIO::getInstance().init(state->activity->assetManager);
+	LOGI("App started");
+
+	state->onAppCmd = Engine::process_CMD;
+	state->onInputEvent = Engine::process_INPUT;
+
+
+	struct android_poll_source* engine_poll_source;
+
+	//Detect, recive and process all events
+	while(!state->destroyRequested){
+		auto result = ALooper_pollOnce(-1, nullptr, nullptr, (void**)&engine_poll_source);
+		
+		//If error in Polling, terminate
+		if(result == ALOOPER_POLL_ERROR){
+			LOGE("Looper Poll Return");
+			break;
+		} 
+		//Internal processing
+		if(engine_poll_source) engine_poll_source->process(state, engine_poll_source);
+
+
+	}
+}

@@ -56,7 +56,6 @@ void Engine::Loop(){
     //Destory everything
     EndGL();
     Destroy();
-
 }
 
 
@@ -115,6 +114,7 @@ int Engine::InitGL(){
     Engine::openGLEngine.height = ANativeWindow_getHeight(Engine::app->window);
     bRendering.store(true);
     world->InitGL();
+    return 0;
 }
 
 
@@ -128,6 +128,7 @@ int Engine::Update(uint64_t EuS, uint64_t TuS){
     world->Draw();
 
     eglSwapBuffers(Engine::openGLEngine.display, Engine::openGLEngine.surface);
+    return 0;
 };
 
 //Function which Resumes GL
@@ -157,6 +158,7 @@ int Engine::ResumeGL(){
     Engine::openGLEngine.height = ANativeWindow_getHeight(Engine::app->window);
     bRendering.store(true);
     world->ResumeGL();
+    return 0;
 }
 
 //Function which Pauses GL for updates
@@ -164,6 +166,7 @@ int Engine::PauseGL(){
     eglDestroySurface(Engine::openGLEngine.display, Engine::openGLEngine.surface);
     bRendering.store(false);
     world->PauseGL();
+    return 0;
 }
 
 //Function which ends everything associated with OpenGL
@@ -173,6 +176,7 @@ int Engine::EndGL(){
     eglDestroyContext(Engine::openGLEngine.display, Engine::openGLEngine.context);
     eglTerminate(Engine::openGLEngine.display);
     world->EndGL();
+    return 0;
 }
 
 //Function which destroys the complete Engine.
@@ -180,4 +184,5 @@ int Engine::Destroy(){
     LOGI("Endind Engine");
     world->Destroy();
     world.reset();
+    return 0;
 }
