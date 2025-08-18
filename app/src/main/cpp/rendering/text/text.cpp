@@ -88,8 +88,8 @@ void TextRenderer::InitGL(){
     glGenVertexArrays(1, &VAO);
     glGenBuffers(1, &VBO);
     glGenBuffers(1, &EBO);
-    glGenBuffers(1, &instPosVBO);
-    glGenBuffers(1, &instIdxVBO);
+    //glGenBuffers(1, &instPosVBO);
+    //glGenBuffers(1, &instIdxVBO);
 
     // Bind VAO and VBO
     glBindVertexArray(VAO);
@@ -108,7 +108,7 @@ void TextRenderer::InitGL(){
     unsigned int indices[] = { 0, 1, 2, 0, 2, 3 };
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    // Bind position VBO (per-instance)
+    /*// Bind position VBO (per-instance)
     glBindBuffer(GL_ARRAY_BUFFER, instPosVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(instPos), instPos, GL_DYNAMIC_DRAW);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(V2D), (void*)0);
@@ -137,7 +137,7 @@ void TextRenderer::InitGL(){
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-
+    */
 }
 
 
@@ -178,7 +178,9 @@ void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
     //GLCheck("Setting Instance Size");
     // Render the characters
     glBindVertexArray(VAO);
+    GLCheck("SEtting VAO");
     glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+    GLCheck("Drawing");
 }
 
 
