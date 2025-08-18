@@ -139,11 +139,13 @@ void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
 
 
     glUseProgram(SHADER.program);
+    GLCheck("Setting Program TEXT");
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, TEX);  // Assuming `atlasTextureID` is the texture handle of your atlas.
     glUniform1i(glGetUniformLocation(SHADER.program, "utexAtlas"), 0);  // Set uniform to texture unit 0
+    GLCheck("Setting Texture Atlas");
     glUniform2f(glGetUniformLocation(SHADER.program, "instanceSize"), TextSize.x, TextSize.y);  // Constant size for all characters
-
+    GLCheck("Setting Instance Size");
     // Render the characters
     glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, instI);
 }

@@ -136,7 +136,7 @@ int Engine::Update(uint64_t EuS, uint64_t TuS){
 
 //Function which Resumes GL
 int Engine::ResumeGL(){
-
+    LOGI("RESUME GL");
 
     const EGLint configAttribs[] = {
         EGL_RENDERABLE_TYPE, EGL_OPENGL_ES3_BIT,
@@ -166,6 +166,7 @@ int Engine::ResumeGL(){
 
 //Function which Pauses GL for updates
 int Engine::PauseGL(){
+    LOGI("PAUSE GL");
     eglDestroySurface(Engine::openGLEngine.display, Engine::openGLEngine.surface);
     bRendering.store(false);
     world->PauseGL();
