@@ -80,6 +80,15 @@ void TextRenderer::InitGL(){
     unsigned int indices[] = { 0, 1, 2, 0, 2, 3 };
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
+    // Vertex Position Attribute
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(quadVertices), (void*)0);
+    glEnableVertexAttribArray(0);
+
+    // Vertex Texture Coordinate Attribute
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(quadVertices), (void*)(sizeof(float) * 2));
+    glEnableVertexAttribArray(1);
+
+
     // Bind position VBO (per-instance)
     glBindBuffer(GL_ARRAY_BUFFER, instPosVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(instPos), instPos, GL_DYNAMIC_DRAW);
@@ -104,10 +113,10 @@ void TextRenderer::InitGL(){
         }
 
         // Set texture parameters — very important!
-        glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
-        glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
-        glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 }
 
