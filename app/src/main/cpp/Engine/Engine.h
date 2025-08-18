@@ -33,15 +33,16 @@ private:
 
 
     //Is the engine currently rendering
-    std::atomic<bool> bRendering;
+    std::atomic<bool> bRendering = false;
+    //Has the engine started
+    std::atomic<bool> bStarted = false;
 
 public:
     static void process_CMD(struct android_app* app, int32_t cmd);
     static int32_t process_INPUT(struct android_app* app, struct AInputEvent* event);
 
     
-    //Has the engine started
-    std::atomic<bool> bStarted;
+    
     //Should the engine be running
     static std::atomic<bool> bRun;
 

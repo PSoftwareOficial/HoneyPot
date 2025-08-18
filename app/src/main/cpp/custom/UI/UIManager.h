@@ -11,7 +11,7 @@ class UIManager : public Object {
 public:
     virtual int Init() override;
     virtual int InitGL() override {parent->InitGL(); return 0;}
-    virtual int Update() override;
+    virtual int Update();
     virtual int Draw() override;
 
     shader_prog SHADER;

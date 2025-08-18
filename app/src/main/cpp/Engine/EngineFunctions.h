@@ -11,8 +11,14 @@ static std::unique_ptr<World> world;
 
 
 void Engine::Loop(){
+    //Wait for the signal to init Open GL
     //Init the Engine
 	Init();
+
+    while(!bRender.load()){
+        //Not destroyed nor running, sleep for 100 milliseconds to reduce CPU time
+        std::this_thread::sleep_for(std::chrono::milliseconds(100));
+    }
     InitGL();
     bStarted = true;
 	

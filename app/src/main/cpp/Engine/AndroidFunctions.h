@@ -6,42 +6,39 @@
 void Engine::process_CMD(struct android_app* app, int32_t cmd){
 	switch (cmd) {
         case APP_CMD_START:
-            Engine::Start();
+            Engine::tRun = std::thread(Engine::engine->Loop());
             break;
         case APP_CMD_INIT_WINDOW:
-            Engine::Start();  // set up EGL/Vulkan and begin rendering
+            Engine::bRender = true;  // set up EGL/Vulkan and begin rendering
+            bRun = true;
             break;
 
         case APP_CMD_TERM_WINDOW:
-            Engine::Finish(); // stop rendering and free window-specific resources
+            Engine::bRender = false; // stop rendering and free window-specific resources
+            bRun = false;
             break;
 
         case APP_CMD_GAINED_FOCUS:
-            Engine::Resume(); // resume sensors, audio, input
             break;
 
         case APP_CMD_LOST_FOCUS:
-            Engine::Pause();  // pause sensors, audio
             break;
 
         case APP_CMD_CONFIG_CHANGED:
-            Engine::ReloadConfig(); // handle orientation, dpi, etc.
             break;
 
         case APP_CMD_LOW_MEMORY:
-            Engine::TrimMemory(); // free caches
             break;
 
         case APP_CMD_RESUME:
-            Engine::OnResume();
             break;
 
         case APP_CMD_PAUSE:
-            Engine::OnPause();
             break;
 
         case APP_CMD_DESTROY:
-            Engine::Shutdown();
+            Engine::bRun = false;
+            Engine::bDestroy = true;
             break;
 
         default:

@@ -31,8 +31,8 @@ class BaseUI : public Object {
     }; 
     virtual void Init(const UI_G_Data& gDataParam) {
         //Position always in respect to parent
-        gData.pos = gDataParam.pos * (parent ? (parent->gData.size / 2.0f) : 1.0f) + parent->gData.pos;
-        gData.size = gDataParm.size * (parent ? (parent->gData.size / 2.0f) : 1.0f);
+        gData.pos = gDataParam.pos * (parent ? (parent->gData.size / 2.0f) : V2D{1.0f, 1.0f}) + parent->gData.pos;
+        gData.size = gDataParm.size * (parent ? (parent->gData.size / 2.0f) : V2D{1.0f, 1.0f});
     };
 
     virtual int InitGL() override {
