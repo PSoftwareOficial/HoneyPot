@@ -41,11 +41,8 @@ layout(location = 0) in vec2 aPos;        // Quad vertex position
 
 void main()
 {
-    // Calculate the UV coordinates for the character in the atlas
-    fragUV = aTexCoord;
-
     // Output the final position of the quad
-    gl_Position = vec4(aPos.xy, 0.0, 1.0);
+    gl_Position = vec4(aPos, 0.0, 1.0);
 }
 )";
 
@@ -65,9 +62,6 @@ void main() {
 static const char* textfSrc = R"(#version 320 es
 precision mediump float;
 
-in vec2 fragUV;  // Receive the UV from the vertex shader
-
-uniform sampler2D utexAtlas;  // Texture atlas containing all the characters
 out vec4 fragColor;
 
 void main() {
