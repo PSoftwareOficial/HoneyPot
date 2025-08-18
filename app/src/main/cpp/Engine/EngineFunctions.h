@@ -16,11 +16,13 @@ void Engine::Loop(){
     //Init the Engine
 	Init();
 
+    LOGI("FINISHED INIT ENGINE")
     while(!bRender.load()){
         //Not destroyed nor running, sleep for 100 milliseconds to reduce CPU time
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
     InitGL();
+    LOGI("FINISHED INIT GL ENGINE")
     bStarted = true;
 	
 
@@ -69,7 +71,7 @@ void Engine::Loop(){
 
 //Function which starts the complete engine
 int Engine::Init(){
-    LOG("Starting Engine");
+    LOG("STARTING ENGINE");
     world = std::make_unique<World>();
     world->Init();
     return 0;
