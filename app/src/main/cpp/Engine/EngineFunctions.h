@@ -128,7 +128,8 @@ int Engine::Update(uint64_t EuS, uint64_t TuS){
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT);
-
+    glEnable(GL_BLEND);
+    glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  // Default alpha blending function
     world->Draw();
 
     eglSwapBuffers(Engine::openGLEngine.display, Engine::openGLEngine.surface);

@@ -63,7 +63,7 @@ void TextRenderer::InitGL(){
     glGenTextures(1, &TEX);
     glBindTexture(GL_TEXTURE_2D, TEX);
     texture2D tex;
-    if(GetTexture("images/glyphAtlasTest.png",tex)){
+    if(GetTexture("images/glyphAtlas.png",tex)){
         glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex.width, tex.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tex.tex.get());
         GLCheck("glBufferData GlyphAtlas");
         LOGI("TEXT RENDERER LOADED TEXTURE ATLAS: " + std::to_string(tex.width) + " " + std::to_string(tex.height));
