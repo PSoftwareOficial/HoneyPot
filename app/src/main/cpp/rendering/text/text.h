@@ -1,5 +1,7 @@
 #pragma once
-#include "../core_include.h"
+#include <EGL/egl.h>
+#include <GLES3/gl32.h>
+#include "../shaders/shaders.h"
 #include "../../utilities/math/structs/vxd.h"
 
 class TextRenderer{
