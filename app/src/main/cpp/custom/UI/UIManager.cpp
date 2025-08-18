@@ -55,7 +55,6 @@ static const char* fragmentShaderSrc = R"(#version 320 es
     {
         SHADER.Init(vertexShaderSrc,fragmentShaderSrc);
         SETUP();
-        parent->Init();
         return 0;
     }
 
