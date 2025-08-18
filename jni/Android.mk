@@ -17,22 +17,26 @@ include $(BUILD_STATIC_LIBRARY)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := freetype
+
+# List the necessary source files for FreeType
 LOCAL_SRC_FILES := \
-    ../app/src/main/cpp/rendering/freetype/src/autofit/autofit.c \
-    ../app/src/main/cpp/rendering/freetype/src/base/ftbase.c \
-    ../app/src/main/cpp/rendering/freetype/src/base/ftbitmap.c \
-    ../app/src/main/cpp/rendering/freetype/src/base/ftglyph.c \
-    ../app/src/main/cpp/rendering/freetype/src/base/ftinit.c \
-    ../app/src/main/cpp/rendering/freetype/src/base/ftsystem.c \
-    ../app/src/main/cpp/rendering/freetype/src/smooth/ftsmooth.c \
-    ../app/src/main/cpp/rendering/freetype/src/truetype/truetype.c \
-    ../app/src/main/cpp/rendering/freetype/src/raster/raster.c \
-    ../app/src/main/cpp/rendering/freetype/src/cache/ftcache.c
+    ../src/main/cpp/rendering/freetype/src/autofit/autofit.c \
+    ../src/main/cpp/rendering/freetype/src/base/ftbase.c \
+    ../src/main/cpp/rendering/freetype/src/base/ftbitmap.c \
+    ../src/main/cpp/rendering/freetype/src/base/ftglyph.c \
+    ../src/main/cpp/rendering/freetype/src/base/ftinit.c \
+    ../src/main/cpp/rendering/freetype/src/base/ftsystem.c \
+    ../src/main/cpp/rendering/freetype/src/smooth/ftsmooth.c \
+    ../src/main/cpp/rendering/freetype/src/truetype/truetype.c \
+    ../src/main/cpp/rendering/freetype/src/raster/raster.c \
+    ../src/main/cpp/rendering/freetype/src/cache/ftcache.c
 
+# Include paths for headers
 LOCAL_C_INCLUDES := \
-    $(LOCAL_PATH)/../app/src/main/cpp/rendering/freetype/include \
-    $(LOCAL_PATH)/../app/src/main/cpp/rendering/freetype/src
+    $(LOCAL_PATH)/../src/main/cpp/rendering/freetype/include \
+    $(LOCAL_PATH)/../src/main/cpp/rendering/freetype/src
 
+# Compiler flags (optional debugging)
 LOCAL_CFLAGS := -DDEBUG -Wall -Wno-unused-function -Wno-unused-variable
 
 include $(BUILD_STATIC_LIBRARY)
