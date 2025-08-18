@@ -24,12 +24,12 @@ struct UI_GL_Data {
 
 class BaseUI : public Object {
     public:
-    virtual void Init(std::shared_ptr<BaseUI>& parentParam, UI_G_Data& gDataParam, const UI_GL_Data& glDataParam) {
+    virtual void Init(std::shared_ptr<BaseUI> parentParam, UI_G_Data& gDataParam, const UI_GL_Data& glDataParam) {
         Init(parentParam, gDataParam);
         glData = glDataParam;
         noGLData = false;
     }; 
-    virtual void Init(std::shared_ptr<BaseUI>& parentParam,const UI_G_Data& gDataParam) {
+    virtual void Init(std::shared_ptr<BaseUI> parentParam,const UI_G_Data& gDataParam) {
         parent = parentParam;
         //Position always in respect to parent
         gData.pos = gDataParam.pos * (parent ? (parent->gData.size / 2.0f) : V2D{1.0f, 1.0f}) + parent->gData.pos;

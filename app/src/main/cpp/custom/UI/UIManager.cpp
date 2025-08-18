@@ -6,7 +6,7 @@
 void UIManager::SETUP(){
 
     auto container = std::make_shared<BaseUI>();
-    container->Init({V2D{0.0f,0.0f},V2D{1.0f,1.0f}}, {V3Du8{0,255,0}, 0.6f});
+    container->Init(nullptr, {V2D{0.0f,0.0f},V2D{1.0f,1.0f}}, {V3Du8{0,255,0}, 0.6f});
     parent = container;
 
     auto button1 = std::make_shared<Button>();
