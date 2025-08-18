@@ -6,17 +6,17 @@
 
 // Vertex data for a square
 GLfloat vertices[] = {
-    -0.5f, -0.5f, 0.0f,  // Bottom-left
-     0.5f, -0.5f, 0.0f,  // Bottom-right
-     0.5f,  0.5f, 0.0f,  // Top-right
-    -0.5f,  0.5f, 0.0f   // Top-left
+    -0.5f, -0.5f,  // Bottom-left
+     0.5f, -0.5f,  // Bottom-right
+     0.5f,  0.5f,  // Top-right
+    -0.5f,  0.5f,   // Top-left
 };
 
 // Vertex and fragment shader source code
 const char* vertexShaderSource = R"(#version 320 es
-    layout(location = 0) in vec3 aPos;
+    layout(location = 0) in vec2 aPos;
     void main() {
-        gl_Position = vec4(aPos, 1.0);
+        gl_Position = vec4(aPos, 0.0, 1.0);
     })";
 
 const char* fragmentShaderSource = R"(#version 320 es
