@@ -10,7 +10,7 @@
 class UIManager : public Object {
 public:
     virtual int Init() override;
-    virtual int InitGL() override {;parent->InitGL(); return 0;}
+    virtual int InitGL() override;
     virtual int Update();
     virtual int Draw() override;
 
