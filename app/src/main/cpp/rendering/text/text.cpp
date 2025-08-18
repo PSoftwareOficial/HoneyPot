@@ -1,7 +1,53 @@
 #include "text.h"
 #include "../../utilities/AssetIO/API.h"
 
-static const char* textvSrc, textfSrc;
+static const char* textvSrc = R"(#version 320 es
+#define ATLAS_NUM_X 16
+#define ATLAS_NUM_Y 6
+#define CHAR_SIZE_X 0.0625
+#define CHAR_SIZE_Y 0.1666666666666667
+
+precision mediump float;
+
+layout(location = 0) in vec2 aPos;        // Quad vertex position
+layout(location = 1) in vec2 aTexCoord;   // Quad texture coordinates
+layout(location = 2) in vec2 instancePos; // Position of the character (per-instance)
+layout(location = 3) in int instanceIndex; // Index of the character in the texture atlas (per-instance)
+
+out vec2 fragUV; // UV to pass to fragment shader
+
+uniform vec2 instanceSize; // Size of all characters (constant for the whole batch)
+
+void main()
+{
+    // Compute the final position of the character (offset the quad position)
+    vec2 finalPos = instancePos + aPos * instanceSize;
+
+    // Calculate the row and column of the character in the texture atlas
+    int row = instanceIndex / ATLAS_NUM_X;  // Row in the atlas
+    int col = instanceIndex % ATLAS_NUM_X;  // Column in the atlas
+
+    // Calculate the UV coordinates for the character in the atlas
+    fragUV = aTexCoord * vec2(CHAR_SIZE_X, CHAR_SIZE_Y) + vec2(col * CHAR_SIZE_X, row * CHAR_SIZE_Y);
+
+    // Output the final position of the quad
+    gl_Position = vec4(finalPos, 0.0, 1.0);
+}
+)";
+
+
+static const char* textfSrc = R"(#version 320 es
+precision mediump float;
+
+in vec2 fragUV;  // Receive the UV from the vertex shader
+
+uniform sampler2D utexAtlas;  // Texture atlas containing all the characters
+out vec4 fragColor;
+
+void main() {
+    fragColor = texture(utexAtlas, fragUV);
+}
+)";
 
 
 void TextRenderer::InitGL(){
@@ -103,50 +149,3 @@ void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
 
 
 
-static const char* textvSrc = R"(#version 320 es
-#define ATLAS_NUM_X 16
-#define ATLAS_NUM_Y 6
-#define CHAR_SIZE_X 0.0625
-#define CHAR_SIZE_Y 0.1666666666666667
-
-precision mediump float;
-
-layout(location = 0) in vec2 aPos;        // Quad vertex position
-layout(location = 1) in vec2 aTexCoord;   // Quad texture coordinates
-layout(location = 2) in vec2 instancePos; // Position of the character (per-instance)
-layout(location = 3) in int instanceIndex; // Index of the character in the texture atlas (per-instance)
-
-out vec2 fragUV; // UV to pass to fragment shader
-
-uniform vec2 instanceSize; // Size of all characters (constant for the whole batch)
-
-void main()
-{
-    // Compute the final position of the character (offset the quad position)
-    vec2 finalPos = instancePos + aPos * instanceSize;
-
-    // Calculate the row and column of the character in the texture atlas
-    int row = instanceIndex / ATLAS_NUM_X;  // Row in the atlas
-    int col = instanceIndex % ATLAS_NUM_X;  // Column in the atlas
-
-    // Calculate the UV coordinates for the character in the atlas
-    fragUV = aTexCoord * vec2(CHAR_SIZE_X, CHAR_SIZE_Y) + vec2(col * CHAR_SIZE_X, row * CHAR_SIZE_Y);
-
-    // Output the final position of the quad
-    gl_Position = vec4(finalPos, 0.0, 1.0);
-}
-)";
-
-
-static const char* textfSrc = R"(#version 320 es
-precision mediump float;
-
-in vec2 fragUV;  // Receive the UV from the vertex shader
-
-uniform sampler2D utexAtlas;  // Texture atlas containing all the characters
-out vec4 fragColor;
-
-void main() {
-    fragColor = texture(utexAtlas, fragUV);
-}
-)";
