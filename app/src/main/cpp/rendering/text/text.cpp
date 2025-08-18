@@ -34,7 +34,7 @@ const char* fragmentShaderSource = R"(
     })";
 
 void TextRenderer::InitGL(){
-    SHADER.Init(textvSrc, textfSrc);
+    SHADER.Init(vertexShaderSource, fragmentShaderSource);
     glUseProgram(SHADER.program);
     GLCheck("Setting Program");
 
