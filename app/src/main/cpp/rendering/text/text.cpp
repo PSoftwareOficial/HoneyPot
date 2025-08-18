@@ -2,3 +2,154 @@
 #include FT_FREETYPE_H 
 
 #include "text.h"
+#include "../../utilities/AssetIO/API.h"
+
+static const char* textvSrc, textfSrc;
+
+
+void TextRenderer::InitGL(){
+    SHADER.Init(textvSrc, textfSrc);
+    glUseProgram(SHADER.program);
+
+    // Set up the quad geometry (a single quad per character)
+    float quadVertices[] = {
+        // positions    // texture coords
+        -0.5f, -0.5f,   0.0f, 0.0f,
+        0.5f, -0.5f,   1.0f, 0.0f,
+        0.5f,  0.5f,   1.0f, 1.0f,
+        -0.5f,  0.5f,   0.0f, 1.0f
+    };
+
+    // Set up the VAO, VBO, and EBO for instanced rendering
+    
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
+    glGenBuffers(1, &instPosVBO);
+    glGenBuffers(1, &instIdxVBO);
+
+    // Bind VAO and VBO
+    glBindVertexArray(VAO);
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    unsigned int indices[] = { 0, 1, 2, 0, 2, 3 };
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+    // Bind position VBO (per-instance)
+    glBindBuffer(GL_ARRAY_BUFFER, instPosVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(instPos), instPos, GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(V2D), (void*)0);
+    glEnableVertexAttribArray(2);
+    glVertexAttribDivisor(2, 1); // Instanced attribute
+
+    // Bind index VBO (per-instance)
+    glBindBuffer(GL_ARRAY_BUFFER, instIdxVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(instIdx), instIdx, GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(3, 1, GL_INT, GL_FALSE, sizeof(int), (void*)0);
+    glEnableVertexAttribArray(3);
+    glVertexAttribDivisor(3, 1); // Instanced attribute
+
+
+        glGenTextures(1, &TEX);
+        glBindTexture(GL_TEXTURE_2D, TEX);
+        texture2D tex;
+        if(GetTexture("images/glyphAtlas.png",tex)){
+            glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex.width, tex.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tex.tex.get());
+            GLCheck("glBufferData GlyphAtlas");
+        }
+
+        // Set texture parameters — very important!
+        glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+        glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+        glTexParameteri(GL_TEXTURE_2D_ARRAY, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+
+}
+
+
+void TextRenderer::UpdateData(){
+    // Bind index VBO (per-instance)
+    glBindBuffer(GL_ARRAY_BUFFER, instIdxVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(instIdx), instIdx, GL_DYNAMIC_DRAW);
+
+    glBindBuffer(GL_ARRAY_BUFFER, instPosVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(instPos), instPos, GL_DYNAMIC_DRAW);
+}
+void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
+
+    V2D currPos = Pos;
+    for(uint16_t i = 0; i < text.size() && instI < 100; ++i){
+        if(text[i] == '\n'){
+            currPos.y += TextSize.y;
+        } else if( text[i] < 96 && text[i] > 32){
+            instIdx[instI] = text[i] - 32;
+            instPos[instI] = currPos;
+            currPos.x += TextSize.x;
+            ++instI;
+        }
+    }
+
+
+
+
+    glUseProgram(SHADER.program);
+    glActiveTexture(GL_TEXTURE0);
+    glBindTexture(GL_TEXTURE_2D, TEX);  // Assuming `atlasTextureID` is the texture handle of your atlas.
+    glUniform1i(glGetUniformLocation(SHADER.program, "utexAtlas"), 0);  // Set uniform to texture unit 0
+    glUniform2f(glGetUniformLocation(shaderProgram, "instanceSize"), TextSize.x, TextSize.y);  // Constant size for all characters
+
+    // Render the characters
+    glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, instI);
+}
+
+
+
+static const char* textvSrc = R"(#version 320 es
+#define ATLAS_NUM_X 16
+#define ATLAS_NUM_Y 6
+#define CHAR_SIZE_X 0.0625
+#define CHAR_SIZE_Y 0.1666666666666667
+
+precision mediump float;
+
+layout(location = 0) in vec2 aPos;        // Quad vertex position
+layout(location = 1) in vec2 aTexCoord;   // Quad texture coordinates
+layout(location = 2) in vec2 instancePos; // Position of the character (per-instance)
+layout(location = 3) in int instanceIndex; // Index of the character in the texture atlas (per-instance)
+
+out vec2 fragUV; // UV to pass to fragment shader
+
+uniform vec2 instanceSize; // Size of all characters (constant for the whole batch)
+
+void main()
+{
+    // Compute the final position of the character (offset the quad position)
+    vec2 finalPos = instancePos + aPos * instanceSize;
+
+    // Calculate the row and column of the character in the texture atlas
+    int row = instanceIndex / ATLAS_NUM_X;  // Row in the atlas
+    int col = instanceIndex % ATLAS_NUM_X;  // Column in the atlas
+
+    // Calculate the UV coordinates for the character in the atlas
+    fragUV = aTexCoord * vec2(CHAR_SIZE_X, CHAR_SIZE_Y) + vec2(col * CHAR_SIZE_X, row * CHAR_SIZE_Y);
+
+    // Output the final position of the quad
+    gl_Position = vec4(finalPos, 0.0, 1.0);
+}
+)";
+
+
+static const char* textfSrc = R"(#version 320 es
+precision mediump float;
+
+in vec2 fragUV;  // Receive the UV from the vertex shader
+
+uniform sampler2D utexAtlas;  // Texture atlas containing all the characters
+out vec4 fragColor;
+
+void main() {
+    fragColor = texture(utexAtlas, fragUV);
+}
+)";

@@ -4,6 +4,7 @@
 #include <EGL/egl.h>
 #include <GLES3/gl32.h>
 #include "shaders/shaders.h"
+#include "text/text.h"
 
 //Drawing routines
 struct OpenGLEngine {
