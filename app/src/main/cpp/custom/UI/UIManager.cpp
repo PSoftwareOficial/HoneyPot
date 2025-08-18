@@ -79,7 +79,6 @@ static const char* fragmentShaderSrc = R"(#version 320 es
         glUseProgram(SHADER.program);
         GLCheck("Program Selection");
 
-        GLCheck("Setting Screen Size");
         parent->Draw();
         return 0;
     } 
