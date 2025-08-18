@@ -1,6 +1,6 @@
 #define STB_IMAGE_IMPLEMENTATION
-
 #include "AssetIO/API.h"
+
 bool GetTexture(const std::string& path, texture2D& tex){
     std::unique_ptr<unsigned char[]> bufferTex;
     std::size_t sizeTex;
