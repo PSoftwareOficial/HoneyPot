@@ -34,7 +34,7 @@ public:
     void log(const std::string& message)
     {
         auto tpNow = std::chrono::steady_clock::now();
-        auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(tpNow - tpStart).count();
+        auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(tpNow - tpInit).count();
         int hours = static_cast<int>(ms / (1000 * 60 * 60));
         ms %= (1000 * 60 * 60);
         int minutes = static_cast<int>(ms / (1000 * 60));
