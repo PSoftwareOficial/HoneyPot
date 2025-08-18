@@ -75,12 +75,19 @@ void TextRenderer::InitGL(){
     glUseProgram(SHADER.program);
 
     // Set up the quad geometry (a single quad per character)
-    float quadVertices[] = {
+    /*float quadVertices[] = {
         // positions    // texture coords
         -0.5f, -0.5f,   0.0f, 0.0f,
         0.5f, -0.5f,   1.0f, 0.0f,
         0.5f,  0.5f,   1.0f, 1.0f,
         -0.5f,  0.5f,   0.0f, 1.0f
+    };*/
+    float quadVertices[] = {
+        // positions    // texture coords
+        -0.5f, -0.5f,  
+        0.5f, -0.5f,   
+        0.5f,  0.5f,  
+        -0.5f,  0.5f,
     };
 
     // Set up the VAO, VBO, and EBO for instanced rendering
@@ -100,9 +107,9 @@ void TextRenderer::InitGL(){
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(quadVertices), (void*)0);
     glEnableVertexAttribArray(0);
 
-    // Vertex Texture Coordinate Attribute
-    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(quadVertices), (void*)(sizeof(float) * 2));
-    glEnableVertexAttribArray(1);
+    // // Vertex Texture Coordinate Attribute
+    // glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(quadVertices), (void*)(sizeof(float) * 2));
+    // glEnableVertexAttribArray(1);
 
     glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
     unsigned int indices[] = { 0, 1, 2, 0, 2, 3 };
