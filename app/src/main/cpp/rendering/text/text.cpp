@@ -107,9 +107,10 @@ void TextRenderer::InitGL(){
         glGenTextures(1, &TEX);
         glBindTexture(GL_TEXTURE_2D, TEX);
         texture2D tex;
-        if(GetTexture("images/glyphAtlas.png",tex)){
+        if(GetTexture("images/glyphAtlasTest.png",tex)){
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex.width, tex.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tex.tex.get());
             GLCheck("glBufferData GlyphAtlas");
+            LOGI("TEXT RENDERER LOADED TEXTURE ATLAS");
         }
 
         // Set texture parameters — very important!
@@ -129,6 +130,8 @@ void TextRenderer::UpdateData(){
     glBindBuffer(GL_ARRAY_BUFFER, instPosVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(instPos), instPos, GL_DYNAMIC_DRAW);
 }
+
+
 void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
 
     V2D currPos = Pos;
@@ -143,7 +146,7 @@ void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
             ++instI;
         }
     }
-    
+
     glUseProgram(SHADER.program);
     GLCheck("Setting Program TEXT");
 
