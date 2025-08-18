@@ -87,7 +87,7 @@ static void init_gles(struct android_app* app, EGLDisplay* display, EGLSurface* 
         EGL_RED_SIZE, 8,
         EGL_DEPTH_SIZE, 0,
         EGL_NONE
-    };
+        };
 
         EGLConfig config;
         EGLint numConfigs;
@@ -132,6 +132,25 @@ int Engine::Update(uint64_t EuS, uint64_t TuS){
 
 //Function which Resumes GL
 int Engine::ResumeGL(){
+
+
+    const EGLint configAttribs[] = {
+        EGL_RENDERABLE_TYPE, EGL_OPENGL_ES3_BIT,
+        EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
+        EGL_BLUE_SIZE, 8,
+        EGL_GREEN_SIZE, 8,
+        EGL_RED_SIZE, 8,
+        EGL_DEPTH_SIZE, 0,
+        EGL_NONE
+        };
+
+        EGLConfig config;
+        EGLint numConfigs;
+        eglChooseConfig(Engine::openGLEngine.display, configAttribs, &config, 1, &numConfigs);
+        EGLint format;
+        eglGetConfigAttrib(Engine::openGLEngine.display, config, EGL_NATIVE_VISUAL_ID, &format);
+        ANativeWindow_setBuffersGeometry(Engine::app->window, 0, 0, format);
+
     Engine::openGLEngine.surface = eglCreateWindowSurface(Engine::openGLEngine.display, config, Engine::app->window, NULL);
     eglMakeCurrent(Engine::openGLEngine.display, Engine::openGLEngine.surface, Engine::openGLEngine.surface, Engine::openGLEngine.context);
     Engine::openGLEngine.width = ANativeWindow_getWidth(Engine::app->window);
