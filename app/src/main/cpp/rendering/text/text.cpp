@@ -28,7 +28,7 @@ void main()
     int col = instanceIndex % ATLAS_NUM_X;  // Column in the atlas
 
     // Calculate the UV coordinates for the character in the atlas
-    fragUV = aTexCoord * vec2(CHAR_SIZE_X, CHAR_SIZE_Y) + vec2(col * CHAR_SIZE_X, row * CHAR_SIZE_Y);
+    fragUV = aTexCoord * vec2(CHAR_SIZE_X, CHAR_SIZE_Y) + vec2(float(col) * CHAR_SIZE_X, float(row) * CHAR_SIZE_Y);
 
     // Output the final position of the quad
     gl_Position = vec4(finalPos, 0.0, 1.0);
