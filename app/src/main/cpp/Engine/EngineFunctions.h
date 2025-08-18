@@ -11,6 +11,7 @@ static std::unique_ptr<World> world;
 
 
 void Engine::Loop(){
+    LOGI("STARTING ENGINE THREAD");
     //Wait for the signal to init Open GL
     //Init the Engine
 	Init();
