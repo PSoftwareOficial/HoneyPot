@@ -56,7 +56,7 @@ void main()
 }
 )";
 
-
+/*
 static const char* textfSrc = R"(#version 320 es
 precision mediump float;
 
@@ -67,6 +67,18 @@ out vec4 fragColor;
 
 void main() {
     fragColor = texture(utexAtlas, fragUV);
+}
+)";*/
+static const char* textfSrc = R"(#version 320 es
+precision mediump float;
+
+in vec2 fragUV;  // Receive the UV from the vertex shader
+
+uniform sampler2D utexAtlas;  // Texture atlas containing all the characters
+out vec4 fragColor;
+
+void main() {
+    fragColor = vec4(0.5,0.5,0.5,1.0);
 }
 )";
 
@@ -130,7 +142,7 @@ void TextRenderer::InitGL(){
         if(GetTexture("images/glyphAtlasTest.png",tex)){
             glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex.width, tex.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tex.tex.get());
             GLCheck("glBufferData GlyphAtlas");
-            LOGI("TEXT RENDERER LOADED TEXTURE ATLAS");
+            LOGI("TEXT RENDERER LOADED TEXTURE ATLAS: " + std::to_string(tex.width) + " " + std::to_string(tex.height));
         }
 
         // Set texture parameters — very important!
