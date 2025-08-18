@@ -1,7 +1,7 @@
 #include "text.h"
 #include "../../utilities/AssetIO/API.h"
 
-static const char* textvSrc = R"(#version 320 es
+/*static const char* textvSrc = R"(#version 320 es
 #define ATLAS_NUM_X 16
 #define ATLAS_NUM_Y 6
 #define CHAR_SIZE_X 0.0625
@@ -32,6 +32,27 @@ void main()
 
     // Output the final position of the quad
     gl_Position = vec4(finalPos, 0.0, 1.0);
+}
+)";*/
+static const char* textvSrc = R"(#version 320 es
+precision mediump float;
+
+layout(location = 0) in vec2 aPos;        // Quad vertex position
+layout(location = 1) in vec2 aTexCoord;   // Quad texture coordinates
+layout(location = 2) in vec2 instancePos; // Position of the character (per-instance)
+layout(location = 3) in int instanceIndex; // Index of the character in the texture atlas (per-instance)
+
+out vec2 fragUV; // UV to pass to fragment shader
+
+uniform vec2 instanceSize; // Size of all characters (constant for the whole batch)
+
+void main()
+{
+    // Calculate the UV coordinates for the character in the atlas
+    fragUV = aTexCoord;
+
+    // Output the final position of the quad
+    gl_Position = vec4(aPos, 0.0, 1.0);
 }
 )";
 
