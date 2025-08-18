@@ -21,6 +21,7 @@ const char* vertexShaderSource = R"(#version 320 es
     out vec2 UV;
 
     void main() {
+        UV = aTexCoord;
         gl_Position = vec4(aPos, 0.0, 1.0);
     })";
 
