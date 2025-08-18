@@ -58,7 +58,7 @@ LOCAL_LDFLAGS := -u ANativeActivity_onCreate
 
 LOCAL_C_INCLUDES := \
     $(NDK_ROOT)/sources/android/native_app_glue \
-    ../app/src/main/cpp/rendering/freetype/include \
-    ../app/src/main/cpp/rendering/freetype/src
+    $(LOCAL_PATH)/../app/src/main/cpp/rendering/freetype/include \
+    $(LOCAL_PATH)/../app/src/main/cpp/rendering/freetype/src
 
 include $(BUILD_SHARED_LIBRARY)
