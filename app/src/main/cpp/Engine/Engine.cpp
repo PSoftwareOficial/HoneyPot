@@ -7,11 +7,11 @@
 #include "AndroidFunctions.h"
 
 
-static Enginestd::atomic<bool> Engine::bRun = false;
-static std::atomic<bool> Engine::bRender = false;
-static std::atomic<bool> Engine::bDestroy = false;
-static std::thread Engine::tRun;
-static Engine* Engine::engine = nullptr;
-static struct android_app* Engine::app;
-static OpenGLEngine Engine::openGLEngine;
-static TS_RB<InputEvent,64> Engine::touchEvents;
+std::atomic<bool> Engine::bRun = false;
+std::atomic<bool> Engine::bRender = false;
+std::atomic<bool> Engine::bDestroy = false;
+std::thread Engine::tRun;
+Engine* Engine::engine = nullptr;
+struct android_app* Engine::app;
+OpenGLEngine Engine::openGLEngine;
+TS_RB<Engine::InputEvent,64> Engine::touchEvents;

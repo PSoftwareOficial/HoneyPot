@@ -6,7 +6,7 @@
 void Engine::process_CMD(struct android_app* app, int32_t cmd){
 	switch (cmd) {
         case APP_CMD_START:
-            Engine::tRun = std::thread(Engine::engine->Loop());
+            Engine::tRun = std::thread(Engine::engine->Loop);
             break;
         case APP_CMD_INIT_WINDOW:
             Engine::bRender = true;  // set up EGL/Vulkan and begin rendering
@@ -46,7 +46,7 @@ void Engine::process_CMD(struct android_app* app, int32_t cmd){
     }
 }
 
-static int32_t process_INPUT(struct android_app* app, struct AInputEvent* event){
+static int32_t Engine::process_INPUT(struct android_app* app, struct AInputEvent* event){
 	// This function will be set in app->onInputEvent
     int eventType = AInputEvent_getType(event);
 
