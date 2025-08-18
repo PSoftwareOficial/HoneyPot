@@ -12,36 +12,6 @@ LOCAL_EXPORT_C_INCLUDES := $(NDK_ROOT)/sources/android/native_app_glue
 include $(BUILD_STATIC_LIBRARY)
 
 # -------------------------------
-# Build FreeType as a static library
-# -------------------------------
-include $(CLEAR_VARS)
-
-LOCAL_MODULE := freetype
-
-# List the necessary source files for FreeType
-LOCAL_SRC_FILES := \
-    ../app/src/main/cpp/rendering/freetype/src/autofit/autofit.c \
-    ../app/src/main/cpp/rendering/freetype/src/base/ftbase.c \
-    ../app/src/main/cpp/rendering/freetype/src/base/ftbitmap.c \
-    ../app/src/main/cpp/rendering/freetype/src/base/ftglyph.c \
-    ../app/src/main/cpp/rendering/freetype/src/base/ftinit.c \
-    ../app/src/main/cpp/rendering/freetype/src/base/ftsystem.c \
-    ../app/src/main/cpp/rendering/freetype/src/smooth/ftsmooth.c \
-    ../app/src/main/cpp/rendering/freetype/src/truetype/truetype.c \
-    ../app/src/main/cpp/rendering/freetype/src/raster/raster.c \
-    ../app/src/main/cpp/rendering/freetype/src/cache/ftcache.c
-
-# Include paths for headers
-LOCAL_C_INCLUDES := \
-    $(LOCAL_PATH)/../app/src/main/cpp/rendering/freetype/include \
-    $(LOCAL_PATH)/../app/src/main/cpp/rendering/freetype/src
-
-# Compiler flags (optional debugging)
-LOCAL_CFLAGS := -DDEBUG -Wall -Wno-unused-function -Wno-unused-variable
-
-include $(BUILD_STATIC_LIBRARY)
-
-# -------------------------------
 # Build main shared library
 # -------------------------------
 include $(CLEAR_VARS)
@@ -56,14 +26,12 @@ LOCAL_SRC_FILES := \
 LOCAL_CFLAGS := -Wall -Wno-unused-function -Wno-unused-variable
 LOCAL_CPPFLAGS := -std=gnu++17
 LOCAL_LDLIBS := -llog -landroid -lEGL -lGLESv3
-LOCAL_STATIC_LIBRARIES := native_app_glue freetype
+LOCAL_STATIC_LIBRARIES := native_app_glue
 
 # Workaround to export ANativeActivity_onCreate
 LOCAL_LDFLAGS := -u ANativeActivity_onCreate
 
 LOCAL_C_INCLUDES := \
-    $(NDK_ROOT)/sources/android/native_app_glue \
-    $(LOCAL_PATH)/../app/src/main/cpp/rendering/freetype/include \
-    $(LOCAL_PATH)/../app/src/main/cpp/rendering/freetype/src
+    $(NDK_ROOT)/sources/android/native_app_glue
 
 include $(BUILD_SHARED_LIBRARY)
