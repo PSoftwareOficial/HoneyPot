@@ -5,16 +5,21 @@
 
 
 // Vertex data for a square
-GLfloat vertices[] = {
-    -0.5f, -0.5f,  // Bottom-left
-     0.5f, -0.5f,  // Bottom-right
-     0.5f,  0.5f,  // Top-right
-    -0.5f,  0.5f,   // Top-left
-};
+float vertices[] = {
+        // positions    // texture coords
+        -0.5f, -0.5f,   0.0f, 0.0f,
+        0.5f, -0.5f,   1.0f, 0.0f,
+        0.5f,  0.5f,   1.0f, 1.0f,
+        -0.5f,  0.5f,   0.0f, 1.0f
+    };
 
 // Vertex and fragment shader source code
 const char* vertexShaderSource = R"(#version 320 es
     layout(location = 0) in vec2 aPos;
+    layout(location = 1) in vec2 aTexCoord;   // Quad texture coordinates
+
+    out vec2 UV;
+
     void main() {
         gl_Position = vec4(aPos, 0.0, 1.0);
     })";
@@ -22,10 +27,13 @@ const char* vertexShaderSource = R"(#version 320 es
 const char* fragmentShaderSource = R"(#version 320 es
     
     precision mediump float;
+    in vec2 UV;
     out vec4 FragColor;
 
+    uniform sampler2D uTexAtlas;  // Texture atlas containing all the characters
+
     void main() {
-        FragColor = vec4(1.0, 0.0, 0.0, 1.0); // Red color
+        FragColor = texture(uTexAtlas, UV);
     })";
 
 void TextRenderer::InitGL(){
@@ -42,10 +50,29 @@ void TextRenderer::InitGL(){
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
 
     // Set vertex attribute pointers
-    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 2 * sizeof(GLfloat), (GLvoid*)0);
+    glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLvoid*)0);
     glEnableVertexAttribArray(0);
+    // Vertex Texture Coordinate Attribute
+    glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(sizeof(float) * 2));
+    glEnableVertexAttribArray(1);
 
     glBindVertexArray(0); // Unbind VAO
+
+
+    glGenTextures(1, &TEX);
+    glBindTexture(GL_TEXTURE_2D, TEX);
+    texture2D tex;
+    if(GetTexture("images/glyphAtlasTest.png",tex)){
+        glTexImage2D(GL_TEXTURE_2D, 0, GL_RGBA, tex.width, tex.height, 0, GL_RGBA, GL_UNSIGNED_BYTE, tex.tex.get());
+        GLCheck("glBufferData GlyphAtlas");
+        LOGI("TEXT RENDERER LOADED TEXTURE ATLAS: " + std::to_string(tex.width) + " " + std::to_string(tex.height));
+    }
+
+    // Set texture parameters — very important!
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
 
 }
 
@@ -58,6 +85,11 @@ void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
         // Draw the square
         glBindVertexArray(VAO);
         GLCheck("Setting VAO");
+
+        glActiveTexture(GL_TEXTURE0);
+        glBindTexture(GL_TEXTURE_2D, TEX);
+        glUniform1i(glGetUniformLocation(SHADER.program, "uTexAtlas"), 0);  // Set uniform to texture unit 0
+
         glDrawArrays(GL_TRIANGLE_FAN, 0, 4);  // Starting from vertex 0, drawing 4 vertices
         GLCheck("Drawing Elements");
         glBindVertexArray(0);
