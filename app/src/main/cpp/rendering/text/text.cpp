@@ -12,12 +12,6 @@ GLfloat vertices[] = {
     -0.5f,  0.5f, 0.0f   // Top-left
 };
 
-// Index data for the square (two triangles)
-GLuint indices[] = {
-    0, 1, 2,  // First triangle
-    2, 3, 0   // Second triangle
-};
-
 // Vertex and fragment shader source code
 const char* vertexShaderSource = R"(#version 320 core
     layout(location = 0) in vec3 aPos;
@@ -33,8 +27,6 @@ const char* fragmentShaderSource = R"(#version 320 core
 
 void TextRenderer::InitGL(){
     SHADER.Init(vertexShaderSource, fragmentShaderSource);
-    glUseProgram(SHADER.program);
-    GLCheck("Setting Program");
 
     // Generate buffers
     glGenVertexArrays(1, &VAO);
