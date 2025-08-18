@@ -16,6 +16,6 @@ class World : public Object {
     virtual int Draw() {uiManager.Draw();return 0;}
 
 
-    virtual ~World() override;
+    virtual ~World() {};
     UIManager uiManager;
 }; 
