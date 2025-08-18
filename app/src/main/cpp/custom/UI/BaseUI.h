@@ -32,7 +32,7 @@ class BaseUI : public Object {
     virtual void Init(std::shared_ptr<BaseUI> parentParam,const UI_G_Data& gDataParam) {
         parent = parentParam;
         //Position always in respect to parent
-        gData.pos = gDataParam.pos * (parent ? (parent->gData.size / 2.0f) : V2D{1.0f, 1.0f}) + parent->gData.pos;
+        gData.pos = gDataParam.pos * (parent ? (parent->gData.size / 2.0f) : V2D{1.0f, 1.0f}) + (parent ? (parent->gData.pos) : V2D{0.0f, 0.0f});
         gData.size = gDataParam.size * (parent ? (parent->gData.size / 2.0f) : V2D{1.0f, 1.0f});
     };
 
