@@ -1,6 +1,93 @@
 #include "text.h"
 #include "../../utilities/AssetIO/API.h"
 
+
+
+
+// Vertex data for a square
+GLfloat vertices[] = {
+    -0.5f, -0.5f, 0.0f,  // Bottom-left
+     0.5f, -0.5f, 0.0f,  // Bottom-right
+     0.5f,  0.5f, 0.0f,  // Top-right
+    -0.5f,  0.5f, 0.0f   // Top-left
+};
+
+// Index data for the square (two triangles)
+GLuint indices[] = {
+    0, 1, 2,  // First triangle
+    2, 3, 0   // Second triangle
+};
+
+// Vertex and fragment shader source code
+const char* vertexShaderSource = R"(
+    #version 330 core
+    layout(location = 0) in vec3 aPos;
+    void main() {
+        gl_Position = vec4(aPos, 1.0);
+    })";
+
+const char* fragmentShaderSource = R"(
+    #version 330 core
+    out vec4 FragColor;
+    void main() {
+        FragColor = vec4(1.0, 0.0, 0.0, 1.0); // Red color
+    })";
+
+void TextRenderer::InitGL(){
+    SHADER.Init(textvSrc, textfSrc);
+    glUseProgram(SHADER.program);
+    GLCheck("Setting Program");
+
+    glGenVertexArrays(1, &VAO);
+    glGenBuffers(1, &VBO);
+    glGenBuffers(1, &EBO);
+
+    glBindVertexArray(VAO);
+
+    glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
+
+    // Position attribute
+    glVertexAttribPointer(0, 3, GL_FLOAT, GL_FALSE, 3 * sizeof(GLfloat), (GLvoid*)0);
+    glEnableVertexAttribArray(0);
+
+    // Unbind VAO
+    glBindVertexArray(0);
+
+}
+
+
+void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
+
+    // Use the shader program
+        glUseProgram(SHADER.program);
+        GLCheck("Setting Program");
+        // Draw the square
+        glBindVertexArray(VAO);
+        GLCheck("Setting VAO");
+        glDrawElements(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0);
+        GLCheck("Drawing Elements");
+        glBindVertexArray(0);
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 /*static const char* textvSrc = R"(#version 320 es
 #define ATLAS_NUM_X 16
 #define ATLAS_NUM_Y 6
@@ -33,7 +120,7 @@ void main()
     // Output the final position of the quad
     gl_Position = vec4(finalPos, 0.0, 1.0);
 }
-)";*/
+)";
 static const char* textvSrc = R"(#version 320 es
 precision mediump float;
 
@@ -46,7 +133,7 @@ void main()
 }
 )";
 
-/*
+
 static const char* textfSrc = R"(#version 320 es
 precision mediump float;
 
@@ -58,7 +145,7 @@ out vec4 fragColor;
 void main() {
     fragColor = texture(utexAtlas, fragUV);
 }
-)";*/
+)";
 static const char* textfSrc = R"(#version 320 es
 precision mediump float;
 
@@ -75,19 +162,12 @@ void TextRenderer::InitGL(){
     glUseProgram(SHADER.program);
 
     // Set up the quad geometry (a single quad per character)
-    /*float quadVertices[] = {
+    float quadVertices[] = {
         // positions    // texture coords
         -0.5f, -0.5f,   0.0f, 0.0f,
         0.5f, -0.5f,   1.0f, 0.0f,
         0.5f,  0.5f,   1.0f, 1.0f,
         -0.5f,  0.5f,   0.0f, 1.0f
-    };*/
-    float quadVertices[] = {
-        // positions    // texture coords
-        -0.5f, -0.5f,  
-        0.5f, -0.5f,   
-        0.5f,  0.5f,  
-        -0.5f,  0.5f,
     };
 
     // Set up the VAO, VBO, and EBO for instanced rendering
@@ -115,7 +195,7 @@ void TextRenderer::InitGL(){
     unsigned int indices[] = { 0, 1, 2, 0, 2, 3 };
     glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
-    /*// Bind position VBO (per-instance)
+    // Bind position VBO (per-instance)
     glBindBuffer(GL_ARRAY_BUFFER, instPosVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(instPos), instPos, GL_DYNAMIC_DRAW);
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(V2D), (void*)0);
@@ -144,7 +224,7 @@ void TextRenderer::InitGL(){
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
         glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
-    */
+    
 }
 
 
@@ -192,3 +272,4 @@ void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
 
 
 
+*/
