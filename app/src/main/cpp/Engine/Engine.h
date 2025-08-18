@@ -4,6 +4,7 @@
 #include <cstdint>
 #include "../rendering/core_include.h"
 #include "../utilities/math/structs/vxd.h"
+#include "../utilities/Buffer/Buffer.h"
 
 
 
@@ -32,7 +33,7 @@ private:
 
 
     //Is the engine currently rendering
-    std::atomic<bool> bRendering
+    std::atomic<bool> bRendering;
 
 public:
     static void process_CMD(struct android_app* app, int32_t cmd);

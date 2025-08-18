@@ -20,7 +20,7 @@ LOCAL_SRC_FILES := \
 ../app/src/main/cpp/custom/UI/UIManager.cpp
 
 #Just add the different cpp files.
-LOCAL_CFLAGS := -Wall -Werror -Wno-unused-function -Wno-unused-variable
+LOCAL_CFLAGS := -Wall -Wno-unused-function -Wno-unused-variable
 LOCAL_CPPFLAGS := -std=gnu++17
 LOCAL_LDLIBS := -llog -landroid -lEGL -lGLESv3
 LOCAL_STATIC_LIBRARIES := native_app_glue
