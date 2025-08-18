@@ -123,6 +123,7 @@ void TextRenderer::UpdateData(){
 void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
 
     V2D currPos = Pos;
+    int instI = 0;
     for(uint16_t i = 0; i < text.size() && instI < 100; ++i){
         if(text[i] == '\n'){
             currPos.y += TextSize.y;
@@ -141,7 +142,7 @@ void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, TEX);  // Assuming `atlasTextureID` is the texture handle of your atlas.
     glUniform1i(glGetUniformLocation(SHADER.program, "utexAtlas"), 0);  // Set uniform to texture unit 0
-    glUniform2f(glGetUniformLocation(shaderProgram, "instanceSize"), TextSize.x, TextSize.y);  // Constant size for all characters
+    glUniform2f(glGetUniformLocation(SHADER.program, "instanceSize"), TextSize.x, TextSize.y);  // Constant size for all characters
 
     // Render the characters
     glDrawElementsInstanced(GL_TRIANGLES, 6, GL_UNSIGNED_INT, 0, instI);
