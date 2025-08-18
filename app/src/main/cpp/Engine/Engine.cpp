@@ -22,7 +22,7 @@ TS_RB<Engine::InputEvent,64> Engine::touchEvents;
 
 
 
-
+static Engine engine;
 
 extern "C" void android_main(struct android_app* state) {
 	Engine::engine = &engine;
