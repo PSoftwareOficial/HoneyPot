@@ -6,7 +6,7 @@
 #include "../Engine/Engine.h"
 #include "UI/UIManager.h"
 #include "Object.h"
-#include "../../rendering/core_include.h"
+#include "../rendering/core_include.h"
 
 
 class World : public Object {
