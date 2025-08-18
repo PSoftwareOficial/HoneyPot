@@ -143,10 +143,14 @@ void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
             ++instI;
         }
     }
-
-
+    
     glUseProgram(SHADER.program);
     GLCheck("Setting Program TEXT");
+
+    UpdateData();
+
+    
+    
     glActiveTexture(GL_TEXTURE0);
     glBindTexture(GL_TEXTURE_2D, TEX);  // Assuming `atlasTextureID` is the texture handle of your atlas.
     glUniform1i(glGetUniformLocation(SHADER.program, "utexAtlas"), 0);  // Set uniform to texture unit 0
