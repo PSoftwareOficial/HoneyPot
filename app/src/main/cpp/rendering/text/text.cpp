@@ -97,10 +97,6 @@ void TextRenderer::InitGL(){
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(quadVertices), quadVertices, GL_STATIC_DRAW);
 
-    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
-    unsigned int indices[] = { 0, 1, 2, 0, 2, 3 };
-    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
-
     // Vertex Position Attribute
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, sizeof(quadVertices), (void*)0);
     glEnableVertexAttribArray(0);
@@ -109,6 +105,9 @@ void TextRenderer::InitGL(){
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, sizeof(quadVertices), (void*)(sizeof(float) * 2));
     glEnableVertexAttribArray(1);
 
+    glBindBuffer(GL_ELEMENT_ARRAY_BUFFER, EBO);
+    unsigned int indices[] = { 0, 1, 2, 0, 2, 3 };
+    glBufferData(GL_ELEMENT_ARRAY_BUFFER, sizeof(indices), indices, GL_STATIC_DRAW);
 
     // Bind position VBO (per-instance)
     glBindBuffer(GL_ARRAY_BUFFER, instPosVBO);
