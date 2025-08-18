@@ -136,8 +136,6 @@ void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
     }
 
 
-
-    LOG("CHECK EXEcution");
     glUseProgram(SHADER.program);
     GLCheck("Setting Program TEXT");
     glActiveTexture(GL_TEXTURE0);
