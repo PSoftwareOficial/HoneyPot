@@ -66,8 +66,8 @@ class BaseUI : public Object {
     //Base touching mechanism
     virtual void Touch(V2D coord){
         //Check if this container was touched
-        if(coord.x > pos.x - size.x/2.0f && coord.x < pos.x + size.x/2.0f
-        && coord.y > pos.y - size.y/2.0f && coord.y < pos.y + size.y/2.0f
+        if(coord.x > gData.pos.x - gData.size.x/2.0f && coord.x < gData.pos.x + gData.size.x/2.0f
+        && coord.y > gData.pos.y - gData.size.y/2.0f && coord.y < gData.pos.y + gData.size.y/2.0f
         ){
             for(auto &e : children){
                 e->Touch(coord);
@@ -82,7 +82,7 @@ class BaseUI : public Object {
         }
 
         for(auto &e : children){
-                e->Draw(coord);
+                e->Draw();
             }
     }
     virtual ~BaseUI() {};
@@ -102,11 +102,10 @@ class BaseUI : public Object {
             gData.pos + V2D{ + gData.size.x/2.0f, - gData.size.y/2.0f} , 
             gData.pos + gData.size/2.0f};
 
-            const int nElem = 7;
-            for(uint8_t i = 0; i < 4; ++i){
-                data[i * nElem] = vertices[i].x;data[i * nElem + 1] = vertices[i].y;data[i * nElem + 2] = 0.0;
-                data[i * nElem + 3] = glData.color.x / 255.0f;data[i * nElem + 4] = glData.color.y / 255.0f;data[i * nElem + 5] = glData.color.z / 255.0f;data[i * nElem + 6] = glData.alpha;
-            }
+        const int nElem = 7;
+        for(uint8_t i = 0; i < 4; ++i){
+            data[i * nElem] = vertices[i].x;data[i * nElem + 1] = vertices[i].y;data[i * nElem + 2] = 0.0;
+            data[i * nElem + 3] = glData.color.x / 255.0f;data[i * nElem + 4] = glData.color.y / 255.0f;data[i * nElem + 5] = glData.color.z / 255.0f;data[i * nElem + 6] = glData.alpha;
         }
     }
 };
