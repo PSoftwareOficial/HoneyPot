@@ -6,15 +6,16 @@
 void Engine::process_CMD(struct android_app* app, int32_t cmd){
 	switch (cmd) {
         case APP_CMD_START:
+            bRun = true;
             break;
         case APP_CMD_INIT_WINDOW:
             Engine::bRender = true;  // set up EGL/Vulkan and begin rendering
-            bRun = true;
+            LOGI("CMD: Render true");
             break;
 
         case APP_CMD_TERM_WINDOW:
             Engine::bRender = false; // stop rendering and free window-specific resources
-            bRun = false;
+            LOGI("CMD: Render false");
             break;
 
         case APP_CMD_GAINED_FOCUS:
