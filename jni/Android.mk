@@ -30,8 +30,8 @@ LOCAL_SRC_FILES := \
     ../app/src/main/cpp/rendering/freetype/src/cache/ftcache.c
 
 LOCAL_C_INCLUDES := \
-    ../app/src/main/cpp/rendering/freetype/include \
-    ../app/src/main/cpp/rendering/freetype/src
+    $(LOCAL_PATH)/../app/src/main/cpp/rendering/freetype/include \
+    $(LOCAL_PATH)/../app/src/main/cpp/rendering/freetype/src
 
 LOCAL_CFLAGS := -Wall -Wno-unused-function -Wno-unused-variable
 
