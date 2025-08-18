@@ -52,7 +52,7 @@ void main()
     fragUV = aTexCoord;
 
     // Output the final position of the quad
-    gl_Position = vec4(aPos, 0.0, 1.0);
+    gl_Position = vec4(aPos.xy, 0.0, 1.0);
 }
 )";
 
@@ -78,7 +78,7 @@ uniform sampler2D utexAtlas;  // Texture atlas containing all the characters
 out vec4 fragColor;
 
 void main() {
-    fragColor = vec4(0.5,0.5,0.5,1.0);
+    fragColor = vec4(1.0,0.0,0.0,1.0);
 }
 )";
 
