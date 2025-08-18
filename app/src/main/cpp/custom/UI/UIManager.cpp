@@ -11,9 +11,11 @@ void UIManager::SETUP(){
 
     auto button1 = std::make_shared<Button>();
     button1->Init(parent,{V2D{0.0f,0.25f},V2D{1.0f,0.5f}}, {V3Du8{50,100,0}, 1.0f});
+    parent->children.push_back(button1);
 
     auto button12 = std::make_shared<Button>();
     button12->Init(parent,{V2D{0.0f,-0.25f},V2D{1.0f,0.5f}}, {V3Du8{50,100,0}, 1.0f});
+    parent->children.push_back(button12);
 
 }
 
