@@ -53,6 +53,13 @@ static const char* fragmentShaderSrc = R"(#version 320 es
 
    int UIManager::Init() 
     {
+        SETUP();
+        return 0;
+    }
+
+
+    int UIManager::InitGL()
+    {   
         SHADER.Init(vertexShaderSrc,fragmentShaderSrc);
         SETUP();
         return 0;
