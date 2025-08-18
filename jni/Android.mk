@@ -33,8 +33,8 @@ LOCAL_SRC_FILES := \
 
 # Include paths for headers
 LOCAL_C_INCLUDES := \
-    $(LOCAL_PATH)/../src/main/cpp/rendering/freetype/include \
-    $(LOCAL_PATH)/../src/main/cpp/rendering/freetype/src
+    $(LOCAL_PATH)/../app/src/main/cpp/rendering/freetype/include \
+    $(LOCAL_PATH)/../app/src/main/cpp/rendering/freetype/src
 
 # Compiler flags (optional debugging)
 LOCAL_CFLAGS := -DDEBUG -Wall -Wno-unused-function -Wno-unused-variable
