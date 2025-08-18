@@ -14,7 +14,7 @@ include $(CLEAR_VARS)
 
 LOCAL_MODULE := baseNativeLib
 LOCAL_SRC_FILES := \
-../app/src/main/cpp/Engine.cpp \
+../app/src/main/cpp/Engine/Engine.cpp \
 ../app/src/main/cpp/custom/UI/Button.cpp \
 ../app/src/main/cpp/custom/UI/Container.cpp \
 ../app/src/main/cpp/custom/UI/UIManager.cpp

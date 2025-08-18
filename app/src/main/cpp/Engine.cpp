@@ -65,9 +65,18 @@ int Engine::Init(){
     return 0;
 }
 
+int ResumeGL(){
+
+}
+
+int PauseGL() {
+	eglDestroySurface(Engine::openGLEngine.display, Engine::openGLEngine.surface);
+	return 0;
+}
+
 int Engine::Destroy(){
 	LOG("Ending Engine");
-	eglDestroySurface(Engine::openGLEngine.display, Engine::openGLEngine.surface);
+	EndGL();
 	eglDestroyContext(Engine::openGLEngine.display, Engine::openGLEngine.context);
 	eglTerminate(Engine::openGLEngine.display);
 	LOG("Engine Destoryed");
@@ -141,6 +150,7 @@ int32_t Engine::process_INPUT(struct android_app* app, struct AInputEvent* event
 Engine* Engine::engine = nullptr;
 std::atomic<bool> Engine::bRun;
 std::atomic<bool> Engine::bDestroy;
+std::atomic<bool> Engine::bStarted = false;
 std::thread Engine::tRun;
 android_app* Engine::app = nullptr;
 OpenGLEngine Engine::openGLEngine;

@@ -6,16 +6,16 @@
 
 void UIManager::SETUP(){
 
-    auto container = std::make_shared<Container>();
-    container->Init(V2D{0.0f,0.0f},V2D{1.0f,1.0f}, V3Du8{0,255,0}, 0.6f);
+    auto container = std::make_shared<BaseUI>();
+    container->Init({V2D{0.0f,0.0f},V2D{1.0f,1.0f}}, {V3Du8{0,255,0}, 0.6f});
     parent = container;
 
     auto button1 = std::make_shared<Button>();
-    button1->Init(V2D{0.0f,0.25f},V2D{1.0f,0.5f}, V3Du8{50,100,0});
+    button1->Init({V2D{0.0f,0.25f},V2D{1.0f,0.5f}}, {V3Du8{50,100,0}, 1.0f});
     parent->children.push_back(button1);
 
     auto button12 = std::make_shared<Button>();
-    button12->Init(V2D{0.0f,-0.25f},V2D{1.0f,0.5f}, V3Du8{50,100,0});
+    button12->Init({V2D{0.0f,-0.25f},V2D{1.0f,0.5f}}, {V3Du8{50,100,0}});
     parent->children.push_back(button12);
 
 }
@@ -56,6 +56,7 @@ static const char* fragmentShaderSrc = R"(#version 320 es
     {
         SHADER.Init(vertexShaderSrc,fragmentShaderSrc);
         SETUP();
+        parent->Init();
     }
 
     void UIManager::Update(){

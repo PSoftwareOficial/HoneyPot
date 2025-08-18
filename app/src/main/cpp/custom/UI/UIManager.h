@@ -7,15 +7,14 @@
 
 
 
-class UIManager{
+class UIManager : public Object {
 public:
-    void Init();
+    virtual void Init() override;
+    virtual void InitGL() override {parent->InitGL()};
+    virtual void Update() override;
+    virtual void Draw() override;
 
-    void Update();
-
-    void Draw();
     shader_prog SHADER;
-
     std::shared_ptr<BaseUI> parent;
 
     void SETUP();

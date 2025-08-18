@@ -2,30 +2,19 @@
 #include "../utilities/AssetIO/API.h"
 #include "../rendering/2DRenderer/2DRenderer.h"
 #include <vector>
-#include "../Engine.h"
+#include "../Engine/Engine.h"
 #include "UI/UIManager.h"
-
-static UIManager uiManager;
-void InitWorld(){
-    LOG("Init World");
-    uiManager.Init();
-
-
-    LOG("Finished Initializing World");
-}
+#include "Object.h"
 
 
 
-void UpdateWorld(uint64_t uElapsedMicros, uint64_t uTotalMicros) {
-	//Update Everything
-    uiManager.Update();
-
-    uiManager.Draw();
-}
-
-
-void StopWorld() {
+class World : public Object {
+    virtual int Init() { UIManager.Init();return 0;}
+    virtual int InitGL() {UIManager.InitGL();return 0;}
+    virtual int Update(uint64_t EuS, uint64_t TuS) {UIManager.Update();return 0;}
+    virtual int Draw() {UIManager.Draw();return 0;}
 
 
 
-}
+    UIManager uiManager;
+}; 

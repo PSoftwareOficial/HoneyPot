@@ -1,0 +1,158 @@
+#include "Engine.h"
+#include <vector>
+
+#include "../rendering/core_include.h"
+#include "../custom/API.h"
+#include "../utilities/log/API.h"
+
+
+//World pointer
+static std::unique_ptr<World> world;
+
+
+void Engine::Loop(){
+    //Init the Engine
+	Init();
+    InitGL();
+    bStarted = true;
+	
+
+    // Save the starting time point
+	auto timeStartEngine = std::chrono::system_clock::now();
+    //Ensure no destruction before the time
+    while(!bDestroy.load()){
+        auto timePrevFrame = std::chrono::system_clock::now();
+        //Engine runs
+        while(bRun.load()){
+            //Engine renders?
+            if(bRender.load()){
+                if(!bRendering.load()){
+                    //There was a change, implement it
+                    ResumeGL();
+                }
+
+                //For now, only update when rendering, but allow different options in the future. To be implemented with the
+                //bRender atomic
+                auto timeFrame = std::chrono::system_clock::now();
+                Update(std::chrono::duration<uint64_t, std::micro>(timeFrame - timePrevFrame).count(),std::chrono::duration<uint64_t, std::micro>(timeFrame - timeStartEngine).count());
+                timePrevFrame = timeFrame;
+
+            } else
+                if(bRendering.load()){
+                    //There was a change, implement it
+                    PauseGL();
+                }
+        }
+        //Not destroyed nor running, sleep for 1 seconds to reduce CPU time
+        std::this_thread::sleep_for(std::chrono::milliseconds(1000));
+    }
+
+    //Destory everything
+    EndGL();
+    Destroy();
+
+}
+
+
+
+
+
+
+
+
+
+//Function which starts the complete engine
+int Engine::Init(){
+    LOG("Starting Engine");
+    world = std::make_unique<World>();
+    world->Init();
+    return 0;
+}
+
+static void init_gles(struct android_app* app, EGLDisplay* display, EGLSurface* surface, EGLContext* context){
+	    *display = eglGetDisplay(EGL_DEFAULT_DISPLAY);
+        eglInitialize(*display, NULL, NULL);
+
+       	const EGLint configAttribs[] = {
+        EGL_RENDERABLE_TYPE, EGL_OPENGL_ES3_BIT,
+        EGL_SURFACE_TYPE, EGL_WINDOW_BIT,
+        EGL_BLUE_SIZE, 8,
+        EGL_GREEN_SIZE, 8,
+        EGL_RED_SIZE, 8,
+        EGL_DEPTH_SIZE, 0,
+        EGL_NONE
+    };
+
+        EGLConfig config;
+        EGLint numConfigs;
+        eglChooseConfig(*display, configAttribs, &config, 1, &numConfigs);
+
+        EGLint format;
+        eglGetConfigAttrib(*display, config, EGL_NATIVE_VISUAL_ID, &format);
+        ANativeWindow_setBuffersGeometry(app->window, 0, 0, format);
+
+        *surface = eglCreateWindowSurface(*display, config, app->window, NULL);
+
+        EGLint contextAttribs[] = { EGL_CONTEXT_CLIENT_VERSION, 3, EGL_NONE };
+        *context = eglCreateContext(*display, config, EGL_NO_CONTEXT, contextAttribs);
+
+        eglMakeCurrent(*display, *surface, *surface, *context);
+}
+
+//Function which inits the complete open GL
+int Engine::InitGL(){
+    LOG("Starting Open GL");
+    //Init the GL Engine
+    
+    init_gles(Engine::app, &Engine::openGLEngine.display, &Engine::openGLEngine.surface, &Engine::openGLEngine.context);
+    Engine::openGLEngine.width = ANativeWindow_getWidth(Engine::app->window);
+    Engine::openGLEngine.height = ANativeWindow_getHeight(Engine::app->window);
+    bRendering.store(true);
+    world->InitGL();
+}
+
+
+//Function which updates the complete engine (next frame)
+int Engine::Update(uint64_t EuS, uint64_t TuS){
+    glClearColor(0.0f, 0.0f, 0.0f, 1.0f);
+    glClear(GL_COLOR_BUFFER_BIT);
+
+    world->Update(EuS, TuS);
+
+    world->Draw();
+
+    eglSwapBuffers(Engine::openGLEngine.display, Engine::openGLEngine.surface);
+};
+
+//Function which Resumes GL
+int Engine::ResumeGL(){
+    Engine::openGLEngine.surface = eglCreateWindowSurface(Engine::openGLEngine.display, config, Engine::app->window, NULL);
+    eglMakeCurrent(Engine::openGLEngine.display, Engine::openGLEngine.surface, Engine::openGLEngine.surface, Engine::openGLEngine.context);
+    Engine::openGLEngine.width = ANativeWindow_getWidth(Engine::app->window);
+    Engine::openGLEngine.height = ANativeWindow_getHeight(Engine::app->window);
+    bRendering.store(true);
+    world->ResumeGL();
+}
+
+//Function which Pauses GL for updates
+int Engine::PauseGL(){
+    eglDestroySurface(Engine::openGLEngine.display, Engine::openGLEngine.surface);
+    bRendering.store(false);
+    world->PauseGL();
+}
+
+//Function which ends everything associated with OpenGL
+int Engine::EndGL(){
+    LOGI("Endind Open GL");
+    eglDestroySurface(Engine::openGLEngine.display, Engine::openGLEngine.surface);
+    eglDestroyContext(Engine::openGLEngine.display, Engine::openGLEngine.context);
+    eglTerminate(Engine::openGLEngine.display);
+    world->EndGL();
+}
+
+//Function which destroys the complete Engine.
+int Engine::Destroy(){
+    LOGI("Endind Engine");
+    world->Destroy();
+    world.reset();
+}
