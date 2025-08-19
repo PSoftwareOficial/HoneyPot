@@ -149,7 +149,7 @@ void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
 
         glUniform2f(glGetUniformLocation(SHADER.program, "uCharSize"), TextSize.x, TextSize.y);
 
-        glDrawArrays(GL_TRIANGLE_FAN, 0, 4);  // Starting from vertex 0, drawing 4 vertices
+        glDrawArraysInstanced(GL_TRIANGLE_FAN, 0, 4, instI);  // Starting from vertex 0, drawing 4 vertices
         GLCheck("Drawing Elements");
         glBindVertexArray(0);
 }
