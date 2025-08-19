@@ -37,7 +37,7 @@ const char* vertexShaderSource = R"(#version 320 es
         int col = texIdx % ATLAS_NUM_X;  // Column in the atlas
 
         // Calculate the UV coordinates for the character in the atlas
-        fragUV = aTexCoord * vec2(CHAR_TEX_SIZE_X, CHAR_TEX_SIZE_Y) + vec2(float(col) * CHAR_TEX_SIZE_X, float(row) * CHAR_TEX_SIZE_Y);
+        UV = aTexCoord * vec2(CHAR_TEX_SIZE_X, CHAR_TEX_SIZE_Y) + vec2(float(col) * CHAR_TEX_SIZE_X, float(row) * CHAR_TEX_SIZE_Y);
 
         UV = aTexCoord;
         gl_Position = vec4(charPos + aPos * uCharSize, 0.0, 1.0);
