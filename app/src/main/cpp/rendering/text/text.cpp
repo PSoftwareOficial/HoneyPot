@@ -7,9 +7,9 @@
 // Vertex data for a square
 float vertices[] = {
         // positions    // texture coords
-        -0.5f, -0.5f,   0.0f, 1.0f,
-        0.5f, -0.5f,   1.0f, 1.0f,
-        0.5f,  0.5f,   1.0f, 0.0f,
+        -0.5f, -0.5f,   0.0f, 0.1666666666666667f,
+        0.5f, -0.5f,   0.0625f, 0.1666666666666667f,
+        0.5f,  0.5f,   0.0625f, 0.0f,
         -0.5f,  0.5f,   0.0f, 0.0f
     };
 
