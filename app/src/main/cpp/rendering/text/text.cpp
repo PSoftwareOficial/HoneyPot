@@ -57,52 +57,77 @@ const char* fragmentShaderSource = R"(#version 320 es
 
 void TextRenderer::InitGL(){
     SHADER.Init(vertexShaderSource, fragmentShaderSource);
-
+    GLCheckI();
     // Generate buffers
     glGenVertexArrays(1, &VAO);
+    GLCheckI();
     glGenBuffers(1, &VBO);
+    GLCheckI();
 
     glBindVertexArray(VAO);
+    GLCheckI();
 
     // Upload vertex data to GPU
     glBindBuffer(GL_ARRAY_BUFFER, VBO);
+    GLCheckI();
     glBufferData(GL_ARRAY_BUFFER, sizeof(vertices), vertices, GL_STATIC_DRAW);
+    GLCheckI();
 
     // Set vertex attribute pointers
     glVertexAttribPointer(0, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (GLvoid*)0);
+    GLCheckI();
     glEnableVertexAttribArray(0);
+    GLCheckI();
     // Vertex Texture Coordinate Attribute
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(sizeof(float) * 2));
+    GLCheckI();
     glEnableVertexAttribArray(1);
+    GLCheckI();
 
 
 
     // Bind position VBO (per-instance)
     glBindBuffer(GL_ARRAY_BUFFER, instPosVBO);
+    GLCheckI();
     glBufferData(GL_ARRAY_BUFFER, sizeof(instPos), instPos, GL_DYNAMIC_DRAW);
+    GLCheckI();
     glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(V2D), (void*)0);
+    GLCheckI();
     glEnableVertexAttribArray(2);
+    GLCheckI();
     glVertexAttribDivisor(2, 1); // Instanced attribute
 
     // Bind index VBO (per-instance)
     glBindBuffer(GL_ARRAY_BUFFER, instIdxVBO);
+    GLCheckI();
     glBufferData(GL_ARRAY_BUFFER, sizeof(instIdx), instIdx, GL_DYNAMIC_DRAW);
+    GLCheckI();
     glVertexAttribPointer(3, 1, GL_INT, GL_FALSE, sizeof(int), (void*)0);
+    GLCheckI();
     glEnableVertexAttribArray(3);
+    GLCheckI();
     glVertexAttribDivisor(3, 1); // Instanced attribute
+    GLCheckI();
 
 
     glBindVertexArray(0); // Unbind VAO
+    GLCheckI();
 
 
     glGenTextures(1, &TEX);
+    GLCheckI();
+
     glBindTexture(GL_TEXTURE_2D, TEX);
     GLCheck("BindTexture GlyphAtlas");
     // Set texture parameters — very important!
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MIN_FILTER, GL_LINEAR);
+    GLCheckI();
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_MAG_FILTER, GL_LINEAR);
+    GLCheckI();
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_S, GL_CLAMP_TO_EDGE);
+    GLCheckI();
     glTexParameteri(GL_TEXTURE_2D, GL_TEXTURE_WRAP_T, GL_CLAMP_TO_EDGE);
+    GLCheckI();
 
 
     texture2D tex;

@@ -33,3 +33,8 @@ struct texture2D {
     GLenum err = glGetError(); \
     if (err != GL_NO_ERROR) \
         LOG(STRINGIZE(__FILE__) + std::string(" : ") + STRINGIZE(__LINE__) + std::string(": GL ERROR ") + std::to_string(err) + " at " + msg );}
+
+#define GLCheckI() { \
+    GLenum err = glGetError(); \
+    if (err != GL_NO_ERROR) \
+        LOG(STRINGIZE(__FILE__) + std::string(" : ") + STRINGIZE(__LINE__) + std::string(": GL ERROR ") + std::to_string(err));}
