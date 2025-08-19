@@ -115,9 +115,30 @@ void TextRenderer::InitGL(){
 
 void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
 
+
+    V2D currPos = Pos;
+    int instI = 0;
+    for(uint16_t i = 0; i < text.size() && instI < 100; ++i){
+        if(text[i] == '\n'){
+            currPos.y += TextSize.y;
+        } else if( text[i] < 96 && text[i] > 32){
+            instIdx[instI] = text[i] - 32;
+            instPos[instI] = currPos;
+            currPos.x += TextSize.x;
+            ++instI;
+        }
+    }
+
+    
+
+
+
+
     // Use the shader program
         glUseProgram(SHADER.program);
         GLCheck("Setting Program");
+
+        UpdateData();
         // Draw the square
         glBindVertexArray(VAO);
         GLCheck("Setting VAO");
@@ -136,7 +157,14 @@ void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
 
 
 
+void TextRenderer::UpdateData(){
+    // Bind index VBO (per-instance)
+    glBindBuffer(GL_ARRAY_BUFFER, instIdxVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(instIdx), instIdx, GL_DYNAMIC_DRAW);
 
+    glBindBuffer(GL_ARRAY_BUFFER, instPosVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(instPos), instPos, GL_DYNAMIC_DRAW);
+}
 
 
 
