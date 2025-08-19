@@ -151,6 +151,7 @@ void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
     for(uint16_t i = 0; i < text.size() && instI < 100; ++i){
         if(text[i] == '\n'){
             currPos.y += TextSize.y;
+            currPos.x = Pos.x;
         } else if( text[i] < 127 && text[i] > 31){
             instIdx[instI] = text[i] - 32;
             instPos[instI] = currPos;
