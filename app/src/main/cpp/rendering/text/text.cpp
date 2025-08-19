@@ -26,7 +26,7 @@ const char* vertexShaderSource = R"(#version 320 es
     out vec2 UV;
 
 
-    const vec2 CHAR_TEX_SIZE = vec2(0.0625, 0.1666666666666667});
+    const vec2 CHAR_TEX_SIZE = vec2(0.0625, 0.1666666666666667);
     const ivec2 ATLAS_NUM = ivec2(16, 6);
 
     void main() {
