@@ -7,22 +7,40 @@
 // Vertex data for a square
 float vertices[] = {
         // positions    // texture coords
-        -0.5f, -0.5f,   0.0f, 0.0f,
-        0.5f, -0.5f,   1.0f, 0.0f,
-        0.5f,  0.5f,   1.0f, 1.0f,
-        -0.5f,  0.5f,   0.0f, 1.0f
+        -0.5f, -0.5f,   0.0f, 1.0f,
+        0.5f, -0.5f,   1.0f, 1.0f,
+        0.5f,  0.5f,   1.0f, 0.0f,
+        -0.5f,  0.5f,   0.0f, 0.0f
     };
 
 // Vertex and fragment shader source code
 const char* vertexShaderSource = R"(#version 320 es
     layout(location = 0) in vec2 aPos;
     layout(location = 1) in vec2 aTexCoord;   // Quad texture coordinates
+    layout(location = 2) in vec2 charPos;       //Position of the character
+    layout(location = 3) in int texIdx;         //texture idx, basically the character
+
+
+    uniform vec2 uCharSize; // Size of all characters (constant for the whole batch)
 
     out vec2 UV;
 
+    #define ATLAS_NUM_X 16
+    #define ATLAS_NUM_Y 6
+    #define CHAR_TEX_SIZE_X 0.0625
+    #define CHAR_TEX_SIZE_Y 0.1666666666666667
+
     void main() {
+
+        // Calculate the row and column of the character in the texture atlas
+        int row = texIdx / ATLAS_NUM_X;  // Row in the atlas
+        int col = texIdx % ATLAS_NUM_X;  // Column in the atlas
+
+        // Calculate the UV coordinates for the character in the atlas
+        fragUV = aTexCoord * vec2(CHAR_TEX_SIZE_X, CHAR_TEX_SIZE_Y) + vec2(float(col) * CHAR_TEX_SIZE_X, float(row) * CHAR_TEX_SIZE_Y);
+
         UV = aTexCoord;
-        gl_Position = vec4(aPos, 0.0, 1.0);
+        gl_Position = vec4(charPos + aPos * uCharSize, 0.0, 1.0);
     })";
 
 const char* fragmentShaderSource = R"(#version 320 es
@@ -57,6 +75,23 @@ void TextRenderer::InitGL(){
     glVertexAttribPointer(1, 2, GL_FLOAT, GL_FALSE, 4 * sizeof(float), (void*)(sizeof(float) * 2));
     glEnableVertexAttribArray(1);
 
+
+
+    // Bind position VBO (per-instance)
+    glBindBuffer(GL_ARRAY_BUFFER, instPosVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(instPos), instPos, GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(2, 2, GL_FLOAT, GL_FALSE, sizeof(V2D), (void*)0);
+    glEnableVertexAttribArray(2);
+    glVertexAttribDivisor(2, 1); // Instanced attribute
+
+    // Bind index VBO (per-instance)
+    glBindBuffer(GL_ARRAY_BUFFER, instIdxVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(instIdx), instIdx, GL_DYNAMIC_DRAW);
+    glVertexAttribPointer(3, 1, GL_INT, GL_FALSE, sizeof(int), (void*)0);
+    glEnableVertexAttribArray(3);
+    glVertexAttribDivisor(3, 1); // Instanced attribute
+
+
     glBindVertexArray(0); // Unbind VAO
 
 
@@ -90,6 +125,8 @@ void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, TEX);
         glUniform1i(glGetUniformLocation(SHADER.program, "uTexAtlas"), 0);  // Set uniform to texture unit 0
+
+        glUniform2f(glGetUniformLocation(SHADER.program, "uCharSize"), TextSize.x, TextSize.y);
 
         glDrawArrays(GL_TRIANGLE_FAN, 0, 4);  // Starting from vertex 0, drawing 4 vertices
         GLCheck("Drawing Elements");
