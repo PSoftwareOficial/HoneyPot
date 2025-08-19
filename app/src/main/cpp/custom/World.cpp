@@ -15,6 +15,6 @@ int World::Update(uint64_t EuS, uint64_t TuS) {
 
 int World::Draw() {
         //uiManager.Draw();
-        textRenderer.DrawText(V2D{0.0f,0.0f},V2D{0.5f, 0.5f},"G");
+        textRenderer.DrawText(V2D{0.0f,0.0f},V2D{0.5f, 0.5f},"Hello GL");
         return 0;
     }
