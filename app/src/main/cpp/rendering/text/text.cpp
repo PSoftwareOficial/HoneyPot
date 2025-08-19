@@ -63,6 +63,10 @@ void TextRenderer::InitGL(){
     GLCheckI();
     glGenBuffers(1, &VBO);
     GLCheckI();
+    glGenBuffers(1, &instPosVBO);
+    GLCheckI();
+    glGenBuffers(1, &instIdxVBO);
+    GLCheckI();
 
     glBindVertexArray(VAO);
     GLCheckI();
