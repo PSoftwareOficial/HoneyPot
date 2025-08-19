@@ -7,9 +7,9 @@
 // Vertex data for a square
 float vertices[] = {
         // positions    // texture coords
-        -0.5f, -0.5f,   0.0f, 0.1666666666666667f,
-        0.5f, -0.5f,   0.0625f, 0.1666666666666667f,
-        0.5f,  0.5f,   0.0625f, 0.0f,
+        -0.5f, -0.5f,   0.0f, 1.0f,
+        0.5f, -0.5f,   1.0f, 1.0f,
+        0.5f,  0.5f,   1.0f, 0.0f,
         -0.5f,  0.5f,   0.0f, 0.0f
     };
 
@@ -25,21 +25,18 @@ const char* vertexShaderSource = R"(#version 320 es
 
     out vec2 UV;
 
-    #define ATLAS_NUM_X 16
-    #define ATLAS_NUM_Y 6
-    #define CHAR_TEX_SIZE_X 0.0625
-    #define CHAR_TEX_SIZE_Y 0.1666666666666667
+
+    const vec2 CHAR_TEX_SIZE = vec2(0.0625, 0.1666666666666667});
+    const ivec2 ATLAS_NUM = ivec2(16, 6);
 
     void main() {
 
         // Calculate the row and column of the character in the texture atlas
-        int row = texIdx / ATLAS_NUM_X;  // Row in the atlas
-        int col = texIdx % ATLAS_NUM_X;  // Column in the atlas
+        int row = texIdx / ATLAS_NUM.x;  // Row in the atlas
+        int col = texIdx % ATLAS_NUM.x;  // Column in the atlas
 
         // Calculate the UV coordinates for the character in the atlas
-        UV = vec2(aTexCoord.x * CHAR_TEX_SIZE_X, aTexCoord.y * CHAR_TEX_SIZE_Y) + vec2(float(col) * CHAR_TEX_SIZE_X, float(row) * CHAR_TEX_SIZE_Y);
-
-        UV = aTexCoord;
+        UV = aTexCoord * CHAR_TEX_SIZE + vec2(float(col) , float(row)) * CHAR_TEX_SIZE;
         gl_Position = vec4(charPos + aPos * uCharSize, 0.0, 1.0);
     })";
 
