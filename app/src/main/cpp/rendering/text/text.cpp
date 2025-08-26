@@ -195,10 +195,13 @@ void TextRenderer::Draw(){
         GLCheck("Setting VAO");
 
         glActiveTexture(GL_TEXTURE0);
+        GLCheckI();
         glBindTexture(GL_TEXTURE_2D, TEX);
+        GLCheckI();
         glUniform1i(glGetUniformLocation(SHADER.program, "uTexAtlas"), 0);  // Set uniform to texture unit 0
-        glUniform1i(glGetUniformLocation(SHADER.program, "yAspect"), Engine::openGLEngine.yAspect);
-
+        GLCheckI();
+        glUniform1f(glGetUniformLocation(SHADER.program, "yAspect"), Engine::openGLEngine.yAspect);
+        GLCheckI();
         glDrawArraysInstanced(GL_TRIANGLE_FAN, 0, 4, currCharCount);  // Starting from vertex 0, drawing 4 vertices
         GLCheck("Drawing Elements");
         glBindVertexArray(0);
