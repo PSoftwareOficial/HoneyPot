@@ -32,8 +32,7 @@ int KeyBoard::Init() {
 int KeyBoard::InitGL();
 int KeyBoard::Draw(){
     for(auto& e : keys){
-
-        World::textRenderer.DrawText
+        World::textRenderer.DrawText(e.pos,buttonSize, e.c);
     }
 
 }

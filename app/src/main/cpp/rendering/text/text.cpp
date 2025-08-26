@@ -18,10 +18,8 @@ const char* vertexShaderSource = R"(#version 320 es
     layout(location = 0) in vec2 aPos;
     layout(location = 1) in vec2 aTexCoord;   // Quad texture coordinates
     layout(location = 2) in vec2 charPos;       //Position of the character
-    layout(location = 3) in int texIdx;         //texture idx, basically the character
-
-
-    uniform vec2 uCharSize; // Size of all characters (constant for the whole batch)
+    layout(location = 3) in vec2 charSize;       //Position of the character
+    layout(location = 4) in int texIdx;         //texture idx, basically the character
 
     out vec2 UV;
 
@@ -37,7 +35,7 @@ const char* vertexShaderSource = R"(#version 320 es
 
         // Calculate the UV coordinates for the character in the atlas
         UV = aTexCoord * CHAR_TEX_SIZE + vec2(float(col) , float(row)) * CHAR_TEX_SIZE;
-        gl_Position = vec4(charPos + aPos * uCharSize, 0.0, 1.0);
+        gl_Position = vec4(charPos + aPos * charSize, 0.0, 1.0);
     })";
 
 const char* fragmentShaderSource = R"(#version 320 es
@@ -61,6 +59,8 @@ void TextRenderer::InitGL(){
     glGenBuffers(1, &VBO);
     GLCheckI();
     glGenBuffers(1, &instPosVBO);
+    GLCheckI();
+    glGenBuffers(1, &instSizeVBO);
     GLCheckI();
     glGenBuffers(1, &instIdxVBO);
     GLCheckI();
@@ -98,16 +98,27 @@ void TextRenderer::InitGL(){
     GLCheckI();
     glVertexAttribDivisor(2, 1); // Instanced attribute
 
+    // Bind position VBO (per-instance)
+    glBindBuffer(GL_ARRAY_BUFFER, instSizeVBO);
+    GLCheckI();
+    glBufferData(GL_ARRAY_BUFFER, sizeof(instSize), instSize, GL_DYNAMIC_DRAW);
+    GLCheckI();
+    glVertexAttribPointer(3, 2, GL_FLOAT, GL_FALSE, sizeof(V2D), (void*)0);
+    GLCheckI();
+    glEnableVertexAttribArray(3);
+    GLCheckI();
+    glVertexAttribDivisor(3, 1); // Instanced attribute
+
     // Bind index VBO (per-instance)
     glBindBuffer(GL_ARRAY_BUFFER, instIdxVBO);
     GLCheckI();
     glBufferData(GL_ARRAY_BUFFER, sizeof(instIdx), instIdx, GL_DYNAMIC_DRAW);
     GLCheckI();
-    glVertexAttribPointer(3, 1, GL_INT, GL_FALSE, sizeof(int), (void*)0);
+    glVertexAttribPointer(4, 1, GL_INT, GL_FALSE, sizeof(int), (void*)0);
     GLCheckI();
-    glEnableVertexAttribArray(3);
+    glEnableVertexAttribArray(4);
     GLCheckI();
-    glVertexAttribDivisor(3, 1); // Instanced attribute
+    glVertexAttribDivisor(4, 1); // Instanced attribute
     GLCheckI();
 
 
@@ -147,22 +158,22 @@ void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
 
 
     V2D currPos = Pos;
-    int instI = 0;
-    for(uint16_t i = 0; i < text.size() && instI < 100; ++i){
+    for(uint16_t i = 0; i < text.size() && currCharCount < 100; ++i){
         if(text[i] == '\n'){
             currPos.y += TextSize.y;
             currPos.x = Pos.x;
         } else if( text[i] < 127 && text[i] > 31){
-            instIdx[instI] = text[i] - 32;
-            instPos[instI] = currPos;
+            instIdx[currCharCount] = text[i] - 32;
+            instSize[currCharCount] = TextSize;
+            instPos[currCharCount] = currPos;
             currPos.x += TextSize.x;
-            ++instI;
+            ++currCharCount;
         }
     }
 
-    
+}
 
-
+void TextRenderer::Draw(){
 
 
     // Use the shader program
@@ -178,9 +189,7 @@ void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
         glBindTexture(GL_TEXTURE_2D, TEX);
         glUniform1i(glGetUniformLocation(SHADER.program, "uTexAtlas"), 0);  // Set uniform to texture unit 0
 
-        glUniform2f(glGetUniformLocation(SHADER.program, "uCharSize"), TextSize.x, TextSize.y);
-
-        glDrawArraysInstanced(GL_TRIANGLE_FAN, 0, 4, instI);  // Starting from vertex 0, drawing 4 vertices
+        glDrawArraysInstanced(GL_TRIANGLE_FAN, 0, 4, currCharCount);  // Starting from vertex 0, drawing 4 vertices
         GLCheck("Drawing Elements");
         glBindVertexArray(0);
 }
@@ -192,6 +201,9 @@ void TextRenderer::UpdateData(){
     // Bind index VBO (per-instance)
     glBindBuffer(GL_ARRAY_BUFFER, instIdxVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(instIdx), instIdx, GL_DYNAMIC_DRAW);
+
+    glBindBuffer(GL_ARRAY_BUFFER, instSizeVBO);
+    glBufferData(GL_ARRAY_BUFFER, sizeof(instSize), instSize, GL_DYNAMIC_DRAW);
 
     glBindBuffer(GL_ARRAY_BUFFER, instPosVBO);
     glBufferData(GL_ARRAY_BUFFER, sizeof(instPos), instPos, GL_DYNAMIC_DRAW);
