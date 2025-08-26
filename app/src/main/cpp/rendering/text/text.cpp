@@ -202,6 +202,8 @@ void TextRenderer::Draw(){
         glDrawArraysInstanced(GL_TRIANGLE_FAN, 0, 4, currCharCount);  // Starting from vertex 0, drawing 4 vertices
         GLCheck("Drawing Elements");
         glBindVertexArray(0);
+
+        currCharCount = 0;
 }
 
 
