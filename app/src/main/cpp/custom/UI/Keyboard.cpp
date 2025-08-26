@@ -10,7 +10,7 @@ int KeyBoard::Init() {
     constexpr char KeyLength[] = "1234567890qwertyuiopasdfghjklzxcvbnm";
 
     //Reduce count by one due to end char \0
-    V2D initalButtonPos = pos + {-size.x / 2.0f + buttonSize.x / 2.0f, size.y / 2.0f - buttonSize.y / 2.0f};
+    V2D initalButtonPos = pos + V2D{-size.x / 2.0f + buttonSize.x / 2.0f, size.y / 2.0f - buttonSize.y / 2.0f};
     for(uint8_t i = 0; i < 36; ++i){
         Key key;
         key.type = Key::KEY;
