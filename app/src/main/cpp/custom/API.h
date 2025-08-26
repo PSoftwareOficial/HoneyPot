@@ -18,6 +18,6 @@ class World : public Object {
 
 
     virtual ~World() {};
-    UIManager uiManager;
-    TextRenderer textRenderer;
+    static UIManager uiManager;
+    static TextRenderer textRenderer;
 }; 

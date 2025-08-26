@@ -115,6 +115,7 @@ int Engine::InitGL(){
     init_gles(Engine::app, &Engine::openGLEngine.display, &Engine::openGLEngine.surface, &Engine::openGLEngine.context);
     Engine::openGLEngine.width = ANativeWindow_getWidth(Engine::app->window);
     Engine::openGLEngine.height = ANativeWindow_getHeight(Engine::app->window);
+    Engine::openGLEngine.yAspect = Engine::openGLEngine.width / Engine::openGLEngine.height;
     bRendering.store(true);
     world->InitGL();
     return 0;
@@ -161,6 +162,7 @@ int Engine::ResumeGL(){
     eglMakeCurrent(Engine::openGLEngine.display, Engine::openGLEngine.surface, Engine::openGLEngine.surface, Engine::openGLEngine.context);
     Engine::openGLEngine.width = ANativeWindow_getWidth(Engine::app->window);
     Engine::openGLEngine.height = ANativeWindow_getHeight(Engine::app->window);
+    Engine::openGLEngine.yAspect = Engine::openGLEngine.width / Engine::openGLEngine.height;
     bRendering.store(true);
     world->ResumeGL();
     return 0;

@@ -13,6 +13,7 @@ struct OpenGLEngine {
     EGLContext context;
     EGLint width = 1, height = 1;
     GLuint dummy_tex;
+    float yAspect;
 };
 
 

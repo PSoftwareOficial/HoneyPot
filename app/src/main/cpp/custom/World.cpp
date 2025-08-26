@@ -18,3 +18,6 @@ int World::Draw() {
         textRenderer.DrawText(V2D{0.0f,0.0f},V2D{0.05f, 0.05f},"Hello GL \n This is nice!");
         return 0;
     }
+
+UIManager World::uiManager;
+TextRenderer World::textRenderer;
