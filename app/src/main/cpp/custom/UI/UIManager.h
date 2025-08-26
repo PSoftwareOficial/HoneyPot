@@ -2,7 +2,7 @@
 
 #include "../../rendering/core_include.h"
 #include "BaseUI.h"
-
+#include "Keyboard.h"
 
 
 
@@ -18,4 +18,6 @@ public:
     std::shared_ptr<BaseUI> parent;
 
     void SETUP();
+
+    KeyBoard keyboard;
 };
