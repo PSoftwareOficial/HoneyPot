@@ -116,7 +116,7 @@ int Engine::InitGL(){
     Engine::openGLEngine.width = ANativeWindow_getWidth(Engine::app->window);
     Engine::openGLEngine.height = ANativeWindow_getHeight(Engine::app->window);
     Engine::openGLEngine.yAspect = Engine::openGLEngine.width / Engine::openGLEngine.height;
-    LOGI("NEW ASPECT RATIO: " + std::to_string(yAspect));
+    LOG("NEW ASPECT RATIO: " + std::to_string(yAspect));
     bRendering.store(true);
     world->InitGL();
     return 0;
