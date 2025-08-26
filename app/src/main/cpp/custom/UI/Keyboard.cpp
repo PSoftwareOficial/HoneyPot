@@ -31,11 +31,11 @@ int KeyBoard::Init() {
 
     return 0;
 }
-int KeyBoard::InitGL();
+int KeyBoard::InitGL() {}
 int KeyBoard::Draw(){
     for(auto& e : keys){
-        World::textRenderer.DrawText(e.pos,buttonSize, std::string(e.c));
+        World::textRenderer.DrawChar(e.pos,buttonSize, e.c);
     }
     return 0;
 }
-int KeyBoard::Update(uint64_t EuS, uint64_t TuS);
+int KeyBoard::Update(uint64_t EuS, uint64_t TuS) {}

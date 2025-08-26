@@ -173,6 +173,15 @@ void TextRenderer::DrawText(V2D Pos, V2D TextSize, const std::string& text){
 
 }
 
+void TextRenderer::DrawChar(V2D Pos, V2D TextSize, const char c){
+        if(currCharCount < 100 && c < 127 && c > 31){
+            instIdx[currCharCount] = c - 32;
+            instSize[currCharCount] = TextSize;
+            instPos[currCharCount] = Pos;
+            ++currCharCount;
+        }
+}
+
 void TextRenderer::Draw(){
 
 

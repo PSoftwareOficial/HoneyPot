@@ -10,6 +10,7 @@ class TextRenderer{
 
     void InitGL();
     void DrawText(V2D Pos, V2D TextSize, const std::string& text);
+    void DrawChar(V2D Pos, V2D TextSize, const char c);
     void Draw();
     private:
     GLuint VAO, VBO, EBO, instPosVBO, instSizeVBO,instIdxVBO, TEX;
