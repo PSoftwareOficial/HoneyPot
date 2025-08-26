@@ -54,7 +54,7 @@ static const char* fragmentShaderSrc = R"(#version 320 es
    int UIManager::Init() 
     {
         SETUP();
-        keyboard.init();
+        keyboard.Init();
         LOGI("UI MANAGER SET UP");
         return 0;
     }
