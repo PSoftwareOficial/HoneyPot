@@ -22,7 +22,7 @@ const char* vertexShaderSource = R"(#version 320 es
     layout(location = 4) in int texIdx;         //texture idx, basically the character
 
     out vec2 UV;
-    uniform vec2 yAspect;
+    uniform float yAspect;
 
     const vec2 CHAR_TEX_SIZE = vec2(0.0625, 0.1666666666666667);
     const ivec2 ATLAS_NUM = ivec2(16, 6);
@@ -35,7 +35,7 @@ const char* vertexShaderSource = R"(#version 320 es
 
         // Calculate the UV coordinates for the character in the atlas
         UV = aTexCoord * CHAR_TEX_SIZE + vec2(float(col) , float(row)) * CHAR_TEX_SIZE;
-        gl_Position = vec4(charPos + aPos * charSize, 0.0, 1.0) * vec4(1.0f,yAspect, 1.0f, 1.0f);
+        gl_Position = vec4(charPos + aPos * charSize, 0.0, 1.0) * vec4(1.0f, yAspect, 1.0f, 1.0f);
     })";
 
 const char* fragmentShaderSource = R"(#version 320 es
