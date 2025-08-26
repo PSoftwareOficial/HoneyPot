@@ -10,20 +10,20 @@ int KeyBoard::Init() {
     constexpr char KeyLength[] = "1234567890qwertyuiopasdfghjklzxcvbnm";
 
     //Reduce count by one due to end char \0
-    V2D initalButtonPos = pos - size / 2.0f + buttonSize / 2.0f;
+    V2D initalButtonPos = pos + {-size.x / 2.0f + buttonSize.x / 2.0f, size.y / 2.0f - buttonSize.y / 2.0f};
     for(uint8_t i = 0; i < 36; ++i){
         Key key;
         key.type = Key::KEY;
         if(i < 20){
-            key.pos = initalButtonPos + V2D{buttonSize.x * float(i % 10) , buttonSize.y * float(i / 10)}; 
+            key.pos = initalButtonPos + V2D{buttonSize.x * float(i % 10) , -buttonSize.y * float(i / 10)}; 
             key.c = KeyLength[i];
         }
         else if(i < 29) {
-            key.pos = initalButtonPos + V2D{buttonSize.x / 2.0f, 0.0f} + V2D{buttonSize.x * float(i % 10) , buttonSize.y * 2.0f}; 
+            key.pos = initalButtonPos + V2D{buttonSize.x / 2.0f, 0.0f} + V2D{buttonSize.x * float(i % 10) , -buttonSize.y * 2.0f}; 
             key.c = KeyLength[i];
         }
         else if(i < 36){
-            key.pos = initalButtonPos + V2D{buttonSize.x * 3.0f / 2.0f, 0.0f} + V2D{buttonSize.x * float(i % 10) , buttonSize.y * 3.0f}; 
+            key.pos = initalButtonPos + V2D{buttonSize.x * 3.0f / 2.0f, 0.0f} + V2D{buttonSize.x * float(i % 10) , -buttonSize.y * 3.0f}; 
             key.c = KeyLength[i];
         }
         keys.push_back(key);

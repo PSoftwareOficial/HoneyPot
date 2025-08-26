@@ -1,7 +1,7 @@
 #include "text.h"
 #include "../../utilities/AssetIO/API.h"
 #include "../core_include.h"
-
+#include "../../Engine/Engine.h"
 
 
 // Vertex data for a square
@@ -22,7 +22,7 @@ const char* vertexShaderSource = R"(#version 320 es
     layout(location = 4) in int texIdx;         //texture idx, basically the character
 
     out vec2 UV;
-
+    uniform vec2 yAspect;
 
     const vec2 CHAR_TEX_SIZE = vec2(0.0625, 0.1666666666666667);
     const ivec2 ATLAS_NUM = ivec2(16, 6);
@@ -35,7 +35,7 @@ const char* vertexShaderSource = R"(#version 320 es
 
         // Calculate the UV coordinates for the character in the atlas
         UV = aTexCoord * CHAR_TEX_SIZE + vec2(float(col) , float(row)) * CHAR_TEX_SIZE;
-        gl_Position = vec4(charPos + aPos * charSize, 0.0, 1.0);
+        gl_Position = vec4(charPos + aPos * charSize, 0.0, 1.0) * vec4(1.0f,yAspect, 1.0f, 1.0f);
     })";
 
 const char* fragmentShaderSource = R"(#version 320 es
@@ -197,6 +197,7 @@ void TextRenderer::Draw(){
         glActiveTexture(GL_TEXTURE0);
         glBindTexture(GL_TEXTURE_2D, TEX);
         glUniform1i(glGetUniformLocation(SHADER.program, "uTexAtlas"), 0);  // Set uniform to texture unit 0
+        glUniform1i(glGetUniformLocation(SHADER.program, "yAspect"), Engine::openGLEngine.yAspect);
 
         glDrawArraysInstanced(GL_TRIANGLE_FAN, 0, 4, currCharCount);  // Starting from vertex 0, drawing 4 vertices
         GLCheck("Drawing Elements");
