@@ -113,8 +113,8 @@ int Engine::InitGL(){
     //Init the GL Engine
     
     init_gles(Engine::app, &Engine::openGLEngine.display, &Engine::openGLEngine.surface, &Engine::openGLEngine.context);
-    Engine::openGLEngine.width = ANativeWindow_getWidth(Engine::app->window);
-    Engine::openGLEngine.height = ANativeWindow_getHeight(Engine::app->window);
+    eglQuerySurface(Engine::openGLEngine.display,Engine::openGLEngine.surface,EGL_WIDTH,&Engine::openGLEngine.width);
+    eglQuerySurface(Engine::openGLEngine.display,Engine::openGLEngine.surface,EGL_HEIGHT,&Engine::openGLEngine.height);
     Engine::openGLEngine.yAspect = Engine::openGLEngine.width / Engine::openGLEngine.height;
     LOGI("NEW ASPECT RATIO: " + std::to_string(Engine::openGLEngine.yAspect));
     bRendering.store(true);
@@ -161,8 +161,8 @@ int Engine::ResumeGL(){
 
     Engine::openGLEngine.surface = eglCreateWindowSurface(Engine::openGLEngine.display, config, Engine::app->window, NULL);
     eglMakeCurrent(Engine::openGLEngine.display, Engine::openGLEngine.surface, Engine::openGLEngine.surface, Engine::openGLEngine.context);
-    Engine::openGLEngine.width = ANativeWindow_getWidth(Engine::app->window);
-    Engine::openGLEngine.height = ANativeWindow_getHeight(Engine::app->window);
+    eglQuerySurface(Engine::openGLEngine.display,Engine::openGLEngine.surface,EGL_WIDTH,&Engine::openGLEngine.width);
+    eglQuerySurface(Engine::openGLEngine.display,Engine::openGLEngine.surface,EGL_HEIGHT,&Engine::openGLEngine.height);
     Engine::openGLEngine.yAspect = Engine::openGLEngine.width / Engine::openGLEngine.height;
     LOGI("NEW ASPECT RATIO: " + std::to_string(Engine::openGLEngine.yAspect));
     bRendering.store(true);
