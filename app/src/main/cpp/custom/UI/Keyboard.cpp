@@ -42,7 +42,7 @@ int KeyBoard::InitGL() {
     V2D initalButtonPos = truePos + V2D{size.x / 2.0f - buttonSize.x / 2.0f, -size.y / 2.0f + buttonSize.y / 2.0f};
     
     dbg("Starting Keys Positions");
-    for(int8_t i = keys.size(); i > -1; --i){
+    for(int8_t i = keys.size() - 1; i > -1; --i){
         Key& key = keys[i];
         if(i > 28){
             key.pos = initalButtonPos - V2D{buttonSize.x * 3.0f / 2.0f + buttonSize.x * float(36 - i), 0.0f}; 
