@@ -4,9 +4,9 @@
 #include "../../rendering/text/text.h"
 #include "../../utilities/log/API.h"
 
-static constexpr bool debugKeyboard = true;
-#define dbg_FL(msg) if(debugKeyboard) LOGI_FL(msg)
-#define dbg(msg) if(debugKeyboard) LOGI(msg)
+
+#define dbg_FL(msg) if(World::debugKeyboard) LOGI_FL(msg)
+#define dbg(msg) if(World::debugKeyboard) LOGI(msg)
 
 int KeyBoard::Init() {
 
@@ -42,7 +42,7 @@ int KeyBoard::InitGL() {
 
     V2D initalButtonPos = truePos + V2D{size.x / 2.0f - buttonSize.x / 2.0f, -size.y / 2.0f + buttonSize.y / 2.0f};
     
-    dbg_FL("Starting Keys Positions");
+    dbg_FL("Starting Keys Positions for " + std::to_string(keys.size()) + " keys");
     for(int8_t i = keys.size() - 1; i > -1; --i){
         Key& key = keys[i];
         if(i > 28){
@@ -56,7 +56,7 @@ int KeyBoard::InitGL() {
         }
     }
 
-    if(debugKeyboard){
+    if(World::debugKeyboard){
         for(auto& key : keys){
             LOGI("key " + std::string(1,key.c) + " has position " + key.pos.string());
         }

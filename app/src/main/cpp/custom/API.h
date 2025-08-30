@@ -20,4 +20,7 @@ class World : public Object {
     virtual ~World() {};
     static UIManager uiManager;
     static TextRenderer textRenderer;
+
+
+    static bool debugKeyboard;
 }; 

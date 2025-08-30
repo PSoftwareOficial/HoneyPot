@@ -1,5 +1,8 @@
 #include "API.h"
 
+bool World::debugKeyboard = true;
+
+
 
 
 int World::Init()
