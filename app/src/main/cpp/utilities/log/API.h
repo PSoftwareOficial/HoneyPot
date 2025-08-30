@@ -6,13 +6,22 @@
 #include <chrono>
 #include <sstream>
 
-#define LOG(msg) Logger::getInstance().log(msg)
-#define LOGI(msg) Logger::getInstance().log(msg)
-#define LOGE(msg) Logger::getInstance().log(msg)
+#define LOG(msg) Logger::inst->log(msg)
+#define LOGI(msg) Logger::inst->log(msg)
+#define LOGE(msg) Logger::inst->log(msg)
+
+
+#define TO_STR_2(x) #x
+#define TO_STR(x) TO_STR_2(x)
+
+#define LOGI_FL(msg) LOGI(TO_STR(__FILE__) + std::string(" : ") + TO_STR(__LINE__) + std::string(": ") + msg)
+
 
 
 class Logger {
 public:
+
+    static Logger* inst = nullptr;
     static Logger& getInstance() {
 	static Logger instance;
 	return instance;
@@ -26,6 +35,8 @@ public:
             
         outFile.open(filePath, std::ios::binary | std::ios::trunc);
         tpInit = std::chrono::steady_clock::now();
+
+        inst = &(Logger::getInstance());
     }
 
 }
