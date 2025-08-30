@@ -5,8 +5,8 @@
 #include "../../utilities/log/API.h"
 
 static constexpr bool debugKeyboard = true;
-#define dbg(msg) if constexpr(debugKeyboard) LOGI_FL(msg)
-#define dbg_NFL(msg) if constexpr(debugKeyboard) LOGI(msg)
+#define dbg_FL(msg) if(debugKeyboard) LOGI_FL(msg)
+#define dbg(msg) if(debugKeyboard) LOGI(msg)
 
 int KeyBoard::Init() {
 
@@ -36,13 +36,13 @@ int KeyBoard::Init() {
 }
 int KeyBoard::InitGL() {
 
-    dbg("Starting");
+    dbg_FL("Starting");
     currButtonSize = buttonSize * V2D{1.0f , 1.0f / Engine::openGLEngine.yAspect};
     V2D truePos = pos * V2D{1.0f , 1.0f / Engine::openGLEngine.yAspect};
 
     V2D initalButtonPos = truePos + V2D{size.x / 2.0f - buttonSize.x / 2.0f, -size.y / 2.0f + buttonSize.y / 2.0f};
     
-    dbg("Starting Keys Positions");
+    dbg_FL("Starting Keys Positions");
     for(int8_t i = keys.size() - 1; i > -1; --i){
         Key& key = keys[i];
         if(i > 28){
@@ -54,10 +54,10 @@ int KeyBoard::InitGL() {
         else {
             key.pos = initalButtonPos - V2D{buttonSize.x * float(9 - (i % 10)), buttonSize.y * float(i / 10)}; 
         }
-        dbg_NFL("key " + std::string(1,key.c) + " has position " + key.pos.string());
+        dbg("key " + std::string(1,key.c) + " has position " + key.pos.string());
     }
 
-    dbg("Finished Keys Positions");
+    dbg_FL("Finished Keys Positions");
     return 0;
 }
 int KeyBoard::Draw(){
