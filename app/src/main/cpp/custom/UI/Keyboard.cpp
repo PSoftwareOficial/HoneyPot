@@ -31,6 +31,7 @@ int KeyBoard::Init() {
         }
         keys.push_back(key);
     }
+    dbg_FL("Finished with "+ std::to_string(keys.size()) + " keys");
 
     return 0;
 }
