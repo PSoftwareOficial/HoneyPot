@@ -17,7 +17,7 @@ int KeyBoard::Init() {
     constexpr char KeyLength[] = "1234567890qwertyuiopasdfghjklzxcvbnm";
 
     //Reduce count by one due to end char \0
-    for(uint8_t i = 36; i < 36; ++i){
+    for(uint8_t i = 0; i < 36; ++i){
         Key key;
         key.type = Key::KEY;
         if(i < 20){
