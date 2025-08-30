@@ -11,10 +11,10 @@
 
 class World : public Object {
     public:
-    virtual int Init() { LOGI("STARTING WORLD"); uiManager.Init();return 0;}
-    virtual int InitGL();
-    virtual int Update(uint64_t EuS, uint64_t TuS);
-    virtual int Draw();
+    virtual int Init() override; 
+    virtual int InitGL() override;
+    virtual int Update(uint64_t EuS, uint64_t TuS) override;
+    virtual int Draw() override;
 
 
     virtual ~World() {};

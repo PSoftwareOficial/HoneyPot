@@ -1,5 +1,18 @@
 #include "API.h"
 
+
+
+int World::InitGL()
+{ 
+    LOGI("STARTING WORLD");
+    uiManager.Init();
+
+    return 0;
+}
+
+
+
+
 int World::InitGL() {
     textRenderer.InitGL();
     uiManager.InitGL();

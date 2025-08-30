@@ -62,6 +62,7 @@ static const char* fragmentShaderSrc = R"(#version 320 es
 
     int UIManager::InitGL()
     {   
+        keyboard.InitGL();
         SHADER.Init(vertexShaderSrc,fragmentShaderSrc);
         parent->InitGL();
         return 0;
