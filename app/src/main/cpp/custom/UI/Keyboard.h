@@ -27,7 +27,8 @@ public:
 
     //UI related data
     std::string inputedText;
-    V2D buttonSize = {0.2f, 0.3f};
+    const V2D buttonSize = {0.2f, 0.3f};
+    V2D currButtonSize;
 
 
     //Data

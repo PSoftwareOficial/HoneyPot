@@ -32,6 +32,8 @@ int KeyBoard::Init() {
     return 0;
 }
 int KeyBoard::InitGL() {
+
+    currButtonSize = buttonSize * V2D{1.0f , 1.0f / Engine::openGLEngine.yAspect};
     V2D truePos = pos * V2D{1.0f , 1.0f / Engine::openGLEngine.yAspect};
 
     V2D initalButtonPos = truePos + V2D{size.x / 2.0f - buttonSize.x / 2.0f, -size.y / 2.0f + buttonSize.y / 2.0f};
@@ -53,7 +55,7 @@ int KeyBoard::InitGL() {
 }
 int KeyBoard::Draw(){
     for(auto& e : keys){
-        World::textRenderer.DrawChar(e.pos,buttonSize, e.c);
+        World::textRenderer.DrawChar(e.pos,currButtonSize, e.c);
     }
     return 0;
 }
