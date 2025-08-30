@@ -2,7 +2,7 @@
 
 
 
-int World::InitGL()
+int World::Init()
 { 
     LOGI("STARTING WORLD");
     uiManager.Init();
