@@ -4,7 +4,7 @@
 #include "../../rendering/text/text.h"
 #include "../../utilities/log/API.h"
 
-static constexpr bool debugKeyboard = false;
+static constexpr bool debugKeyboard = true;
 #define dbg(msg) if constexpr(debugKeyboard) LOGI_FL(msg)
 
 int KeyBoard::Init() {
