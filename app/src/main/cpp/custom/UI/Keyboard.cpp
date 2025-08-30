@@ -54,7 +54,13 @@ int KeyBoard::InitGL() {
         else {
             key.pos = initalButtonPos - V2D{buttonSize.x * float(9 - (i % 10)), buttonSize.y * float(i / 10)}; 
         }
-        dbg("key " + std::string(1,key.c) + " has position " + key.pos.string());
+        dbg();
+    }
+
+    if(debugKeyboard){
+        for(auto& key : keys){
+            LOGI("key " + std::string(1,key.c) + " has position " + key.pos.string());
+        }
     }
 
     dbg_FL("Finished Keys Positions");
