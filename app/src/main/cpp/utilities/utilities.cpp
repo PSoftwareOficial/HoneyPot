@@ -22,3 +22,9 @@ bool GetTexture(const std::string& path, texture2D& tex){
     } else 
         return false;
 }
+
+
+
+#include "log/API.h"
+
+static Logger* Logger::inst = nullptr;

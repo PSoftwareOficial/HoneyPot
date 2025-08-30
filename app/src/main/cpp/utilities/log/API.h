@@ -20,11 +20,10 @@
 
 class Logger {
 public:
-
-    static Logger* inst = nullptr;
+    static Logger* inst;
     static Logger& getInstance() {
-	static Logger instance;
-	return instance;
+	    static Logger instance;
+	    return instance;
 	}
 
     // Initialize once with the android_app path
