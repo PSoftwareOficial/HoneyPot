@@ -27,4 +27,4 @@ bool GetTexture(const std::string& path, texture2D& tex){
 
 #include "log/API.h"
 
-static Logger* Logger::inst = nullptr;
+Logger* Logger::inst = nullptr;
