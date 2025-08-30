@@ -55,6 +55,10 @@ int KeyBoard::InitGL() {
         }
     }
 
+    for(auto& e: keys){
+        dgb("key " + std::string(1,e.c) + " has position " + e.pos.string());
+    }
+
     dbg("Finished Keys Positions");
     return 0;
 }

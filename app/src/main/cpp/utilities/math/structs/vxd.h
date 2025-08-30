@@ -1,6 +1,7 @@
 #pragma once
 #include <cmath>
 #include <algorithm>
+#include <string>
 
 
 template<typename P>
@@ -105,6 +106,8 @@ public:
 
 	inline V2Dg<P> ceil() const { return V2Dg<P>{std::ceil(x), std::ceil(y)}; }
 	inline V2Dg<P> floor() const { return V2Dg<P>{std::floor(x), std::floor(y)}; }
+
+	inline std::string string() const { return "(" + std::to_string(x) + "," + std::to_string(y) + ")";}
 };
 using V2D = V2Dg<float>;
 using V2Di = V2Dg<int>;
