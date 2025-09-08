@@ -44,12 +44,10 @@ int KeyBoard::InitGL() {
     //Calculate the gl data sizes.
     //This is to ensure, that we have consitent position and size
     V2D factor {1.0f , 1.0f / Engine::openGLEngine.yAspect};
-    glButtonSize = buttonSize * factor;
-    glSize = size * factor;
     glPos = pos * factor;
 
     //Calculate the position of the upper left key
-    V2D initalButtonPos = V2D{glPos.x - glSize.x / 2.0f + glButtonSize.x / 2.0f, glPos.y + glSize.y / 2.0f - glButtonSize.y / 2.0f};
+    V2D initalButtonPos = V2D{glPos.x - size.x / 2.0f + buttonSize.x / 2.0f, glPos.y + size.y / 2.0f - buttonSize.y / 2.0f};
 
     
     
@@ -58,13 +56,13 @@ int KeyBoard::InitGL() {
     for(int8_t i = keys.size() - 1; i > -1; --i){
         Key& key = keys[i];
         if(i < 20){
-            key.pos = initalButtonPos + V2D{glButtonSize.x * float((i % 10)), -glButtonSize.y * float((i / 10))}; 
+            key.pos = initalButtonPos + V2D{buttonSize.x * float((i % 10)), -buttonSize.y * float((i / 10))}; 
         }
         else if(i < 29){
-            key.pos = initalButtonPos + V2D{glButtonSize.x / 2.0f + glButtonSize.x * float(i - 20), -glButtonSize.y * 2.0f}; 
+            key.pos = initalButtonPos + V2D{buttonSize.x / 2.0f + buttonSize.x * float(i - 20), -buttonSize.y * 2.0f}; 
         }
         else {
-            key.pos = initalButtonPos + V2D{glButtonSize.x * 3.0f / 2.0f + buttonSize.x * float(i - 29), -glButtonSize.y * 3.0f}; 
+            key.pos = initalButtonPos + V2D{buttonSize.x * 3.0f / 2.0f + buttonSize.x * float(i - 29), -buttonSize.y * 3.0f}; 
         }
     }
 
@@ -79,7 +77,7 @@ int KeyBoard::InitGL() {
 }
 int KeyBoard::Draw(){
     for(auto& e : keys){
-        World::textRenderer.DrawChar(e.pos,glButtonSize, e.c);
+        World::textRenderer.DrawChar(e.pos,buttonSize, e.c);
     }
     return 0;
 }
