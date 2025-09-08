@@ -50,10 +50,10 @@ int KeyBoard::InitGL() {
             key.pos = initalButtonPos - V2D{buttonSize.x * 3.0f / 2.0f + buttonSize.x * float(36 - i), 0.0f}; 
         }
         else if(i > 19) {
-            key.pos = initalButtonPos - V2D{buttonSize.x / 2.0f + buttonSize.x * float(28 - i), 0.0f}; 
+            key.pos = initalButtonPos - V2D{buttonSize.x / 2.0f + buttonSize.x * float(28 - i), - buttonSize.y * 1.0f}; 
         }
         else {
-            key.pos = initalButtonPos - V2D{buttonSize.x * float(9 - (i % 10)), buttonSize.y * float(i / 10)}; 
+            key.pos = initalButtonPos - V2D{buttonSize.x * float(9 - (i % 10)), - buttonSize.y * float(i / 10 + 2)}; 
         }
     }
 
