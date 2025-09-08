@@ -54,6 +54,7 @@ struct RingBuffer{
             value = buffer[i++];
         }
         value /= (T)N;
+        return value;
     }
 
 };
