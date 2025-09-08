@@ -44,7 +44,7 @@ int KeyBoard::InitGL() {
     //Calculate the gl data sizes.
     //This is to ensure, that we have consitent position and size
     V2D factor {1.0f , 1.0f / Engine::openGLEngine.yAspect};
-    glPos = pos * factor;
+    glPos =  V2D{0.0f, -factor.y + size.y / 2.0f};
 
     //Calculate the position of the upper left key
     V2D initalButtonPos = V2D{glPos.x - size.x / 2.0f + buttonSize.x / 2.0f, glPos.y + size.y / 2.0f - buttonSize.y / 2.0f};

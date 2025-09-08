@@ -21,7 +21,7 @@ public:
 
     
     const V2D buttonSize = {0.2f, 0.3f};
-    V2D pos {0.0f, -0.4f};
+    V2D pos;
     V2D size;
 
 
