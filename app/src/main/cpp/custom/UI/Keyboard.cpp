@@ -79,7 +79,7 @@ int KeyBoard::InitGL() {
 }
 int KeyBoard::Draw(){
     for(auto& e : keys){
-        World::textRenderer.DrawChar(e.pos,currButtonSize, e.c);
+        World::textRenderer.DrawChar(e.pos,glButtonSize, e.c);
     }
     return 0;
 }
