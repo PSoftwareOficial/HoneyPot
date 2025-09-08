@@ -14,6 +14,12 @@ struct OpenGLEngine {
     EGLint width = 1, height = 1;
     GLuint dummy_tex;
     float yAspect = 1.0f;
+    V2D screenSize {1.0f, 1.0f};
+
+    void calcData(){
+        yAspect = (float)width / (float)height;
+        screenSize = V2D{1.0f, 1.0f / yAspect};
+    }
 };
 
 

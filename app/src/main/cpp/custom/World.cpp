@@ -26,6 +26,12 @@ int World::InitGL() {
 
 int World::Update(uint64_t EuS, uint64_t TuS) {
     uiManager.Update();
+
+
+    //Manage FPS counters
+    FPS = 1.0f / float(EuS);
+    minFPS = std::min(FPS, minFPS);
+    m5FPS.push(FPS);
     return 0;
 }
 
@@ -34,6 +40,9 @@ int World::Draw() {
         textRenderer.DrawText(V2D{0.0f,0.0f},V2D{0.05f, 0.05f},"Hello GL \n This is nice!");
         
         
+        textRenderer.DrawText(V2D{0.0f,Engine::openGLEngine.screenSize.y - 0.05f},V2D{0.05f, 0.05f},"FPS: " + std::to_string(FPS));
+        textRenderer.DrawText(V2D{0.0f,Engine::openGLEngine.screenSize.y - 0.1f},V2D{0.05f, 0.05f},"mFPS: " + std::to_string(m5FPS.avg()));
+        textRenderer.DrawText(V2D{0.0f,Engine::openGLEngine.screenSize.y - 0.15f},V2D{0.05f, 0.05f},"minFPS: " + std::to_string(minFPS));
         textRenderer.Draw();
         return 0;
     }

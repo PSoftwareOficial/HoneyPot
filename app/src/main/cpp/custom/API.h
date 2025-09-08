@@ -7,6 +7,7 @@
 #include "UI/UIManager.h"
 #include "Object.h"
 #include "../rendering/core_include.h"
+#include "../utilities/Buffer/Buffer.h"
 
 
 class World : public Object {
@@ -23,4 +24,7 @@ class World : public Object {
 
 
     static bool debugKeyboard;
+
+    float FPS, minFPS;
+    RingBuffer<float, 5> m5FPS;
 }; 
