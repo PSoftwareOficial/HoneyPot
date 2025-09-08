@@ -20,15 +20,18 @@ public:
     virtual int Update(uint64_t EuS, uint64_t TuS) override;
 
     
-    V2D size {2.0f, 1.0f};
+    const V2D buttonSize = {0.2f, 0.3f};
     V2D pos {0.0f, -0.4f};
-
+    V2D size;
 
 
     //UI related data
     std::string inputedText;
-    const V2D buttonSize = {0.2f, 0.3f};
-    V2D currButtonSize;
+    
+
+    V2D glButtonSize;
+    V2D glSize;
+    V2D glPos;
 
 
     //Data

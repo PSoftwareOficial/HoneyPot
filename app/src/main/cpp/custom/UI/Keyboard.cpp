@@ -33,27 +33,38 @@ int KeyBoard::Init() {
     }
     dbg_FL("Finished with "+ std::to_string(keys.size()) + " keys");
 
+    size = V2D{10 * buttonSize.x, 4 * buttonSize.y};
+
     return 0;
 }
 int KeyBoard::InitGL() {
 
     dbg_FL("Starting");
-    currButtonSize = buttonSize * V2D{1.0f , 1.0f / Engine::openGLEngine.yAspect};
-    V2D truePos = pos * V2D{1.0f , 1.0f / Engine::openGLEngine.yAspect};
 
-    V2D initalButtonPos = truePos + V2D{size.x / 2.0f - buttonSize.x / 2.0f, -size.y / 2.0f + buttonSize.y / 2.0f};
+    //Calculate the gl data sizes.
+    //This is to ensure, that we have consitent position and size
+    V2D factor {1.0f , 1.0f / Engine::openGLEngine.yAspect};
+    glButtonSize = buttonSize * factor;
+    glSize = size * factor;
+    glPos = pos * factor;
+
+    //Calculate the position of the upper left key
+    V2D initalButtonPos = V2D{glPos.x - glSize.x / 2.0f + glButtonSize.x / 2.0f, glPos.y + glSize.y / 2.0f - glButtonSize.y / 2.0f};
+
+    
     
     dbg_FL("Starting Keys Positions for " + std::to_string(keys.size()) + " keys");
+
     for(int8_t i = keys.size() - 1; i > -1; --i){
         Key& key = keys[i];
-        if(i > 28){
-            key.pos = initalButtonPos - V2D{buttonSize.x * 3.0f / 2.0f + buttonSize.x * float(36 - i), 0.0f}; 
+        if(i < 20){
+            key.pos = initalButtonPos + V2D{glButtonSize.x * float((i % 10)), -glButtonSize.y * float((i / 10))}; 
         }
-        else if(i > 19) {
-            key.pos = initalButtonPos - V2D{buttonSize.x / 2.0f + buttonSize.x * float(28 - i), - buttonSize.y * 1.0f}; 
+        else if(i < 29){
+            key.pos = initalButtonPos + V2D{glButtonSize.x / 2.0f + glButtonSize.x * float(i - 20), -glButtonSize.y * 2.0f}; 
         }
         else {
-            key.pos = initalButtonPos - V2D{buttonSize.x * float(9 - (i % 10)), - buttonSize.y * float(i / 10 + 2)}; 
+            key.pos = initalButtonPos + V2D{glButtonSize.x * 3.0f / 2.0f + buttonSize.x * float(i - 29), -glButtonSize.y * 3.0f}; 
         }
     }
 
