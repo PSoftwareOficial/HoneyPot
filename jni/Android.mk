@@ -35,5 +35,6 @@ LOCAL_LDFLAGS := -u ANativeActivity_onCreate
 
 LOCAL_C_INCLUDES := \
     $(NDK_ROOT)/sources/android/native_app_glue
+    ../app/src/main/cpp
 
 include $(BUILD_SHARED_LIBRARY)
