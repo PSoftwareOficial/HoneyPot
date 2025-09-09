@@ -2,10 +2,10 @@
 #include <thread>
 #include <atomic>
 #include <cstdint>
-#include "../UI/UIManager.h"
+#include "Engine/UI/UIManager.h"
 #include "rendering/core_include.h"
-#include "../utilities/math/structs/vxd.h"
-#include "../utilities/Buffer/Buffer.h"
+#include "utilities/math/structs/vxd.h"
+#include "utilities/Buffer/Buffer.h"
 
 
 

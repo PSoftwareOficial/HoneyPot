@@ -1,9 +1,9 @@
 #include "Engine.h"
 #include <vector>
 
-#include "../rendering/core_include.h"
-#include "../../World/World.h"
-#include "../utilities/log/API.h"
+#include "rendering/core_include.h"
+#include "World/World.h"
+#include "utilities/log/API.h"
 
 
 
