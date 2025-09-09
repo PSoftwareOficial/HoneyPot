@@ -12,6 +12,7 @@ struct InputEvent{
 
 
 class BaseUI {
+    public:
     //The z value defines the priority at input handling
     float fZValue = 0.0f;
     bool bConsumeInput = true;
