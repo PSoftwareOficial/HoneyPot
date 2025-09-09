@@ -41,12 +41,12 @@ int UIManager::Init() { return 0;}
     int UIManager::Destroy() { return 0;}
     
     int UIManager::RegisterElement(BaseUI* elem){
-        auto pos = std::find_if(vElements.begin(), vElements.end(), [&elem] (const BaseUI*& A) { return A->fZValue < elem->fZValue; });
+        auto pos = std::find_if(vElements.begin(), vElements.end(), [&elem] (BaseUI* A) { return A->fZValue < elem->fZValue; });
         vElements.insert(pos, elem);
         return 0;
     };
     int UIManager::UnregisterElement(BaseUI* elem){
-        auto pos = std::find_if(vElements.begin(), vElements.end(), [&elem] (const BaseUI*& A) { return A == elem; });
+        auto pos = std::find_if(vElements.begin(), vElements.end(), [&elem] (BaseUI* A) { return A == elem; });
         if(pos != vElements.end()){
             vElements.erase(pos);
         }
