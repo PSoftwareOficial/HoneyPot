@@ -14,7 +14,7 @@ std::thread Engine::tRun;
 Engine* Engine::engine = nullptr;
 struct android_app* Engine::app;
 OpenGLEngine Engine::openGLEngine;
-TS_RB<Engine::InputEvent,64> Engine::touchEvents;
+TS_RB<InputEvent,64> Engine::touchEvents;
 
 
 
