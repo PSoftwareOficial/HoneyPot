@@ -22,11 +22,11 @@ LOCAL_C_INCLUDES := \
     $(LOCAL_PATH)/../app/src/main/cpp
 LOCAL_SRC_FILES := \
     ../app/src/main/cpp/Engine/Main/Engine.cpp \
-    ../app/src/main/cpp/custom/UI/UIManager.cpp\
-    ../app/src/main/cpp/custom/World.cpp\
+    ../app/src/main/cpp/Engine/UI/UIManager.cpp\
+    ../app/src/main/cpp/World/World.cpp\
     ../app/src/main/cpp/utilities/utilities.cpp\
     ../app/src/main/cpp/rendering/text/text.cpp\
-    ../app/src/main/cpp/custom/UI/Keyboard.cpp
+    ../app/src/main/cpp/Engine/UI/Types/Keyboard.cpp
 
 LOCAL_CFLAGS := -Wall -Wno-unused-function -Wno-unused-variable
 LOCAL_CPPFLAGS := -std=gnu++17
