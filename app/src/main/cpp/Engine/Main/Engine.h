@@ -2,6 +2,7 @@
 #include <thread>
 #include <atomic>
 #include <cstdint>
+#include "../UI/UIManager.h"
 #include "../rendering/core_include.h"
 #include "../utilities/math/structs/vxd.h"
 #include "../utilities/Buffer/Buffer.h"
@@ -62,12 +63,16 @@ public:
     //Open GL Pointer
     static OpenGLEngine openGLEngine;
 
+    //UI Manager
+    static UIManager uiManager;
+
+    //Base text renderer
+    static TextRenderer textRenderer;
+
     //Functions which Loops through the engine
     void Loop();
 
-    struct InputEvent{
-        V2D coord;
-    };
+    
     //Input event queue
     static TS_RB<InputEvent,64> touchEvents;
 
