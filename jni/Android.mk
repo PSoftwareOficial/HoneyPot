@@ -17,6 +17,9 @@ include $(BUILD_STATIC_LIBRARY)
 include $(CLEAR_VARS)
 
 LOCAL_MODULE := baseNativeLib
+LOCAL_C_INCLUDES := \
+    $(NDK_ROOT)/sources/android/native_app_glue \
+    ../app/src/main/cpp
 LOCAL_SRC_FILES := \
     ../app/src/main/cpp/Engine/Main/Engine.cpp \
     ../app/src/main/cpp/custom/UI/UIManager.cpp\
@@ -33,8 +36,6 @@ LOCAL_STATIC_LIBRARIES := native_app_glue
 # Workaround to export ANativeActivity_onCreate
 LOCAL_LDFLAGS := -u ANativeActivity_onCreate
 
-LOCAL_C_INCLUDES := \
-    $(NDK_ROOT)/sources/android/native_app_glue \
-    ../app/src/main/cpp
+
 
 include $(BUILD_SHARED_LIBRARY)
