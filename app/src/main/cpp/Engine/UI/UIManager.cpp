@@ -13,7 +13,7 @@ BaseUI::~BaseUI() {
 };
 
 
-int UIManager::Init() {}
+int UIManager::Init() { return 0;}
     int UIManager::Update(uint64_t EuS, uint64_t TuS){
 
         while(Engine::touchEvents.GetElemNum()){
@@ -37,15 +37,17 @@ int UIManager::Init() {}
         }
         
     }
-    int UIManager::Destroy() {}
+    int UIManager::Destroy() { return 0;}
     
     int UIManager::RegisterElement(BaseUI* elem){
-        auto pos = std::find(vElements.begin(), vElements.end(), [&elem] (const BaseUI*& A) { return A->fZValue < elem->fZValue; });
+        auto pos = std::find(vElements.begin(), vElements.end(), [&elem] (BaseUI* A) { return A->fZValue < elem->fZValue; });
         vElements.insert(pos, elem);
+        return 0;
     };
     int UIManager::UnregisterElement(BaseUI* elem){
-        auto pos = std::find(vElements.begin(), vElements.end(), [&elem] (const BaseUI*& A) { return A == elem; });
+        auto pos = std::find(vElements.begin(), vElements.end(), [&elem] (BaseUI* A) { return A == elem; });
         if(pos != vElements.end()){
             vElements.erase(pos);
         }
+        return 0;
     }
