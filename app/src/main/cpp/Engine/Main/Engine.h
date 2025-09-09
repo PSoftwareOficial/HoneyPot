@@ -3,7 +3,7 @@
 #include <atomic>
 #include <cstdint>
 #include "../UI/UIManager.h"
-#include "cpp/rendering/core_include.h"
+#include "rendering/core_include.h"
 #include "../utilities/math/structs/vxd.h"
 #include "../utilities/Buffer/Buffer.h"
 
