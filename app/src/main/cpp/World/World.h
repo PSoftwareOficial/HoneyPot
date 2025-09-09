@@ -1,13 +1,13 @@
 #pragma once
-#include "../utilities/AssetIO/API.h"
-#include "../utilities/log/API.h"
-#include "../rendering/2DRenderer/2DRenderer.h"
+#include "utilities/AssetIO/API.h"
+#include "utilities/log/API.h"
+#include "rendering/2DRenderer/2DRenderer.h"
 #include <vector>
-#include "../Engine/Main/Engine.h"
-#include "UI/UIManager.h"
+#include "Engine/Main/Engine.h"
+#include "Engine/UI/UIManager.h"
 #include "Object.h"
-#include "../rendering/core_include.h"
-#include "../utilities/Buffer/Buffer.h"
+#include "rendering/core_include.h"
+#include "utilities/Buffer/Buffer.h"
 
 
 class World : public Object {
