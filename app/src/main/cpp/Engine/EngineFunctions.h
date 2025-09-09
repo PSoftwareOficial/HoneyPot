@@ -6,6 +6,8 @@
 #include "../utilities/log/API.h"
 
 
+
+
 //World pointer
 static std::unique_ptr<World> world;
 
@@ -116,6 +118,9 @@ int Engine::InitGL(){
     eglQuerySurface(Engine::openGLEngine.display,Engine::openGLEngine.surface,EGL_WIDTH,&Engine::openGLEngine.width);
     eglQuerySurface(Engine::openGLEngine.display,Engine::openGLEngine.surface,EGL_HEIGHT,&Engine::openGLEngine.height);
     Engine::openGLEngine.calcData();
+    Engine::CalcSystemData();
+
+    
     bRendering.store(true);
     world->InitGL();
     return 0;
@@ -163,6 +168,7 @@ int Engine::ResumeGL(){
     eglQuerySurface(Engine::openGLEngine.display,Engine::openGLEngine.surface,EGL_WIDTH,&Engine::openGLEngine.width);
     eglQuerySurface(Engine::openGLEngine.display,Engine::openGLEngine.surface,EGL_HEIGHT,&Engine::openGLEngine.height);
     Engine::openGLEngine.calcData();
+    Engine::CalcSystemData();
     bRendering.store(true);
     world->ResumeGL();
     return 0;
@@ -194,3 +200,17 @@ int Engine::Destroy(){
     world.reset();
     return 0;
 }
+
+#include <android/configuration.h>
+
+static int32_t getDensityDpi(struct android_app* app) {
+    AConfiguration* config = AConfiguration_new();
+    AConfiguration_fromAssetManager(config, app->activity->assetManager);
+    int32_t density = AConfiguration_getDensity(config);
+    AConfiguration_delete(config);
+    return density;
+}
+
+void Engine::CalcSystemData(){
+    Engine::systemData.glNavBarHeight = (float)getDensityDpi(Engine::app) * 0.3f / (float)Engine::openGLEngine.height * Engine::openGLEngine.screenSize.y;
+};

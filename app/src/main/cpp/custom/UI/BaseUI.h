@@ -8,6 +8,8 @@
 
 
 
+
+
 struct UI_G_Data {
     V2D pos;
     V2D size;
@@ -97,6 +99,7 @@ class BaseUI : public Object {
     bool noGLData = true;
     std::shared_ptr<BaseUI> parent;
     std::vector<std::shared_ptr<BaseUI>> children;
+    float zVal = 0.0f;
 
 
     void RectGetGLData(float (&data)[28]){

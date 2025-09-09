@@ -1,6 +1,6 @@
 #pragma once
 #include "Keyboard.h"
-#include "../API.h"
+#include "../World.h"
 #include "../../rendering/text/text.h"
 #include "../../utilities/log/API.h"
 
@@ -44,10 +44,10 @@ int KeyBoard::InitGL() {
     //Calculate the gl data sizes.
     //This is to ensure, that we have consitent position and size
     V2D factor {1.0f , 1.0f / Engine::openGLEngine.yAspect};
-    glPos =  V2D{0.0f, -factor.y + size.y / 2.0f};
+    glPos =  V2D{0.0f, -factor.y + size.y / 2.0f + Engine::systemData.navBarHeightPx / };
 
     //Calculate the position of the upper left key
-    V2D initalButtonPos = V2D{glPos.x - size.x / 2.0f + buttonSize.x / 2.0f, glPos.y + size.y / 2.0f - buttonSize.y / 2.0f};
+    V2D initalButtonPos = V2D{glPos.x - size.x / 2.0f + buttonSize.x / 2.0f, glPos.y + size.y / 2.0f - buttonSize.y / 2.0f + Engine::systemData.glNavBarHeight};
 
     
     
@@ -82,3 +82,26 @@ int KeyBoard::Draw(){
     return 0;
 }
 int KeyBoard::Update(uint64_t EuS, uint64_t TuS) {}
+
+
+
+int KeyBoard::Touch(V2D coord) {
+    //Check if this container was touched
+        if(coord.x > glPos.x - size.x/2.0f && coord.x < glPos.x + size.x/2.0f
+        && coord.y > glPos.y - size.y/2.0f && coord.y < glPos.y + size.y/2.0f
+        ){
+            //Find the pressed key.
+            constexpr float deltaDist = 0.01;
+
+            for(auto& e: keys){
+                if(coord.x - deltaDist > e.pos.x - buttonSize.x/2.0f && coord.x + deltaDist < e.pos.x + buttonSize.x/2.0f
+                && coord.y - deltaDist > e.pos.y - buttonSize.y/2.0f && coord.y + deltaDist < e.pos.y + buttonSize.y/2.0f
+                ){
+                    inputedText.append(1,e.c);
+                    return 1;
+                }
+            }
+        }
+        //Not found
+            return 0;
+}

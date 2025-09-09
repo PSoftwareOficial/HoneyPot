@@ -51,7 +51,7 @@ struct RingBuffer{
     T avg() {
         T value = 0;
         for(uint32_t i = 0; i < N; ){
-            value = buffer[i++];
+            value += buffer[i++];
         }
         value /= (T)N;
         return value;

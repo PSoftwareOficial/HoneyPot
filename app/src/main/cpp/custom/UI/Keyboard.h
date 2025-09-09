@@ -18,6 +18,7 @@ public:
     virtual int InitGL() override;
     virtual int Draw() override;
     virtual int Update(uint64_t EuS, uint64_t TuS) override;
+    virtual int Touch(V2D coord);
 
     
     const V2D buttonSize = {0.2f, 0.3f};
@@ -26,6 +27,7 @@ public:
 
 
     //UI related data
+    bool isActive = true;
     std::string inputedText;
     
 

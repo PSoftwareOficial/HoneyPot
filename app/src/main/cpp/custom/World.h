@@ -25,6 +25,6 @@ class World : public Object {
 
     static bool debugKeyboard;
 
-    float FPS, minFPS;
+    float FPS;
     RingBuffer<float, 5> m5FPS;
 }; 

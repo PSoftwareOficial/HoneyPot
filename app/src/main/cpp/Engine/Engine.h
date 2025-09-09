@@ -70,4 +70,13 @@ public:
     };
     //Input event queue
     static TS_RB<InputEvent,64> touchEvents;
+
+
+        //General Data
+    struct SystemData {
+        float glNavBarHeight = 0;
+    };
+    static void CalcSystemData();
+    static SystemData systemData;
+    
 };

@@ -5,7 +5,7 @@
 
 void UIManager::SETUP(){
 
-    auto container = std::make_shared<BaseUI>();
+    /*auto container = std::make_shared<BaseUI>();
     container->Init(nullptr, {V2D{0.0f,0.0f},V2D{1.0f,1.0f}}, {V3Du8{0,255,0}, 0.6f});
     parent = container;
 
@@ -15,7 +15,7 @@ void UIManager::SETUP(){
 
     auto button12 = std::make_shared<Button>();
     button12->Init(parent,{V2D{0.0f,-0.25f},V2D{1.0f,0.5f}}, {V3Du8{50,100,0}, 1.0f});
-    parent->children.push_back(button12);
+    parent->children.push_back(button12);*/
 
 }
 
@@ -64,7 +64,7 @@ static const char* fragmentShaderSrc = R"(#version 320 es
     {   
         keyboard.InitGL();
         SHADER.Init(vertexShaderSrc,fragmentShaderSrc);
-        parent->InitGL();
+        //parent->InitGL();
         return 0;
     }
 
@@ -72,7 +72,7 @@ static const char* fragmentShaderSrc = R"(#version 320 es
         while(Engine::touchEvents.GetElemNum()){
             Engine::InputEvent event;
             Engine::touchEvents.PopElem(event);
-            parent->Touch(event.coord);
+            keyboard->Touch(event.coord);
         }
         return 0;
     }
@@ -81,7 +81,7 @@ static const char* fragmentShaderSrc = R"(#version 320 es
         glUseProgram(SHADER.program);
         GLCheck("Program Selection");
 
-        parent->Draw();
+        //parent->Draw();
 
         keyboard.Draw();
         return 0;
