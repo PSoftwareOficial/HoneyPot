@@ -3,11 +3,18 @@
 #include <vector>
 #include <memory>
 #include "../../utilities/math/structs/vxd.h"
+#include <chrono>
 
+struct InputAction {
+    V2D coord;
+    std::chrono::steady_clock::time_point time;
+}
 
 struct InputEvent{
-    V2D coord;
-    enum {TOUCH_DOW, TOUCH_UP} type;
+    uint8_t bIsActive = 0 : 1;
+    InputAction start;
+    InputAction end;
+    enum {CLICK, SLASH} type;
 };
 
 

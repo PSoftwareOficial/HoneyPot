@@ -88,18 +88,20 @@ int KeyBoard::Draw(){
 
 int KeyBoard::UIEvent(const InputEvent& event) {
     //Check if this container was touched
-        if(coord.x > glPos.x - size.x/2.0f && coord.x < glPos.x + size.x/2.0f
-        && coord.y > glPos.y - size.y/2.0f && coord.y < glPos.y + size.y/2.0f
-        ){
-            //Find the pressed key.
-            constexpr float deltaDist = 0.01;
+        if(event.type == InputEvent::CLICK){
+            if(event.start.coord.x > glPos.x - size.x/2.0f && event.start.coord.x < glPos.x + size.x/2.0f
+            && event.start.coord.y > glPos.y - size.y/2.0f && event.start.coord.y < glPos.y + size.y/2.0f
+            ){
+                //Find the pressed key.
+                constexpr float deltaDist = 0.01;
 
-            for(auto& e: keys){
-                if(coord.x - deltaDist > e.pos.x - buttonSize.x/2.0f && coord.x + deltaDist < e.pos.x + buttonSize.x/2.0f
-                && coord.y - deltaDist > e.pos.y - buttonSize.y/2.0f && coord.y + deltaDist < e.pos.y + buttonSize.y/2.0f
-                ){
-                    inputedText.append(1,e.c);
-                    return 1;
+                for(auto& e: keys){
+                    if(coord.x - deltaDist > e.pos.x - buttonSize.x/2.0f && coord.x + deltaDist < e.pos.x + buttonSize.x/2.0f
+                    && coord.y - deltaDist > e.pos.y - buttonSize.y/2.0f && coord.y + deltaDist < e.pos.y + buttonSize.y/2.0f
+                    ){
+                        inputedText.append(1,e.c);
+                        return 1;
+                    }
                 }
             }
         }
