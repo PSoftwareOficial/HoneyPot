@@ -35,6 +35,8 @@ int KeyBoard::Init() {
 
     size = V2D{10 * buttonSize.x, 4 * buttonSize.y};
 
+    pUImanager->RegisterElement(this);
+
     return 0;
 }
 int KeyBoard::InitGL() {

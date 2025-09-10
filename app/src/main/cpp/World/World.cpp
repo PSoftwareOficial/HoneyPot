@@ -25,7 +25,6 @@ int World::Init()
 
 int World::InitGL() {
     Engine::textRenderer.InitGL();
-    Engine::uiManager.InitGL();
     
 
     for(auto& e: vObjects){
@@ -58,7 +57,6 @@ int World::Draw() {
     Engine::textRenderer.DrawText(V2D{0.0f,0.0f},V2D{0.05f, 0.05f},"Hello GL \n This is nice!");
     Engine::textRenderer.DrawText(V2D{0.0f,Engine::openGLEngine.screenSize.y - 0.25f},V2D{0.1f, 0.1f},"FPS: " + std::to_string(FPS));
     Engine::textRenderer.DrawText(V2D{0.0f,Engine::openGLEngine.screenSize.y - 0.35f},V2D{0.1f, 0.1f},"mFPS: " + std::to_string(m5FPS.avg()));
-    Engine::textRenderer.DrawText(V2D{0.0f,Engine::openGLEngine.screenSize.y - 0.45f},V2D{0.1f, 0.1f},"minFPS: " + std::to_string(minFPS));
     Engine::textRenderer.Draw();
     return 0;
 }
