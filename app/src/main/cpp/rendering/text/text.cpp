@@ -1,7 +1,7 @@
 #include "text.h"
-#include "../../utilities/AssetIO/API.h"
-#include "../core_include.h"
-#include "../../Engine/Engine.h"
+#include "utilities/AssetIO/API.h"
+#include "rendering/core_include.h"
+#include "Engine/Main/Engine.h"
 
 
 // Vertex data for a square
