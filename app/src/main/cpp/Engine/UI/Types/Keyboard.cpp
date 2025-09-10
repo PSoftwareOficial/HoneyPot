@@ -1,8 +1,8 @@
 #pragma once
 #include "Keyboard.h"
-#include "../World.h"
-#include "../../rendering/text/text.h"
-#include "../../utilities/log/API.h"
+#include "World/World.h"
+#include "rendering/text/text.h"
+#include "utilities/log/API.h"
 
 
 #define dbg_FL(msg) if(World::debugKeyboard) LOGI_FL(msg)

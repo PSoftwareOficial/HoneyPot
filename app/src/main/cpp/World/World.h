@@ -12,6 +12,7 @@
 
 class World : public Object {
     public:
+    World();
     virtual int Init() override; 
     virtual int InitGL() override;
     virtual int Update(uint64_t EuS, uint64_t TuS) override;

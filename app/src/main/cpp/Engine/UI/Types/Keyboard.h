@@ -1,7 +1,7 @@
 #pragma once
-#include "../UIManager.h"
-#include "../../../World/Object.h"
-#include "../../utilities/math/structs/vxd.h"
+#include "Engine/UI/UIManager.h"
+#include "World/Object.h"
+#include "utilities/math/structs/vxd.h"
 #include <string>
 #include <vector>
 
