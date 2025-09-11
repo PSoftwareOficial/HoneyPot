@@ -16,7 +16,7 @@ int World::Init()
     LOGI("STARTING WORLD");
     Engine::uiManager->Init();
 
-    vObjects.push_back(std::make_shared<Textfield>)();
+    vObjects.push_back(std::make_shared<Textfield>());
 
     for(auto& e: vObjects){
         e->Init();
