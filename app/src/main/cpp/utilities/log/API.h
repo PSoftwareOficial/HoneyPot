@@ -11,7 +11,7 @@
 #define LOGIV(msg) Logger::inst->log(msg)
 #define LOGIVV(msg) Logger::inst->log(msg)
 #define LOGIVVV(msg) Logger::inst->log(msg)
-#define LOGE(msg) Logger::inst->log("ERROR:" + msg)
+#define LOGE(msg) Logger::inst->log(std::string("ERROR: ") + msg)
 
 
 #define TO_STR_2(x) #x
