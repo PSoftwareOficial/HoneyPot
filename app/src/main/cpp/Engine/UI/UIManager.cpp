@@ -20,6 +20,7 @@ UIManager::UIManager() {
 
 
 int UIManager::Init() { 
+    LOGI("Init UIManager");
     Engine::world->vObjects.push_back(pKeyboard);
     
     return 0;

@@ -13,11 +13,12 @@ World::World(){
 
 int World::Init()
 { 
-    LOGI("STARTING WORLD");
+    LOGI("Gen.: Init World");
     Engine::uiManager->Init();
 
     vObjects.push_back(std::make_shared<TextField>());
 
+    LOGI("Gen.: Init World Objects");
     for(auto& e: vObjects){
         e->Init();
     }
