@@ -66,7 +66,7 @@ int UIManager::Init() {
 
         LOGIVVV("Test Register");
         //Check if elem already exists
-        for(auto &e : vElements){
+        for(BaseUI*& e : vElements){
             if(e == elem){
                 LOGIVV("Element already registered");
                 return 0;
