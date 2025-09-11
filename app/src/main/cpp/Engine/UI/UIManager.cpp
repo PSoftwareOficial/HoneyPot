@@ -17,11 +17,13 @@ BaseUI::~BaseUI() {
 UIManager::UIManager() {
     pKeyboard = std::make_shared<KeyBoard>();
 
+    LOGIVV("Test vElements: " + std::to_string(vElements.size()));
 }
 
 
 int UIManager::Init() { 
     LOGI("Init UIManager");
+    LOGIVV("Test vElements: " + std::to_string(vElements.size()));
     if(pKeyboard){
         Engine::world->AddObject(pKeyboard);
     }
@@ -63,9 +65,6 @@ int UIManager::Init() {
             LOGE_FL("Element is nullptr");
             return 1;
         }
-
-        LOGIVV("Test SOmething");
-        vElements = std::vector<BaseUI*>();
 
         LOGIVV("Test Register");
         LOGIVVV("Size Elements: " + std::to_string(vElements.size()));
