@@ -3,6 +3,7 @@
 
 #include "World/World.h"
 #include "utilities/log/API.h"
+#include "Engine/UI/UIManager.h"
 
 
 Engine::Engine() {}
@@ -125,7 +126,7 @@ int Engine::InitGL(){
 //Function which updates the complete engine (next frame)
 int Engine::Update(uint64_t EuS, uint64_t TuS){
     
-    Engine::world.Update(EuS, TuS);
+    Engine::world->Update(EuS, TuS);
 
     glClearColor(0.0f, 0.0f, 0.0f, 0.0f);
     glClear(GL_COLOR_BUFFER_BIT);

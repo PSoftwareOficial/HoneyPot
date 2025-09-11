@@ -81,7 +81,7 @@ public:
 
     
     //Input event queue
-    static std::unique_ptr<TS_RB<InputEvent,64>> touchEvents;
+    static std::unique_ptr<class TS_RB<struct InputEvent,64>> touchEvents;
 
 
         //General Data
