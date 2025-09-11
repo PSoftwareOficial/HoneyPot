@@ -76,7 +76,7 @@ int KeyBoard::InitGL() {
 int KeyBoard::Draw(){
     if(bIsActive){
         for(auto& e : keys){
-            Engine::textRenderer.DrawChar(e.pos,buttonSize, e.c);
+            Engine::textRenderer->DrawChar(e.pos,buttonSize, e.c);
         }
     }
     return 0;

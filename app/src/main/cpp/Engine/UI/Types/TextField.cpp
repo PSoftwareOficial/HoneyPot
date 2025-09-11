@@ -23,7 +23,7 @@ int TextField::InitGL() {
 }
 int TextField::Draw(){
         for(auto& e : keys){
-            Engine::textRenderer.DrawText(glPos,buttonSize, Engine::);
+            Engine::textRenderer->DrawText(glPos,buttonSize, Engine::uiManager->pKeyboard->inputedText);
         }
     return 0;
 }

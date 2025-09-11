@@ -1,7 +1,8 @@
 #include "World.h"
-#include "Engine/UI/Types/Keyboard.h"
-
-
+#include "utilities/AssetIO/API.h"
+#include "utilities/log/API.h"
+#include "Engine/UI/UIManager.h"
+#include "rendering/core_include.h"
 
 World::World(){
     
@@ -11,7 +12,7 @@ World::World(){
 int World::Init()
 { 
     LOGI("STARTING WORLD");
-    Engine::uiManager.Init();
+    Engine::uiManager->Init();
 
     for(auto& e: vObjects){
         e->Init();
@@ -24,7 +25,7 @@ int World::Init()
 
 
 int World::InitGL() {
-    Engine::textRenderer.InitGL();
+    Engine::textRenderer->InitGL();
     
 
     for(auto& e: vObjects){
@@ -35,7 +36,7 @@ int World::InitGL() {
 
 
 int World::Update(uint64_t EuS, uint64_t TuS) {
-    Engine::uiManager.Update(EuS, TuS);
+    Engine::uiManager->Update(EuS, TuS);
 
 
     for(auto& e: vObjects){
@@ -54,9 +55,9 @@ int World::Draw() {
         e->Draw();
     }
 
-    Engine::textRenderer.DrawText(V2D{0.0f,0.0f},V2D{0.05f, 0.05f},"Hello GL \n This is nice!");
-    Engine::textRenderer.DrawText(V2D{0.0f,Engine::openGLEngine.screenSize.y - 0.25f},V2D{0.1f, 0.1f},"FPS: " + std::to_string(FPS));
-    Engine::textRenderer.DrawText(V2D{0.0f,Engine::openGLEngine.screenSize.y - 0.35f},V2D{0.1f, 0.1f},"mFPS: " + std::to_string(m5FPS.avg()));
-    Engine::textRenderer.Draw();
+    Engine::textRenderer->DrawText(V2D{0.0f,0.0f},V2D{0.05f, 0.05f},"Hello GL \n This is nice!");
+    Engine::textRenderer->DrawText(V2D{0.0f,Engine::openGLEngine.screenSize.y - 0.25f},V2D{0.1f, 0.1f},"FPS: " + std::to_string(FPS));
+    Engine::textRenderer->DrawText(V2D{0.0f,Engine::openGLEngine.screenSize.y - 0.35f},V2D{0.1f, 0.1f},"mFPS: " + std::to_string(m5FPS.avg()));
+    Engine::textRenderer->Draw();
     return 0;
 }

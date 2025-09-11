@@ -2,11 +2,10 @@
 #include <thread>
 #include <atomic>
 #include <cstdint>
-#include "Engine/UI/UIManager.h"
+
 #include "rendering/core_include.h"
 #include "utilities/math/structs/vxd.h"
 #include "utilities/Buffer/Buffer.h"
-#include "World/World.h"
 
 
 
@@ -14,6 +13,9 @@
 
 class Engine {
 private:
+    Engine();
+    ~Engine();
+
     //Function which starts the complete engine
     int Init();
     //Function which inits the complete open GL
@@ -65,13 +67,13 @@ public:
     static OpenGLEngine openGLEngine;
 
     //UI Manager
-    static UIManager uiManager;
+    static std::unique_ptr<class UIManager> uiManager;
 
     //Base text renderer
-    static TextRenderer textRenderer;
+    static std::unique_ptr<class TextRenderer> textRenderer;
 
     //World pointer
-    static World world;
+    static std::unique_ptr<class World> world;
 
     //Functions which Loops through the engine
     void Loop();

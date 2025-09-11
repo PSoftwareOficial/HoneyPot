@@ -6,6 +6,8 @@
 #include "EngineFunctions.h"
 #include "AndroidFunctions.h"
 
+#include "Engine/UI/UIManager.h"
+#include "World/World.h"
 
 std::atomic<bool> Engine::bRun = false;
 std::atomic<bool> Engine::bRender = false;
@@ -16,10 +18,15 @@ struct android_app* Engine::app;
 OpenGLEngine Engine::openGLEngine;
 TS_RB<InputEvent,64> Engine::touchEvents;
 Engine::SystemData Engine::systemData;
-UIManager Engine::uiManager;
-TextRenderer Engine::textRenderer;
-World Engine::world;
 
+//UI Manager
+std::unique_ptr<class UIManager> Engine::uiManager = std::make_unique<UIManager>();
+
+//Base text renderer
+std::unique_ptr<class TextRenderer> Engine::textRenderer = std::make_unique<TextRenderer>();;
+
+//World pointer
+std::unique_ptr<class World> Engine::world = std::make_unique<World>();;
 
 
 

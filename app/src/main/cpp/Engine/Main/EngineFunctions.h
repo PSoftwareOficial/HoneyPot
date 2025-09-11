@@ -1,10 +1,12 @@
 #include "Engine.h"
 #include <vector>
 
-#include "rendering/core_include.h"
 #include "World/World.h"
 #include "utilities/log/API.h"
 
+
+Engine::Engine() {}
+Engine::~Engine() {}
 
 void Engine::Loop(){
     LOGI("STARTING ENGINE THREAD");

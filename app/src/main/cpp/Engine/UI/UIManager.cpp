@@ -1,10 +1,11 @@
 #include "UIManager.h"
 #include "Engine/Main/Engine.h"
+#include "Engine/UI/Types/Keyboard.h"
 
 
 
 BaseUI::BaseUI(){
-    pUImanager = &Engine::uiManager;
+    pUImanager = Engine::uiManager.get();
 }
 
 
@@ -13,15 +14,12 @@ BaseUI::~BaseUI() {
 };
 
 UIManager::UIManager() {
-
-    
+    pKeyboard = std::make_shared<Keyboard>();
 }
 
 
 int UIManager::Init() { 
-    auto keyboard = std::make_shared<KeyBoard>();
-    Engine::world.vObjects.push_back(keyboard);
-    pKeyboard = keyboard.get();
+    Engine::world->vObjects.push_back(pKeyboard);
     
     return 0;
 }
