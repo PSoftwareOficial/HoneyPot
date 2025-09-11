@@ -4,6 +4,7 @@
 #include "Engine/UI/UIManager.h"
 #include "rendering/core_include.h"
 #include "Engine/Main/Engine.h"
+#include "Engine/UI/Types/TextField.h"
 
 World::World(){
     
@@ -14,6 +15,8 @@ int World::Init()
 { 
     LOGI("STARTING WORLD");
     Engine::uiManager->Init();
+
+    vObjects.push_back(std::make_shared<Textfield>)();
 
     for(auto& e: vObjects){
         e->Init();
