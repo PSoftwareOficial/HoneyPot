@@ -15,7 +15,7 @@ public:
     virtual int Update(uint64_t EuS, uint64_t TuS) override;
 
     V2D buttonSize = {0.2f, 0.3f};
-    V2D pos {0.0f, 0.5f;};
+    V2D pos {0.0f, 0.5f};
     V2D size;
 
 

@@ -26,7 +26,8 @@ LOCAL_SRC_FILES := \
     ../app/src/main/cpp/World/World.cpp\
     ../app/src/main/cpp/utilities/utilities.cpp\
     ../app/src/main/cpp/rendering/text/text.cpp\
-    ../app/src/main/cpp/Engine/UI/Types/Keyboard.cpp
+    ../app/src/main/cpp/Engine/UI/Types/Keyboard.cpp\
+    ../app/src/main/cpp/Engine/UI/Types/TextField.cpp
 
 LOCAL_CFLAGS := -Wall -Wno-unused-function -Wno-unused-variable
 LOCAL_CPPFLAGS := -std=gnu++17
