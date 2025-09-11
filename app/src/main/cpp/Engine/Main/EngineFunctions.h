@@ -70,7 +70,7 @@ void Engine::Loop(){
 //Function which starts the complete engine
 int Engine::Init(){
     LOG("STARTING ENGINE");
-    Engine::world.Init();
+    Engine::world->Init();
     return 0;
 }
 
@@ -117,7 +117,7 @@ int Engine::InitGL(){
 
     
     bRendering.store(true);
-    Engine::world.InitGL();
+    Engine::world->InitGL();
     return 0;
 }
 
@@ -131,7 +131,7 @@ int Engine::Update(uint64_t EuS, uint64_t TuS){
     glClear(GL_COLOR_BUFFER_BIT);
     glEnable(GL_BLEND);
     glBlendFunc(GL_SRC_ALPHA, GL_ONE_MINUS_SRC_ALPHA);  // Default alpha blending function
-    Engine::world.Draw();
+    Engine::world->Draw();
 
     eglSwapBuffers(Engine::openGLEngine.display, Engine::openGLEngine.surface);
     return 0;
@@ -165,7 +165,7 @@ int Engine::ResumeGL(){
     Engine::openGLEngine.calcData();
     Engine::CalcSystemData();
     bRendering.store(true);
-    Engine::world.ResumeGL();
+    Engine::world->ResumeGL();
     return 0;
 }
 
@@ -174,7 +174,7 @@ int Engine::PauseGL(){
     LOGI("PAUSE GL");
     eglDestroySurface(Engine::openGLEngine.display, Engine::openGLEngine.surface);
     bRendering.store(false);
-    Engine::world.PauseGL();
+    Engine::world->PauseGL();
     return 0;
 }
 
@@ -184,14 +184,14 @@ int Engine::EndGL(){
     eglDestroySurface(Engine::openGLEngine.display, Engine::openGLEngine.surface);
     eglDestroyContext(Engine::openGLEngine.display, Engine::openGLEngine.context);
     eglTerminate(Engine::openGLEngine.display);
-    Engine::world.EndGL();
+    Engine::world->EndGL();
     return 0;
 }
 
 //Function which destroys the complete Engine.
 int Engine::Destroy(){
     LOGI("Endind Engine");
-    Engine::world.Destroy();
+    Engine::world->Destroy();
     return 0;
 }
 

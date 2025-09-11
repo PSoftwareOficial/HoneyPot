@@ -2,6 +2,7 @@
 #include <android_native_app_glue.h>
 #include <android/input.h>
 
+
 #include "Engine.h"
 #include "EngineFunctions.h"
 #include "AndroidFunctions.h"
@@ -16,7 +17,7 @@ std::thread Engine::tRun;
 Engine* Engine::engine = nullptr;
 struct android_app* Engine::app;
 OpenGLEngine Engine::openGLEngine;
-TS_RB<InputEvent,64> Engine::touchEvents;
+std::unique_ptr<TS_RB<InputEvent,64>> Engine::touchEvents = std::make_unique<TS_RB<InputEvent,64>>();
 Engine::SystemData Engine::systemData;
 
 //UI Manager

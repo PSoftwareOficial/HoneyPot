@@ -2,6 +2,7 @@
 #include <thread>
 #include <atomic>
 #include <cstdint>
+#include <memory>
 
 #include "rendering/core_include.h"
 #include "utilities/math/structs/vxd.h"
@@ -80,7 +81,7 @@ public:
 
     
     //Input event queue
-    static TS_RB<InputEvent,64> touchEvents;
+    static std::unique_ptr<TS_RB<InputEvent,64>> touchEvents;
 
 
         //General Data
