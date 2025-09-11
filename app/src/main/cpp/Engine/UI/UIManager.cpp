@@ -63,6 +63,18 @@ int UIManager::Init() {
             LOGE_FL("Element is nullptr");
             return 1;
         }
+
+        //Check if elem already exists
+        for(auto &e : vElements){
+            if(e == elem){
+                LOGIVV("Element already registered");
+                return 0;
+            }
+            if(!e){
+                LOGE_FL("Element in elements list is nullptr");
+                return 1;
+            }
+        }
         LOGIVVV("Test Register 1");
         auto pos = std::find_if(vElements.begin(), vElements.end(), [elem] (BaseUI* A) { return A->fZValue < elem->fZValue; });
         LOGIVVV("Test Register 2");
