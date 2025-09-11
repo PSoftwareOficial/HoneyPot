@@ -20,9 +20,8 @@ int World::Init()
 
     LOGIV("Init World Objects");
 
-    int test = 0;
+    
     for(auto& e: vObjects){
-        LOGIVV("Test: " + std::to_string(test++));
         e->Init();
     }
     LOGIV("End Init World");

@@ -40,9 +40,7 @@ int KeyBoard::Init() {
 
     //Ensure highest point
     fZValue = -9000.0f;
-    LOGIVVV("Test Keyboard");
     pUImanager->RegisterElement(this);
-    LOGIVVV("Test Keyboard22");
     return 0;
 }
 int KeyBoard::InitGL() {

@@ -59,8 +59,11 @@ int UIManager::Init() {
     int UIManager::Destroy() { return 0;}
     
     int UIManager::RegisterElement(BaseUI* elem){
+        LOGIVVV("Test Register 1");
         auto pos = std::find_if(vElements.begin(), vElements.end(), [&elem] (BaseUI* A) { return A->fZValue < elem->fZValue; });
+        LOGIVVV("Test Register 2");
         vElements.insert(pos, elem);
+        LOGIVVV("Test Register 3");
         return 0;
     }
     int UIManager::UnregisterElement(BaseUI* elem){
