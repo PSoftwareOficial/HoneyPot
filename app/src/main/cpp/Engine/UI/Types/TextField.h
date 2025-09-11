@@ -12,7 +12,7 @@ public:
     virtual int InitGL() override;
     virtual int Draw() override;
     virtual int UIEvent(const InputEvent& event) override;
-    virtual int Update(uint64_t EuS, uint64_t TuS) override;
+    //virtual int Update(uint64_t EuS, uint64_t TuS) override;
 
     V2D buttonSize = {0.2f, 0.3f};
     V2D pos {0.0f, 0.5f};
