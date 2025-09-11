@@ -64,6 +64,7 @@ int UIManager::Init() {
             return 1;
         }
 
+        LOGIVVV("Test Register");
         //Check if elem already exists
         for(auto &e : vElements){
             if(e == elem){
