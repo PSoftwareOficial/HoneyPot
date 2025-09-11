@@ -10,18 +10,18 @@ Engine::Engine() {}
 Engine::~Engine() {}
 
 void Engine::Loop(){
-    LOGI("STARTING ENGINE THREAD");
+    LOGIV("Starting Engine Thread");
     //Wait for the signal to init Open GL
     //Init the Engine
 	Init();
 
-    LOGI("FINISHED INIT ENGINE");
+    LOGIVV("Finished Init Engine");
     while(!bRender.load()){
         //Not destroyed nor running, sleep for 100 milliseconds to reduce CPU time
         std::this_thread::sleep_for(std::chrono::milliseconds(100));
     }
     InitGL();
-    LOGI("FINISHED INIT GL ENGINE");
+    LOGIVV("Finished Init GL Engine");
     bStarted = true;
 	
 
@@ -70,7 +70,7 @@ void Engine::Loop(){
 
 //Function which starts the complete engine
 int Engine::Init(){
-    LOG("STARTING ENGINE");
+    LOGIV("Init Engine");
     Engine::world->Init();
     return 0;
 }
@@ -107,7 +107,7 @@ static void init_gles(struct android_app* app, EGLDisplay* display, EGLSurface* 
 
 //Function which inits the complete open GL
 int Engine::InitGL(){
-    LOG("Starting Open GL");
+    LOGIV("Init GL Engine");
     //Init the GL Engine
     
     init_gles(Engine::app, &Engine::openGLEngine.display, &Engine::openGLEngine.surface, &Engine::openGLEngine.context);

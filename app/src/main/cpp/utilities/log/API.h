@@ -8,6 +8,9 @@
 
 #define LOG(msg) Logger::inst->log(msg)
 #define LOGI(msg) Logger::inst->log(msg)
+#define LOGIV(msg) Logger::inst->log(msg)
+#define LOGIVV(msg) Logger::inst->log(msg)
+#define LOGIVVV(msg) Logger::inst->log(msg)
 #define LOGE(msg) Logger::inst->log(msg)
 
 
