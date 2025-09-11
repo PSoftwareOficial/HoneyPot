@@ -70,7 +70,7 @@ int World::Draw() {
 
 
 
-int World::AddObject(std::shared_ptr<Object>& pObject){
+int World::AddObject(std::shared_ptr<Object> pObject){
     if(pObject){
         vObjects.push_back(pObject);
     } else {
