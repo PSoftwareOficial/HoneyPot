@@ -7,6 +7,7 @@
 #include "EngineFunctions.h"
 #include "AndroidFunctions.h"
 
+#include "utilities/AssetIO/API.h"
 #include "Engine/UI/UIManager.h"
 #include "World/World.h"
 

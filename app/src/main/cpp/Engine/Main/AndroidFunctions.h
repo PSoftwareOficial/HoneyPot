@@ -112,7 +112,7 @@ int32_t Engine::process_INPUT(struct android_app* app, struct AInputEvent* event
                         inputEvent.type = InputEvent::SLASH;
                     }
                     inputEvent.bIsActive = 0;
-                    Engine::touchEvents.AddElem(inputEvent);
+                    Engine::touchEvents->AddElem(inputEvent);
                     //Handled Key event
                     return 1;
                 }

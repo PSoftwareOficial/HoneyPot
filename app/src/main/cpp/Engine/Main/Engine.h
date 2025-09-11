@@ -14,8 +14,7 @@
 
 class Engine {
 private:
-    Engine();
-    ~Engine();
+    
 
     //Function which starts the complete engine
     int Init();
@@ -43,6 +42,8 @@ private:
     std::atomic<bool> bStarted = false;
 
 public:
+    Engine();
+    ~Engine();
     static void process_CMD(struct android_app* app, int32_t cmd);
     static int32_t process_INPUT(struct android_app* app, struct AInputEvent* event);
 
@@ -81,7 +82,7 @@ public:
 
     
     //Input event queue
-    static std::unique_ptr<class TS_RB<struct InputEvent,64>> touchEvents;
+    static std::unique_ptr<struct TS_RB<struct InputEvent,64>> touchEvents;
 
 
         //General Data

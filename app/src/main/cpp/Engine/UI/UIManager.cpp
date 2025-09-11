@@ -28,9 +28,9 @@ int UIManager::Init() {
 
     int UIManager::Update(uint64_t EuS, uint64_t TuS){
 
-        while(Engine::touchEvents.GetElemNum()){
+        while(Engine::touchEvents->GetElemNum()){
             InputEvent event;
-            Engine::touchEvents.PopElem(event);
+            Engine::touchEvents->PopElem(event);
 
             //Forward the elements
             for(int i = 0; i < vElements.size(); --i){

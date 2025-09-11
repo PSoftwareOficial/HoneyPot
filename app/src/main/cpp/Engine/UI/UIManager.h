@@ -43,6 +43,6 @@ class UIManager {
 
     protected:
     std::vector<BaseUI*> vElements;
-    std:shared_ptr<class KeyBoard> pKeyboard;
+    std::shared_ptr<class KeyBoard> pKeyboard;
 
 };
