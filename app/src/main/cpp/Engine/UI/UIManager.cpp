@@ -64,7 +64,7 @@ int UIManager::Init() {
             return 1;
         }
 
-        LOGIVVV("Test Register");
+        LOGIVVV("Size Elements: " + std::to_string(vElements.size()));
         //Check if elem already exists
         for(BaseUI*& e : vElements){
             LOGIVVV("Test");
