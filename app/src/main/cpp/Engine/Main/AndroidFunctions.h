@@ -105,7 +105,7 @@ int32_t Engine::process_INPUT(struct android_app* app, struct AInputEvent* event
 
 
                     //Configure the type of event
-                    auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(inputEvent.end.time - inputEvent.stard.time).count();
+                    auto ms = std::chrono::duration_cast<std::chrono::milliseconds>(inputEvent.end.time - inputEvent.start.time).count();
                     if((inputEvent.start.coord - inputEvent.end.coord).mag2() < dSlashThreshold && ms < dTimeThreshold){
                         inputEvent.type = InputEvent::CLICK;
                     } else {

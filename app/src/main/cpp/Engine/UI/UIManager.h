@@ -8,10 +8,10 @@
 struct InputAction {
     V2D coord;
     std::chrono::steady_clock::time_point time;
-}
+};
 
 struct InputEvent{
-    uint8_t bIsActive = 0 : 1;
+    uint8_t bIsActive : 1 = 0;
     InputAction start;
     InputAction end;
     enum {CLICK, SLASH} type;
