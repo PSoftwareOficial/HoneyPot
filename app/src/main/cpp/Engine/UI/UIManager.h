@@ -27,7 +27,7 @@ class BaseUI {
     class UIManager* pUImanager = nullptr;
 
     BaseUI();
-    virtual int UIEvent(const InputEvent& event);
+    virtual int UIEvent(const InputEvent& event) = 0;
     virtual ~BaseUI();
 };
 

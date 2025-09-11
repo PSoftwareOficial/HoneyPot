@@ -15,8 +15,9 @@ Engine* Engine::engine = nullptr;
 struct android_app* Engine::app;
 OpenGLEngine Engine::openGLEngine;
 TS_RB<InputEvent,64> Engine::touchEvents;
-
-
+SystemData Engine::systemData;
+UIManager Engine::uiManager;
+TextRenderer Engine::textRenderer;
 
 
 
