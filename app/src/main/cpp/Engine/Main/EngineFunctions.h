@@ -72,7 +72,6 @@ void Engine::Loop(){
 int Engine::Init(){
     LOGIV("Init Engine");
     Engine::world->Init();
-    LOGIV("End Init Engine");
     return 0;
 }
 

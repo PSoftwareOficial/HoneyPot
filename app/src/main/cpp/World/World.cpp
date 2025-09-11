@@ -22,7 +22,7 @@ int World::Init()
     for(auto& e: vObjects){
         e->Init();
     }
-    
+    LOGIV("End Init World");
     return 0;
 }
 
