@@ -41,9 +41,10 @@ class UIManager {
     int RegisterElement(BaseUI* elem);
     int UnregisterElement(BaseUI* elem);
 
-    std::shared_ptr<class KeyBoard> pKeyboard;
+    
     protected:
     std::vector<BaseUI*> vElements;
-    
+    public:
+    std::shared_ptr<class KeyBoard> pKeyboard;
 
 };
