@@ -3,6 +3,7 @@
 #include "utilities/log/API.h"
 #include "Engine/UI/UIManager.h"
 #include "rendering/core_include.h"
+#include "Engine/Main/Engine.h"
 
 World::World(){
     
