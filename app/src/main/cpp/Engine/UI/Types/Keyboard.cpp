@@ -1,6 +1,7 @@
 #pragma once
 #include "Keyboard.h"
 #include "World/World.h"
+#include "Engine/Main/Engine.h"
 #include "rendering/text/text.h"
 #include "utilities/log/API.h"
 
