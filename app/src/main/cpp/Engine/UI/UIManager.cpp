@@ -62,7 +62,7 @@ int UIManager::Init() {
         auto pos = std::find_if(vElements.begin(), vElements.end(), [&elem] (BaseUI* A) { return A->fZValue < elem->fZValue; });
         vElements.insert(pos, elem);
         return 0;
-    };
+    }
     int UIManager::UnregisterElement(BaseUI* elem){
         auto pos = std::find_if(vElements.begin(), vElements.end(), [&elem] (BaseUI* A) { return A == elem; });
         if(pos != vElements.end()){
