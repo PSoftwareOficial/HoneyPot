@@ -6,7 +6,7 @@
 #include <vector>
 
 
-class Textfield : public Object, public BaseUI {
+class TextField : public Object, public BaseUI {
 public:
     virtual int Init() override;
     virtual int InitGL() override;
