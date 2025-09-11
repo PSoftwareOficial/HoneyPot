@@ -11,7 +11,7 @@ struct InputAction {
 };
 
 struct InputEvent{
-    uint8_t bIsActive : 1 = 0;
+    uint8_t bIsActive = 0;
     InputAction start;
     InputAction end;
     enum {CLICK, SLASH} type;

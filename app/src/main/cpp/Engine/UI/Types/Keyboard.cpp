@@ -5,8 +5,8 @@
 #include "utilities/log/API.h"
 
 
-#define dbg_FL(msg) if(World::debugKeyboard) LOGI_FL(msg)
-#define dbg(msg) if(World::debugKeyboard) LOGI(msg)
+#define dbg_FL(msg) LOGI_FL(msg)
+#define dbg(msg) LOGI(msg)
 
 int KeyBoard::Init() {
 
@@ -46,7 +46,7 @@ int KeyBoard::InitGL() {
     //Calculate the gl data sizes.
     //This is to ensure, that we have consitent position and size
     V2D factor {1.0f , 1.0f / Engine::openGLEngine.yAspect};
-    glPos =  V2D{0.0f, -factor.y + size.y / 2.0f + Engine::systemData.navBarHeightPx / };
+    glPos =  V2D{0.0f, -factor.y + size.y / 2.0f + Engine::systemData.glNavBarHeight };
 
     //Calculate the position of the upper left key
     V2D initalButtonPos = V2D{glPos.x - size.x / 2.0f + buttonSize.x / 2.0f, glPos.y + size.y / 2.0f - buttonSize.y / 2.0f + Engine::systemData.glNavBarHeight};
@@ -79,7 +79,7 @@ int KeyBoard::InitGL() {
 }
 int KeyBoard::Draw(){
     for(auto& e : keys){
-        World::textRenderer.DrawChar(e.pos,buttonSize, e.c);
+        Engine::textRenderer.DrawChar(e.pos,buttonSize, e.c);
     }
     return 0;
 }
@@ -96,8 +96,8 @@ int KeyBoard::UIEvent(const InputEvent& event) {
                 constexpr float deltaDist = 0.01;
 
                 for(auto& e: keys){
-                    if(coord.x - deltaDist > e.pos.x - buttonSize.x/2.0f && coord.x + deltaDist < e.pos.x + buttonSize.x/2.0f
-                    && coord.y - deltaDist > e.pos.y - buttonSize.y/2.0f && coord.y + deltaDist < e.pos.y + buttonSize.y/2.0f
+                    if(event.start.coord.x - deltaDist > e.pos.x - buttonSize.x/2.0f && event.start.coord.x + deltaDist < e.pos.x + buttonSize.x/2.0f
+                    && event.start.coord.y - deltaDist > e.pos.y - buttonSize.y/2.0f && event.start.coord.y + deltaDist < e.pos.y + buttonSize.y/2.0f
                     ){
                         inputedText.append(1,e.c);
                         return 1;
