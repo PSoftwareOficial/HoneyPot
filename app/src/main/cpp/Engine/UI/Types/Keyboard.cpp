@@ -68,12 +68,6 @@ int KeyBoard::InitGL() {
         }
     }
 
-    if(World::debugKeyboard){
-        for(auto& key : keys){
-            LOGI("key " + std::string(1,key.c) + " has position " + key.pos.string());
-        }
-    }
-
     dbg_FL("Finished Keys Positions");
     return 0;
 }
