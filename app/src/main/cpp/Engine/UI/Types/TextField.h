@@ -6,35 +6,24 @@
 #include <vector>
 
 
-
-struct Key {
-    char c;
-    V2D pos;
-    enum {KEY, ACTION} type;
-};
-
-class KeyBoard : public Object, public BaseUI {
+class Textfield : public Object, public BaseUI {
 public:
     virtual int Init() override;
     virtual int InitGL() override;
     virtual int Draw() override;
     virtual int UIEvent(const InputEvent& event) override;
+    virtual int Update(uint64_t EuS, uint64_t TuS) override;
 
-    
-    const V2D buttonSize = {0.2f, 0.3f};
-    V2D pos;
+    V2D buttonSize = {0.2f, 0.3f};
+    V2D pos {0.0f, 0.5f;};
     V2D size;
 
 
     //UI related data
     std::string inputedText;
     
-
-    V2D glButtonSize;
     V2D glSize;
     V2D glPos;
+    V2D glButtonSize;
 
-
-    //Data
-    std::vector<Key> keys;
 };

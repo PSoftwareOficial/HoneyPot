@@ -4,7 +4,7 @@
 
 
 World::World(){
-    vObjects.push_back(std::make_shared<KeyBoard>());
+    
 }
 
 

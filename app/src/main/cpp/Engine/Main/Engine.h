@@ -69,6 +69,9 @@ public:
     //Base text renderer
     static TextRenderer textRenderer;
 
+    //World pointer
+    static World world;
+
     //Functions which Loops through the engine
     void Loop();
 

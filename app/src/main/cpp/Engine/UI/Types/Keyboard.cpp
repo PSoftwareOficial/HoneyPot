@@ -35,6 +35,8 @@ int KeyBoard::Init() {
 
     size = V2D{10 * buttonSize.x, 4 * buttonSize.y};
 
+    //Ensure highest point
+    fZValue = -9000.0f;
     pUImanager->RegisterElement(this);
 
     return 0;
@@ -72,8 +74,10 @@ int KeyBoard::InitGL() {
     return 0;
 }
 int KeyBoard::Draw(){
-    for(auto& e : keys){
-        Engine::textRenderer.DrawChar(e.pos,buttonSize, e.c);
+    if(bIsActive){
+        for(auto& e : keys){
+            Engine::textRenderer.DrawChar(e.pos,buttonSize, e.c);
+        }
     }
     return 0;
 }

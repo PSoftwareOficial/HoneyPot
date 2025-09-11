@@ -18,7 +18,7 @@ TS_RB<InputEvent,64> Engine::touchEvents;
 Engine::SystemData Engine::systemData;
 UIManager Engine::uiManager;
 TextRenderer Engine::textRenderer;
-
+World Engine::world;
 
 
 

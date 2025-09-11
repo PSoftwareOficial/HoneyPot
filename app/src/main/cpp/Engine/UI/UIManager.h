@@ -34,6 +34,7 @@ class BaseUI {
 
 class UIManager {
     public:
+    UIManager();
     int Init();
     int Update(uint64_t EuS, uint64_t TuS);
     int Destroy();
@@ -42,6 +43,6 @@ class UIManager {
 
     protected:
     std::vector<BaseUI*> vElements;
-
+    class KeyBoard* pKeyboard;
 
 };

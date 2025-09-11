@@ -12,8 +12,22 @@ BaseUI::~BaseUI() {
     pUImanager->UnregisterElement(this);
 };
 
+UIManager::UIManager() {
 
-int UIManager::Init() { return 0;}
+    
+}
+
+
+int UIManager::Init() { 
+    auto keyboard = std::make_shared<KeyBoard>();
+    Engine::world.vObjects.push_back(keyboard);
+    pKeyboard = keyboard.get();
+    
+    return 0;
+}
+
+
+
     int UIManager::Update(uint64_t EuS, uint64_t TuS){
 
         while(Engine::touchEvents.GetElemNum()){
