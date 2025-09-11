@@ -12,6 +12,7 @@ class World : public Object {
     virtual int InitGL() override;
     virtual int Update(uint64_t EuS, uint64_t TuS) override;
     virtual int Draw() override;
+    int AddObject(std::shared_ptr<Object>& vObjects);
 
 
     virtual ~World() {};
@@ -19,6 +20,6 @@ class World : public Object {
     float FPS;
     RingBuffer<float, 5> m5FPS;
 
-
+    protected:
     std::vector<std::shared_ptr<Object>> vObjects;
 }; 

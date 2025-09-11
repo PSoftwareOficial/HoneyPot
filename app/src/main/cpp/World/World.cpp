@@ -13,12 +13,12 @@ World::World(){
 
 int World::Init()
 { 
-    LOGI("Gen.: Init World");
+    LOGIV("Init World");
     Engine::uiManager->Init();
 
     vObjects.push_back(std::make_shared<TextField>());
 
-    LOGI("Gen.: Init World Objects");
+    LOGIV("Init World Objects");
     for(auto& e: vObjects){
         e->Init();
     }
@@ -30,9 +30,10 @@ int World::Init()
 
 
 int World::InitGL() {
+    LOGIV("Init GL World");
     Engine::textRenderer->InitGL();
     
-
+    LOGIV("Init GL World Objects");
     for(auto& e: vObjects){
         e->InitGL();
     }
@@ -64,5 +65,17 @@ int World::Draw() {
     Engine::textRenderer->DrawText(V2D{0.0f,Engine::openGLEngine.screenSize.y - 0.25f},V2D{0.1f, 0.1f},"FPS: " + std::to_string(FPS));
     Engine::textRenderer->DrawText(V2D{0.0f,Engine::openGLEngine.screenSize.y - 0.35f},V2D{0.1f, 0.1f},"mFPS: " + std::to_string(m5FPS.avg()));
     Engine::textRenderer->Draw();
+    return 0;
+}
+
+
+
+int World::AddObject(std::shared_ptr<Object>& pObject){
+    if(pObject){
+        vObjects.push_back(pObject);
+    } else {
+        LOGE_FL("Object is a nullptr");
+    }
+
     return 0;
 }

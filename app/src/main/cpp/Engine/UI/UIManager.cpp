@@ -16,12 +16,16 @@ BaseUI::~BaseUI() {
 
 UIManager::UIManager() {
     pKeyboard = std::make_shared<KeyBoard>();
+
 }
 
 
 int UIManager::Init() { 
     LOGI("Init UIManager");
-    Engine::world->vObjects.push_back(pKeyboard);
+    if(pKeyboard){
+        Engine::world->AddObject(pKeyboard);
+    }
+    
     
     return 0;
 }

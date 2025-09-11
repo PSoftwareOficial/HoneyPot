@@ -11,14 +11,14 @@
 #define LOGIV(msg) Logger::inst->log(msg)
 #define LOGIVV(msg) Logger::inst->log(msg)
 #define LOGIVVV(msg) Logger::inst->log(msg)
-#define LOGE(msg) Logger::inst->log(msg)
+#define LOGE(msg) Logger::inst->log("ERROR:" + msg)
 
 
 #define TO_STR_2(x) #x
 #define TO_STR(x) TO_STR_2(x)
 
 #define LOGI_FL(msg) LOGI(TO_STR(__FILE__) + std::string(" : ") + TO_STR(__LINE__) + std::string(": ") + msg)
-
+#define LOGE_FL(msg) LOGE(TO_STR(__FILE__) + std::string(" : ") + TO_STR(__LINE__) + std::string(": ") + msg)
 
 
 class Logger {
