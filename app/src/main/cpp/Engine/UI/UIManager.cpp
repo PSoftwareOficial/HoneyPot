@@ -23,6 +23,7 @@ UIManager::UIManager() {
 
 int UIManager::Init() { 
     LOGI("Init UIManager");
+    LOGI("TEst Somethin UIManager");
     LOGI("Test vElements: " + std::to_string(vElements.size()));
     LOGI("Test UIManager");
     if(pKeyboard){
