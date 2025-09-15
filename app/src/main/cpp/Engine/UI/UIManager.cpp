@@ -23,7 +23,7 @@ UIManager::UIManager() {
 
 int UIManager::Init() { 
     LOGI("Init UIManager");
-    LOGIVV("Test vElements: " + std::to_string(vElements.size()));
+    LOGI("Test vElements: " + std::to_string(vElements.size()));
     if(pKeyboard){
         Engine::world->AddObject(pKeyboard);
     }
