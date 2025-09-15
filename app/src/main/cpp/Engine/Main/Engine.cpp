@@ -11,6 +11,9 @@
 #include "Engine/UI/UIManager.h"
 #include "World/World.h"
 
+
+#include <memory>
+
 std::atomic<bool> Engine::bRun = false;
 std::atomic<bool> Engine::bRender = false;
 std::atomic<bool> Engine::bDestroy = false;
@@ -35,11 +38,13 @@ std::unique_ptr<class World> Engine::world = std::make_unique<World>();;
 static Engine engine;
 
 extern "C" void android_main(struct android_app* state) {
+	
+	Logger::getInstance().init(state->activity->externalDataPath);
+	LOGI("App started");
+	AssetIO::getInstance().init(state->activity->assetManager);
+	
 	Engine::engine = &engine;
 	Engine::app = state;
-	Logger::getInstance().init(state->activity->externalDataPath);
-	AssetIO::getInstance().init(state->activity->assetManager);
-	LOGI("App started");
 
 	state->onAppCmd = Engine::process_CMD;
 	state->onInputEvent = Engine::process_INPUT;
